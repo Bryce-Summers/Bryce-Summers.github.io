@@ -1,0 +1,1 @@
+All of these images should have been resized to have heights of 300 to save memory and loading times.

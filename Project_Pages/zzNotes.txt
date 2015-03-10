@@ -1,0 +1,8 @@
+Dear Reader,
+
+This folder consists of sub pages of funtheemental.com/brycesummers.com.
+
+The html are stored in this folder and the resources for each page if neccessary are stored in the folders of the same name.
+
+Sincerely,
+Bryce Summers

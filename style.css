@@ -1,0 +1,74 @@
+/*
+ * This sets the background image and makes sure that it centers itself.
+ */
+html 
+{ 
+    background: url(images/background.jpg) no-repeat center center fixed; 
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+
+}
+
+body
+{
+	
+}
+
+h1
+{
+	background-color:rgba(0,0,0,0.7);
+	font-size: 800%;
+	color: white;
+	text-align: center;
+	opacity: 1.0;
+}
+
+h1 > a
+{
+	color: inherit;
+} 
+
+h2
+{
+	background-color:rgba(0,0,0,0.7);
+	font-size: 400%;
+	color: white;
+	text-align: center;
+	opacity: 1.0;
+}
+
+.project
+{
+	font-size: 200%;
+
+	text-indent: 5em;
+	vertical-align:top; /*Change to middle*/
+	line-height: 128px;
+	/*height: 128px;*/
+	
+	background-color:rgba(255,255,255,0.7);
+}
+
+.project > a 
+{
+  /*float: left; Remove this*/
+  /*display:table-cell;*/    /*Add this*/
+  vertical-align:top; /*Change to middle*/
+}
+
+.description
+{
+	font-size: 200%;
+	background-color:rgba(255,255,255,0.7);
+	text-indent: 5em;
+	vertical-align: middle;
+}
+
+
+.centeredImage
+{
+	text-align:center;
+	display:block;
+}
