@@ -26,6 +26,10 @@ h1
 	opacity: 1.0;
 }
 
+/*
+ * This enables hyperlinked text within a heading to inherit the font color properties.
+ *
+ */
 h1 > a
 {
 	color: inherit;
@@ -39,6 +43,25 @@ h2
 	text-align: center;
 	opacity: 1.0;
 }
+
+h2 > a
+{
+	color: inherit;
+} 
+
+h3
+{
+	background-color:rgba(0,0,0,0.7);
+	font-size: 200%;
+	color: white;
+	text-align: center;
+	opacity: 1.0;
+}
+
+h3 > a
+{
+	color: inherit;
+} 
 
 .project
 {
