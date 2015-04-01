@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Links the style sheet to this webpage -->
+<link rel="stylesheet" type="text/css" href="../style.css"
+</head>
+
+<body>
+
+<h1><a href="../index.html" >Fun The Mental </a></h1>
+<h2>418 Final Project Proposal</h2>
+
+<h3> Title: Sand Castle Simulation. </h3>
+<h3> Members : Bryce Summers (bwsummer) <br> Brandon Lum (jiajunbl) </h3>
+
+<h3> 3 sentence description. </h3>
+
+<div class='description'>
+We are going to implement an optimized heightfield based beach simulation, where the geometry of sand and water will be updated realistically using NVIDIA GPUs.</li>
+</div>
+
+<h3> Background </h3>
+<div class='description'>
+<a href="http://matthias-mueller-fischer.ch/talks/GDC2008.pdf" > Efficient Heightfield Water </a>
+<br>
+<a href="http://www.cemyuksel.com/research/heightfield_caustics/" > Caustics from heighmaps </a>
+
+FIXME
+
+</div>
+
+<h3> The Challenge </h3>
+<div class='description'>
+
+The main challenge in this project is likely to be the bandwidth limitations associated with transferring height values to and from the GPU.
+Also, we hope to be able to process as fine a scene as possible. As the beach gets more detailed, the 2 dimensional heightfield arrays will increase quadratically.
+
+We plan to overcome some of the bandwidth limitations by only communicating data about water and sand that needs to change.
+This in turn will present a work load distribution challenge, because the area where the waves are breaking will need much more processing than areas high in the sand that do not move.
+
+In order to adapt our heighfield based implementation to allow for the picking up and dropping of sand in addition to braking wave, 
+we will need to implement some sort of efficient system for dynamically creating new heightmap layers. This will introduce new cache locality problems.
+
+</div>
+
+<h3> Resources </h3>
+<div class='text_no_indent'>
+<ul>
+<li>We will probably be running the code on a single personal computer that has a NVIDIA GPU.
+</li>
+<li>We will use either OpenGL or any other renderer to render our scenes.
+</li>
+<li>There is a chance that we will use OpenFrameworks,
+because it handles lots of the basic window management and opengl setup,
+so that we can focus on the parrallelization and visualizing of the heightmaps.
+</li>
+<li>
+<a href="http://matthias-mueller-fischer.ch/talks/GDC2008.pdf" > Efficient Heightfield Water </a>
+</li>
+<li>
+<a href="http://www.cemyuksel.com/research/heightfield_caustics/" > Caustics from heighmaps </a>
+</li>
+<li>
+Bryce would love to know the detailed material properties of sand.
+</li>
+<li>
+Since we are trying to make a real time simulation on a computer that a consumer could have access to, I think that at this point we do not need special access to any machine.
+</li>
+<ul>
+
+</div>
+
+
+<h3> Goals and Deliverables </h3>
+<div class='text_no_indent'>
+
+What we plan to achieve.
+
+<ol>
+	<li> We plan to implement a basic naive implementation our algorithms in the 1 dimension visualized as a 2d image case first.
+		 This will allow us to clearly illustrate the algorithms, check for correctness, make sure the utilization of the GPUs is going well, and provide a comfortable place to test out features.
+	</li>	 
+	<li> We will next transform our code from the 1d heightfield implementation to the 2d heightfield implementation.
+	</li>
+	<li> We will run our code and take baseline measurements for the performance of the naive algorithm.
+	</li>
+	<li> We will implement techniques for minimizing the amount of data that needs to be moved from the CPU to the GPU.
+	</li>
+	<li> We will try to get our program working in real time with as detailed a resolution as we can manage.
+	</li>
+</ol>
+
+What we hope to achieve.
+<ol>
+	<li> User interactivity. We want the user to be able to move sand.
+	</li>
+	<li> Implement Breaking waves.
+	</li>
+	<li> Implement Realtime heightfield based caustics on the underwater sand.
+	</li>
+</ol>
+</div>
+
+
+<h3>Demo</h3>
+<div class='description'>
+For the demo, we plan to run our program for the audience. They should be amazed by the sheer wonderfulness of our realistic beach simulation.
+</div>
+<div class='description'>
+Our system should be capable of generating and updating positions for triangles that represent sand and water at real time speed.
+</div>
+
+<h3> Platform choice </h3>
+<div class='description'>
+
+We plan to use a normal personal computer using NVIDIA's GPUs and CUDA. This is good for our needs,
+because it is good at data parallel execution and will likely work well with the render that we use to visualize the scene.
+
+</div>
+
+<h3> Schedule </h3>
+<div class='text_no_indent'>
+
+<ul>
+	<li> 4/6/2015  : Implement 1d heightfield, get the basic display code running.
+	</li>
+	<ll> 4/13/2015 : Implement 2d heightfields using CUDA
+	</li>
+	<li> 4/20/2015 : Profile the code and create initial measurement charts.
+	</li>
+	<li> 4/27/2015 : Speed up the computations by detecting what the bottlenecks are and finding ways to overcome them.
+	</li>
+	<li> 5/4/2015  : Implement Extra features as time allows.
+	</li>
+	<li> 5/11/2015 : Done with final project and ready to present.
+	</li>
+</ul>
+
+
+</div>
+
+
+</body>
+</html>
