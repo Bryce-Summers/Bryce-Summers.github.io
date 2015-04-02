@@ -13,7 +13,7 @@
 <h3> Title: Sand Castle Simulation. </h3>
 <h3> Members : Bryce Summers (bwsummer) <br> Brandon Lum (jiajunbl) </h3>
 
-<h3> 3 sentence description. </h3>
+<h3> 1 Sentence Description. </h3>
 
 <div class='description'>
 We are going to implement an optimized heightfield based beach simulation, where the geometry of sand and water will be updated realistically using NVIDIA GPUs.</li>
@@ -21,11 +21,16 @@ We are going to implement an optimized heightfield based beach simulation, where
 
 <h3> Background </h3>
 <div class='description'>
-<a href="http://matthias-mueller-fischer.ch/talks/GDC2008.pdf" > Efficient Heightfield Water </a>
-<br>
-<a href="http://www.cemyuksel.com/research/heightfield_caustics/" > Caustics from heighmaps </a>
 
-FIXME
+There has been much interest in accurately simulating and displaying water over the years. In this vein,
+some techniques have been developed where heightmaps are used to simulate the geometry of only the surface of a water body instead of the entire 3 dimensional volume.
+
+To simulate the next time step of a heightmap requires doing very small computations for every element in the heightmap. We wish to combine several dependant heightmapped entities including water, sand,
+and breaking waves to create a plausible simulation of a sandy beach. By doing this we will be investigating the optimization of a data parallel algorithm with a large amount of data at interactive rates.
+
+The simulation we envision is not as straightforward as it may seem,
+because the calculation of the water heightmap will depend on the current height of the sand under the water body at a particular point and their are many opportunities
+to reduce the memory transfer requirements without jeopardizing realism.
 
 </div>
 
@@ -38,7 +43,7 @@ Also, we hope to be able to process as fine a scene as possible. As the beach ge
 We plan to overcome some of the bandwidth limitations by only communicating data about water and sand that needs to change.
 This in turn will present a work load distribution challenge, because the area where the waves are breaking will need much more processing than areas high in the sand that do not move.
 
-In order to adapt our heighfield based implementation to allow for the picking up and dropping of sand in addition to braking wave, 
+In order to adapt our heightfield based implementation to allow for the picking up and dropping of sand in addition to breaking wave, 
 we will need to implement some sort of efficient system for dynamically creating new heightmap layers. This will introduce new cache locality problems.
 
 </div>
@@ -51,14 +56,14 @@ we will need to implement some sort of efficient system for dynamically creating
 <li>We will use either OpenGL or any other renderer to render our scenes.
 </li>
 <li>There is a chance that we will use OpenFrameworks,
-because it handles lots of the basic window management and opengl setup,
-so that we can focus on the parrallelization and visualizing of the heightmaps.
+because it handles lots of the basic window management and openGL setup,
+so that we can focus on the parallelization and visualizing of the heightmaps.
 </li>
 <li>
 <a href="http://matthias-mueller-fischer.ch/talks/GDC2008.pdf" > Efficient Heightfield Water </a>
 </li>
 <li>
-<a href="http://www.cemyuksel.com/research/heightfield_caustics/" > Caustics from heighmaps </a>
+<a href="http://www.cemyuksel.com/research/heightfield_caustics/" > Caustics from heightmaps </a>
 </li>
 <li>
 Bryce would love to know the detailed material properties of sand.
@@ -139,6 +144,11 @@ because it is good at data parallel execution and will likely work well with the
 
 </div>
 
+<h3> Motivation :) </h3>
+<div class='description'>
+CMU Students are usually under very high stress and the Pittsburgh weather is not the greatest,
+so we feel that a beach simulator will help take the stress away from students by allowing them to imagine that they are stuck on a Caribbean instead.
+</div>
 
 </body>
 </html>
