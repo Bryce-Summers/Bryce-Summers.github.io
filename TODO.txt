@@ -1,0 +1,7 @@
+Add some composition pages.
+
+Add some algorithm design pages.
+
+Add some pedegogical pages about Computer Science education and include my data structure power points.
+
+Latex up some Math notes.
