@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Links the style sheet to this webpage -->
+<link rel="stylesheet" type="text/css" href="../style.css"
+</head>
+
+<body>
+
+<h1><a href="../index.html" >Fun The Mental </a></h1>
+<h2>418 Final Project Check In</h2>
+
+<h3> Title: Randomized Spanning Tree Mazes.</h3>
+<h3> Members : Bryce Summers (bwsummer) <br> Brandon Lum (jiajunbl) </h3>
+
+<h3> 1 Sentence Description. </h3>
+
+<div class='description'>
+We are using Union Find Data Structures to construct mazes by computing randomized planar embedded spanning trees from large sets of potential edges.</li>
+</div>
+
+<h3> Background </h3>
+<div class='description'>
+
+Please click on this image to see an example of a random maze generated on the 2D lattice set.
+<a href="https://www.flickr.com/photos/126728013@N08/16224915683" title="Example Maze by Bryce Summers,">
+<img src="https://farm9.staticflickr.com/8584/16224915683_14bc5527f6_s.jpg" width="75" height="75" alt="Poster Sized Light Maze"></a>
+
+<a href="https://docs.google.com/presentation/d/1QERQkSbBhfXl3wyPm6a29JocLpEmJ0wS63lFQ5biE_8/edit?usp=sharing"> Power Point Description </a>
+
+</div>
+
+<h3> The Challenge </h3>
+<div class='description'>
+
+Constructing data structures that use synchronization while also using them in the implementation of an actual algorithm.
+
+</div>
+
+<h3> Work so far </h3>
+<div class='text_no_indent'>
+
+<ul>
+	<li>  C++ Project created and hosted on git hub. <a href="https://github.com/Bryce-Summers/Randomized_Acyclic_Connected_Sub_Graphs" >GIT HUB project</a>
+	</li>
+	<li> Interface and abstract algorithmic design completed.
+	</li>
+	<li> Testing Suite mostly done.
+	</li>
+	<li> Implementation of serial, global locking, and per node locking Union find Structures done.
+	</li>
+	<li> Conceptual design of the lock free Union find structure done.
+</ul>
+</div>
+
+<h3> Schedule </h3>
+<div class='text_no_indent'>
+
+<ul>
+	<li> 4/19/2015  : Done with everything listed in the Work so far section above. Done writing the Check in writeup. ~ Bryce
+	</li>
+	<li> 4/24/2015 : Implement the Lock free Union find structure ~ Bryce / Brandon. Implement some test mazes and finish testing suite. ~Bryce.
+	</li>
+	<li> 4/27/2015 : Generate initial performance comparison graphs and do testing and evaluation of the system. ~Bryce Implement some of the traditional 2d array based maze implementations for some baseline context for the performance of maze algorithms.
+	</li>
+	<li> 5/1/2015  : Implement UF_CAS_TO_CPC lock free data structure with optimized path compression characteristics. ~ Brandon
+	</li>
+	<li> 5/4/2015  : Optimize the data structures. ~ Brandon / Bryce
+	</li>
+	<li> 5/8/2015  : Write a simple image output generator to display the resultant generated mazes. Work on Documentation. ~ Bryce
+	</li>
+	<li> 5/11/2015 : Final testing and documentation done. Ready to present. ~Bryce / Brandon
+	</li>
+</ul>
+</div>
+
+<h3> Progress Comments </h3>
+<div class='description'>
+
+I believe that it is highly probable that we will be able to complete the project with the time we have left.
+
+</div>
+
+
+<h3>Demo</h3>
+<div class='description'>
+
+For the parallelism competition, we will show graphs detailing how the various implementation decisions affect the performance of the Union find sturctures and the algorithm as a whole.
+
+We may also display some of the generated mazes along with time annotations.
+We may discuss the ramifications and practicality for using our system to make mazes that allows for objects such as curves,
+versus the traditional methods that only work on 2d grids.
+
+</div>
+
+<h3>Potential Issues </h3>
+<div class='description'>
+The testing of the uniformity of the distribution of generated mazes bothers me a little bit. 
+I do not know if we will be able to make any definitive claims of results about the randomized mathematics of our system.
+While I can foresee several optimizations that may speed up the generation of mazes, they may inhibit the distribution of randomness. 
+The important nuance of this angst is that we could potentially make a blazing fast algorithm that computes a spanning tree for a graph in a deterministic fashion. If we did this then our system would likely not need a union find structure or any other intellectually interesting work,
+but our system would also be inept at the task of generating interesting disparate mazes.
+<br>
+We may encounter some difficulties in clearly defining designing and refining the lock free implementation of the Union Find Structure and using it correctly in parallel to generate a maze.
+There are many questions of how each of the functions should be guaranteed to perform in the various cases.
+<br>
+We have done a lot of work on the algorithmic end, but we still need to choose the method of real world implementation and what parallel system we will be running the code on.
+</div>
+
+
+
+</body>
+</html>
