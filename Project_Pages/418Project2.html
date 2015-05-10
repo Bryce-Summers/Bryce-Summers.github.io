@@ -48,13 +48,18 @@ We have been investigating the performance of the algorithm using combinations o
 Here is a visual representation of the 2D Lattice full maze space that we have been using as an example of a relatively sparse maze.
 <br>
 <img src="418FinalProject/Maze_2DLattice.png" alt="Full 2D Lattice"  height="600px">
-
+<br>
 An example of a result we will be sharing in our presentation is that for a 2D Lattice maze of size 100 by 100, our algorithm performs faster in serial than when run in parallel using 4 threads and a lock free union find structure with no path compression.
 In contrast, the lock free structure is faster than the serial implementation for 400 by 400 mazes.
 
 <br>
 
 We will be discussing several important features of the performance of our algorithm, including overhead costs, cache locality, and contention between threads.
+
+<br>
+
+Latest Result : Using 8 threads, we are getting a 2x speedup for both sparse and dense graphs using our lock-free union find implementation with no path compression. Our lock free implementation using path compression is slightly slower.
+Our implementations using locks are not competitive. We are happy to be getting a 2x speedup for a parallelization that requires minimal structured changes from the straight forward serial implementation.
 
 </div>
 
