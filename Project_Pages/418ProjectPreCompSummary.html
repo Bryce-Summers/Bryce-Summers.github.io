@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Links the style sheet to this webpage -->
+<link rel="stylesheet" type="text/css" href="../style.css"
+</head>
+
+<body>
+
+<!--<h1><a href="../index.html" >Fun The Mental </a></h1>-->
+<h1> Randomized Spanning Tree Mazes.</h1>
+<h2>418 Final Project</h2>
+
+
+<h3> Members : Bryce Summers (bwsummer) <br> Brandon Lum (jiajunbl) </h3>
+
+<h3> More Information</h3>
+
+<div class='text_no_indent'>
+<!--<div class='description'> -->
+
+<a href "https://drive.google.com/file/d/0B5C5ueu74MPzaDBoYTRZWWZRMlE/view?usp=sharing"> Final Paper (on Drive). </a>
+<br>
+<a href "https://github.com/Bryce-Summers/Randomized_Acyclic_Connected_Sub_Graphs/blob/master/Mazes/Final%20Writeup/writeup.pdf"> Final Paper (on GitHub)</a>
+<br>
+<a href "https://docs.google.com/presentation/d/1k1DUpfXNpr8BLtKPrubI7awcAl0jhIazCOgr7xmdZBM/edit?usp=sharing"> Final Presentation </a>
+<br>
+<a href="https://docs.google.com/presentation/d/1QERQkSbBhfXl3wyPm6a29JocLpEmJ0wS63lFQ5biE_8/edit?usp=sharing"> Development and Scratch work.</a>
+<br>
+<a href="./418ProjectCheckIn.html" title="CheckIn Page"> Check-In Page. </a>
+<br>
+<a href="./418ProjectProposal.html" >Initial Project Proposal (A very different project.) </a>
+<br>
+</div>
+
+
+<h3> Short Summary </h3>
+<div class='description'>
+
+We are implementing an algorithm that constructs a randomized spanning tree from a set of vertices and potential edges that could connect them.
+
+Another way of describing our algorithm, is that we take a complete graph and construct a random subgraph from it that is a spanning tree.
+
+Our algorithm relies on the use of a Union Find data structure to keep track of the connected regions in order to prevent the introduction of 
+cycles that would invalidate the acyclicness of our constructed trees.
+<br>
+We have implemented several Union Find Data Structures including: a serial one, a global lock based one, a per node based locking one, and several lock-free based structures.
+<br>
+We have been investigating the performance of the algorithm using combinations of the Union Find implementations and several parameters, such as the number of nodes, density of the graph nodes, contention between planar conflicts, and the parrallelization thread count.
+
+</div>
+
+<h3> Results </h3>
+<div class = 'description'>
+Here is a visual representation of the 2D Lattice full maze space that we have been using as an example of a relatively sparse maze.
+<br>
+<img src="418FinalProject/Maze_2DLattice.png" alt="Full 2D Lattice"  height="600px">
+<br>
+An example of a result we will be sharing in our presentation is that for a 2D Lattice maze of size 100 by 100, our algorithm performs faster in serial than when run in parallel using 4 threads and a lock free union find structure with no path compression.
+In contrast, the lock free structure is faster than the serial implementation for 400 by 400 mazes.
+
+<br>
+
+We will be discussing several important features of the performance of our algorithm, including overhead costs, cache locality, and contention between threads.
+
+<br>
+
+Latest Result : Using 8 threads, we are getting a 2x speedup for both sparse and dense graphs using our lock-free union find implementation with no path compression. Our lock free implementation using path compression is slightly slower.
+Our implementations using locks are not competitive. We are happy to be getting a 2x speedup for a parallelization that requires minimal structured changes from the straight forward serial implementation.
+
+</div>
+
+<h3> Applications </h3>
+<div class = 'description'>
+
+Algorithms such as ours are useful when trying to generate random mazes, as well as generating potential wire routings when designing connected components on circuits.
+
+</div>
+
+
+</body>
+</html>
