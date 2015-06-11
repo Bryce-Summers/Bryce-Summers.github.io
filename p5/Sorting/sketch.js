@@ -45,7 +45,7 @@ function setup() {
   
   // Buttons.
   var x = sorting_w;
-  var y = 500;
+  var y = 700;
   var y_offset = 50;
   var x_offset = 0;//100
   
