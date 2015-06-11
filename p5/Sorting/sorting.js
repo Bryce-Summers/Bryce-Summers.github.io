@@ -257,13 +257,13 @@ Sort.prototype = {
   
 	for(var i = index_first_inclusive + 1; i < index_last_exclusive; i++)
 	{
-		this.HEAD2(i);
+		this.HEAD3(i);
 		var check_val = array[i];
 		if(check_val < output_val)
 		{
 			output = i;
 			output_val = check_val;
-			this.HEAD3(i);
+			this.HEAD2(i);
 		}
 	}
 	
