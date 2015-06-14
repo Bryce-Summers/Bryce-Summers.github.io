@@ -7,7 +7,7 @@
  */
  
  // background : p5JS image, sprites : Sprite[]
- function Page(background, sprites)
+ function Page(background, sprites, Story)
  {
 	this.background = background;
 	this.sprites = sprites;
@@ -26,5 +26,7 @@ Page.prototype =
 		{
 			this.sprites[i].draw();
 		}
+		
+		Story.draw();
 	}
 }

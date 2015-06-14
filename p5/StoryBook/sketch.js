@@ -97,7 +97,7 @@ function createPage(index)
 	sprites.push(spr);
 	*/
 	
-	return new Page(backgrounds[i], sprites, story[i]);
+	return new Page(backgrounds[index], sprites, story[index]);
 }
 
 // width, height, red, green, blue.
@@ -119,8 +119,6 @@ function rectImage(w, h, r, g, b)
 function draw()
 {
 	pages[current_page].draw();
-	
-	story[current_page].draw();
 }
 
 // Root of the keyPressed system.
