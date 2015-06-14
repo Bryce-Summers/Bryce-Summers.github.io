@@ -21,17 +21,11 @@ function preload()
 {
 	backgrounds = [];
 	
-	
-	backgrounds.push(loadImage("./images/image0.png"));
-	backgrounds.push(loadImage("./images/image1.png"));
-	backgrounds.push(loadImage("./images/image2.png"));
-	backgrounds.push(loadImage("./images/image3.png"));
-	backgrounds.push(loadImage("./images/image4.png"));
-	backgrounds.push(loadImage("./images/image5.png"));
-	backgrounds.push(loadImage("./images/image6.png"));
-	backgrounds.push(loadImage("./images/image7.png"));
-	backgrounds.push(loadImage("./images/image8.png"));
-	
+	for(var i = 0; i <= 24; i++)
+	{
+		backgrounds.push(loadImage("./images/image" + i + ".png"));
+	}
+		
 	/*
 	var len = 5;
 	for(var i = 0; i < len; i++)
