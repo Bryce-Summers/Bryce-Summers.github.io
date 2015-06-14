@@ -75,9 +75,11 @@ function createPage(background)
 		
 	var sprites = [];
 	
-	// A Particular Sprite.
+	// Populate the given sprites that might be displayed over the images.
+	/*
 	var spr = new Sprite(rectImage(20, 20, 255, 0, 0), 50, 50);
 	sprites.push(spr);
+	*/
 	
 	return new Page(background, sprites);
 }
