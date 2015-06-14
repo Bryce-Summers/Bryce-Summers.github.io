@@ -1,0 +1,16 @@
+Note on Java Script Problems by Bryce Summers.
+----------------------------------------------
+
+
+Javascript does not really allow multiple functions with the same name, but different type signatures. This is rather annoying.
+
+Although javascript does not send off syntax errors immediatly, it is programmer friendly enough for my to make progress.
+
+
+Javascript does not use integer division!!! Beware the omniprescience of floating point numbers and use the Math.floor() function.
+
+Javascript does not like loading images when run locally, but it is fine when it runs them on the internet.
+
+Javascript does not mandate strict sytax checking, so if something works differently locally and on the internet, then it is probably due to a missing parentheses or something that is interpretted differently.
+
+Pass Functions as call(foo); instead of call(foo()); The parenteses evaluate the function, which is not what is desired.

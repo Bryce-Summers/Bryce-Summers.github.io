@@ -10,36 +10,69 @@ var pages;
 // int, an index into the pages array.
 var current_page;
 
+// p5Image[].
 var backgrounds;
+
+var button_next;
+var button_prev;
 
 // Proload all of the images.
 function preload()
 {
 	backgrounds = [];
+	
+	
 	backgrounds.push(loadImage("./images/image0.png"));
 	backgrounds.push(loadImage("./images/image1.png"));
 	backgrounds.push(loadImage("./images/image2.png"));
+	backgrounds.push(loadImage("./images/image3.png"));
+	backgrounds.push(loadImage("./images/image4.png"));
+	backgrounds.push(loadImage("./images/image5.png"));
+	backgrounds.push(loadImage("./images/image6.png"));
+	backgrounds.push(loadImage("./images/image7.png"));
+	backgrounds.push(loadImage("./images/image8.png"));
 	
+	/*
+	var len = 5;
+	for(var i = 0; i < len; i++)
+	{
+		backgrounds.push(rectImage(45, 45, i*255/len, 0, 0));
+	}
+	//*/
 }
 
 function setup() {
-  room_w = 800;	
-  room_h = 800;
+	room_w = 800;	
+	room_h = 800;
   
-  unit = 64;
+	unit = 64;
   
-  createCanvas(room_w, room_h);
+	createCanvas(room_w, room_h);
   
-  createPages();
+	createPages();
  
-  noLoop();
+	// -- Navigation Buttons.
+	button_next = createButton('Next Page');
+	button_next.position(room_w, room_h);
+	button_next.mousePressed(nextPage);
+	
+	button_prev = createButton('Previous Page');
+	button_prev.position(0, room_h);
+	button_prev.mousePressed(prevPage);
+	 
+	noLoop();
 }
 
 function createPages()
 {
 	pages = [];
 	current_page = 0;
-	pages.push(createPage(backgrounds[0]));
+	
+	var len = backgrounds.length;
+	for(var i = 0; i < len; i++)
+	{
+		pages.push(createPage(backgrounds[i]));
+	}
 }
 
 // int*int*int --> Page
@@ -79,15 +112,27 @@ function draw()
 // Root of the keyPressed system.
 function keyPressed()
 {
-  if (keyCode === RIGHT_ARROW)
-  {
-
-  }
-  
-  if (keyCode === LEFT_ARROW)
-  {
-
-  }
+	if (keyCode === RIGHT_ARROW)
+	{
+		nextPage();
+	}
+	
+	if (keyCode === LEFT_ARROW)
+	{
+		prevPage();
+	}
   
   redraw();
+}
+
+function nextPage()
+{
+	current_page = (current_page + 1) % pages.length;
+	redraw();
+}
+
+function prevPage()
+{
+	current_page = (current_page + pages.length - 1) % pages.length;
+	redraw();
 }
