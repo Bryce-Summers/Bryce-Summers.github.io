@@ -13,6 +13,10 @@ var current_page;
 // p5Image[].
 var backgrounds;
 
+// Story[].
+// These are objects that represent the story.
+var story;
+
 var button_next;
 var button_prev;
 
@@ -54,7 +58,19 @@ function setup() {
 	button_prev.position(0, room_h);
 	button_prev.mousePressed(prevPage);
 	 
+	story = [];
+	
+	for(var i = 0; i < 30; i++)
+	{
+		addStory("I came across a ", " lying in the middle of the road.", ["fork", "spoon", "knife"]);
+	}
+	
 	noLoop();
+}
+
+function addStory(verse1, verse2, choices)
+{
+	story.push(verse1, verse2, choices);
 }
 
 function createPages()
@@ -65,14 +81,14 @@ function createPages()
 	var len = backgrounds.length;
 	for(var i = 0; i < len; i++)
 	{
-		pages.push(createPage(backgrounds[i]));
+		pages.push(createPage(i));
 	}
 }
 
-// int*int*int --> Page
-function createPage(background)
-{	
-		
+// int --> Page.
+// Given the index of the contents, this function returns a page.
+function createPage(index)
+{
 	var sprites = [];
 	
 	// Populate the given sprites that might be displayed over the images.
@@ -81,7 +97,7 @@ function createPage(background)
 	sprites.push(spr);
 	*/
 	
-	return new Page(background, sprites);
+	return new Page(backgrounds[i], sprites, story[i]);
 }
 
 // width, height, red, green, blue.
@@ -103,6 +119,8 @@ function rectImage(w, h, r, g, b)
 function draw()
 {
 	pages[current_page].draw();
+	
+	story[current_page].draw();
 }
 
 // Root of the keyPressed system.
