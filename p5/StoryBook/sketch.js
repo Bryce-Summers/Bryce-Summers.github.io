@@ -25,18 +25,31 @@ function preload()
 {
 	backgrounds = [];
 	
+	//*
 	for(var i = 0; i <= 24; i++)
 	{
 		backgrounds.push(loadImage("./images/image" + i + ".png"));
 	}
+	//*/
 		
 	/*
-	var len = 5;
+	var len = 24;
 	for(var i = 0; i < len; i++)
 	{
 		backgrounds.push(rectImage(45, 45, i*255/len, 0, 0));
 	}
 	//*/
+	
+	
+	
+	// Preload the story content.
+	
+	story = [];
+	
+	for(var i = 0; i < 30; i++)
+	{
+		addStory("I came across a ", " lying in the middle of the road.", ["fork", "spoon", "knife"]);
+	}
 }
 
 function setup() {
@@ -57,20 +70,13 @@ function setup() {
 	button_prev = createButton('Previous Page');
 	button_prev.position(0, room_h);
 	button_prev.mousePressed(prevPage);
-	 
-	story = [];
-	
-	for(var i = 0; i < 30; i++)
-	{
-		addStory("I came across a ", " lying in the middle of the road.", ["fork", "spoon", "knife"]);
-	}
 	
 	noLoop();
 }
 
 function addStory(verse1, verse2, choices)
 {
-	story.push(verse1, verse2, choices);
+	story.push(new Story(verse1, verse2, choices));
 }
 
 function createPages()
