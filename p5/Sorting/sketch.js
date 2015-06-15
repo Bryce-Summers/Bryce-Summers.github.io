@@ -28,6 +28,9 @@ var function_history;
 
 var unset_history;
 
+
+var play = false;
+
 function setup() {
   room_w = 1600;	
   room_h = 800;
@@ -38,10 +41,7 @@ function setup() {
   stroke(0, 102);
   
   InsertionSort();
-  
-    
-  array = newA();
-  
+   
   
   // Buttons.
   var x = sorting_w;
@@ -72,7 +72,43 @@ function setup() {
   button.mousePressed(MergeSort);
   x += x_offset;
   y += y_offset;
+  
+  button = createButton('Play');
+  button.position(x, y);
+  button.mousePressed(Play);
+  x += x_offset;
+  y += y_offset;
+  
+  button = createButton('Pause');
+  button.position(x, y);
+  button.mousePressed(Pause);
+  x += x_offset;
+  y += y_offset;
+  
+  button = createButton('Step');
+  button.position(x, y);
+  button.mousePressed(animation_forward);
+  x += x_offset;
+  y += y_offset;
+  
+  button = createButton('Back Step');
+  button.position(x, y);
+  button.mousePressed(animation_backward);
+  x += x_offset;
+  y += y_offset;
  
+}
+
+function Play()
+{
+	play = true;
+	loop();
+}
+
+function Pause()
+{
+	play = false;
+	noLoop();
 }
 
 function SelectionSort()
@@ -144,6 +180,8 @@ function resetState()
 	function_history = [];
 	unset_history = [];
 	
+	Pause();
+	
 	redraw();
 }
 
@@ -179,6 +217,12 @@ function shuffle(array) {
 }
 
 function draw() {
+
+	if(play)
+	{
+		animation_forward();	
+	}
+
 
   fill(255);
   background();
@@ -223,10 +267,10 @@ function draw() {
   }
 }
 
-
-function keyPressed()
+// Moves the animation one step backwards.
+function animation_forward()
 {
-  if (keyCode === RIGHT_ARROW && swap_index < swap_index_max)
+  if(swap_index < swap_index_max)
   {
 	var name = sort.swaps[swap_index];
 	if(name === "SWAP")
@@ -273,8 +317,19 @@ function keyPressed()
 	}
 		
 	swap_index += 3;
+	
   }
-  else if(keyCode === LEFT_ARROW && swap_index > 0)
+  
+	if(!play)
+	{
+		redraw();
+	}
+}
+
+// Moves the animation one step backwards.
+function animation_backward()
+{
+  if(swap_index > 0)
   {
   
 	swap_index -= 3;	
@@ -319,10 +374,25 @@ function keyPressed()
 	{
 		function_calls.push(function_history.pop());
 	}
-	
   }
   
-  redraw();
+	if(!play)
+	{
+		redraw();
+	}
+}
+
+function keyPressed()
+{
+  if (keyCode === RIGHT_ARROW)
+  {
+	animation_forward();
+  }
+  else if(keyCode === LEFT_ARROW)
+  {
+	animation_backward();
+  }
+
 }
 
 function swap(array, index1, index2)
