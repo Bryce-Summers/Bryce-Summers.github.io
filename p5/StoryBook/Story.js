@@ -13,7 +13,7 @@ function Story(verse1, verse2, choices)
 	this.verse2 = verse2;
 	this.choices = choices;
 }
- 
+
 Story.prototype =
 {
 	draw()

@@ -6,6 +6,7 @@
  * Please See the Following slides for descriptions of these sorting algorithms.
  * https://docs.google.com/presentation/d/1V5Z6Olkhy7M44InR2ficm6iCLOC5-QstHq-8OD5mcjs/edit?usp=sharing
  *
+ * This code has been annotated to store information for a pedagogical sorting algorithm visualization.
  */
 
 // Constructor.
@@ -274,26 +275,40 @@ Sort.prototype = {
   // Returns the index of the median of the elements at the three indices.
   med3: function(array, index1, index2, index3)
   {
-	var output;
+	var max;
+	var not_max_1;
+	var not_max_2;
 	
-	// Find the max of the first two.
+	// Find the maximum element and the two non maximum elements.
 	if(array[index1] > array[index2])
 	{
-		output = index1;
+		max = index1;
+		not_max_1 = index2;
 	}
 	else
 	{
-		output = index2;
+		max = index2;
+		not_max_1 = index1;
 	}
 	
-	// Find the minimum of the two greater elements two.
-	if(array[output] < array[index3])
+	if(array[max] > array[index3])
 	{
-		return output;
+		not_max_2 = index3;
 	}
 	else
 	{
-		return index3;
+		not_max_2 = max;
+		max = index3;
+	}
+	
+	// Return the maximum of the two non maximal elements.
+	if(array[not_max_1] < array[not_max_2])
+	{
+		return not_max_2;
+	}
+	else
+	{
+		return not_max_1;
 	}
   },
   

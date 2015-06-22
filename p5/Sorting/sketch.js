@@ -40,8 +40,7 @@ function setup() {
   noLoop();
   stroke(0, 102);
   
-  InsertionSort();
-   
+  InsertionSort(); 
   
   // Buttons.
   var x = sorting_w;
