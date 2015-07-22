@@ -9,7 +9,9 @@
  // Constructs a random person.
 function Person()
 {
-	this.name = "Temp NAME";
+
+	var index = this.randInt(data_names.length);
+	this.name = data_names[index];
 	this.eyes = this.randInt(2);
 	this.eye_color = this.randInt(200) + 55;
 	
@@ -36,6 +38,7 @@ Person.prototype =
 
 	},
 
+	// Assuming it is drawn on a square of size 50 by 50.
 	draw(x, y)
 	{
 		ellipseMode(CORNER);
@@ -55,7 +58,14 @@ Person.prototype =
 		fill(this.eye_color);
 		draw_function(x, y, 20, 20);
 		draw_function(x + 50 - 20, y, 20, 20);
-
+		
+		draw_function = this.mouth === 0 ? ellipse : rect;
+		fill(this.eye_color);
+		draw_function(x + 15, y + 30, 20, 10);
+		
+		draw_function = this.nose === 0 ? ellipse : rect;
+		fill(this.eye_color);
+		draw_function(x + 20, y + 20, 10, 10);
 	},
 	
 	// The predicate that determines whether a Person has completed their journey.
