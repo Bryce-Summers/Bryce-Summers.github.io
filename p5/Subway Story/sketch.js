@@ -16,6 +16,14 @@ var info_circles = new List();
 
 var current_person = null;
 
+var data_names;
+var data_goals;
+var description;
+
+function preload()
+{
+  data_names = loadStrings('data/names.txt');
+}
 
 function setup() {
   room_w = 832;	
