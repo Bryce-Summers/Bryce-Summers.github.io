@@ -32,33 +32,82 @@ function test_sort(func, name)
 	console.log(name + " " + is_sorted(test));
 }
 
-// -- Testing Code.
-var sort = new Sort();
-var test;
+function test_sorting()
+{
 
-test = test_array();
-console.log("UnSorted Array : " + test);
-console.log("isSorted = " + is_sorted(test));
-console.log("Insertion Sort.");
-sort.insertion_sort(test);
-console.log("Sorted Array : " + test);
-console.log("isSorted = " + is_sorted(test));
-console.log("");
+	// -- Testing Code.
+	var sort = new Sort();
+	var test;
 
-test = test_array();
-sort.quick_sort(test);
-console.log("Selection Sort = " + is_sorted(test));
+	test = test_array();
+	console.log("UnSorted Array : " + test);
+	console.log("isSorted = " + is_sorted(test));
+	console.log("Insertion Sort.");
+	sort.insertion_sort(test);
+	console.log("Sorted Array : " + test);
+	console.log("isSorted = " + is_sorted(test));
+	console.log("");
 
-test = test_array();
-sort.insertion_sort(test);
-console.log("Insertion Sort = " + is_sorted(test));
+	test = test_array();
+	sort.quick_sort(test);
+	console.log("Selection Sort = " + is_sorted(test));
 
-test = test_array();
-sort.quick_sort(test);
-console.log("Quick Sort = " + is_sorted(test));
+	test = test_array();
+	sort.insertion_sort(test);
+	console.log("Insertion Sort = " + is_sorted(test));
 
-test = test_array();
-sort.merge_sort(test);
-console.log("Merge Sort = " + is_sorted(test));
+	test = test_array();
+	sort.quick_sort(test);
+	console.log("Quick Sort = " + is_sorted(test));
 
-console.log(test);
+	test = test_array();
+	sort.merge_sort(test);
+	console.log("Merge Sort = " + is_sorted(test));
+
+	console.log(test);
+}
+
+function test_List()
+{
+	var list = new List();
+	
+	for(i = 0; i < 10; i++)
+	{	
+		list.push(i);
+	}
+
+	console.log("Size = " + list.size);
+	
+	list.print();
+	
+	var iter = list.iterator();
+	
+	// Remove all even numbers.
+	while(iter.hasNext())
+	{		
+		var elem = iter.next();
+		if(elem % 2 == 0)
+		{
+			iter.remove();
+		}
+	
+	}
+	
+	list.print();
+	
+	list.make_empty();
+	for(i = 0; i < 10; i++)
+	{	
+		list.enq(i);
+	}
+	
+	for(i = 0; i < 10; i++)
+	{
+		console.log(list.deq(i));
+	}
+	
+	
+}
+
+//test_sorting();
+test_List();

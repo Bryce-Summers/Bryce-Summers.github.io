@@ -104,3 +104,13 @@ h3 > a
 	text-align:center;
 	display:block;
 }
+
+ul li {
+    /*padding-left: 15px;*/
+	list-style-position:inside;
+}
+
+ol li {
+    /*padding-left: 15px;*/
+	list-style-position:inside;
+}
