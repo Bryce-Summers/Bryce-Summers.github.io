@@ -10,17 +10,17 @@
 function Person()
 {
 
-	var index = this.randInt(data_names.length);
-	this.name = data_names[index];
-	index = this.randInt(data_names.length);
-	this.name = this.name + data_names[index];
+	var index1 = this.randInt(data_names.length);
+	var index2 = this.randInt(data_names.length);
+	this.name = data_names[index1] + data_names[index2];
+		
 	
+	index1 = this.randInt(data_goals.length);
+	index2 = this.randInt(data_goals.length);
+	this.goal = data_goals[index1] + " and " + data_goals[index2];
 	
-	index = this.randInt(data_goals.length);
-	this.goal = data_goals[index];
-	
-	index = this.randInt(data_descriptions.length);
-	this.description = data_descriptions[index];
+	index1 = this.randInt(data_descriptions.length);
+	this.description = data_descriptions[index1];
 	
 	this.eyes = this.randInt(2);
 	this.eye_color = this.randInt(200) + 55;
