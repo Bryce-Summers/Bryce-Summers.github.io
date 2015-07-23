@@ -18,9 +18,7 @@ function Person()
 	index1 = this.randInt(data_goals.length);
 	index2 = this.randInt(data_goals.length);
 	this.goal = data_goals[index1] + " and " + data_goals[index2];
-	
-	index1 = this.randInt(data_descriptions.length);
-	this.description = data_descriptions[index1];
+
 	
 	this.eyes = this.randInt(2);
 	this.eye_color = this.randInt(200) + 55;

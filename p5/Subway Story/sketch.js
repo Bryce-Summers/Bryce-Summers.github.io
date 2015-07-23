@@ -18,13 +18,12 @@ var current_person = null;
 
 var data_names;
 var data_goals;
-var data_descriptions;
 
 function preload()
 {
   data_names = loadStrings('data/names.txt');
-  data_goals = loadStrings('data/names.txt');
-  data_description = loadStrings('data/names.txt');
+  data_goals = loadStrings('data/goals.txt');
+  
 }
 
 function setup() {
