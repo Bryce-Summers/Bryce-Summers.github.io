@@ -12,7 +12,7 @@ function Person()
 
 	var index1 = this.randInt(data_names.length);
 	var index2 = this.randInt(data_names.length);
-	this.name = data_names[index1] + data_names[index2];
+	this.name = data_names[index1] + " " + data_names[index2];
 		
 	
 	index1 = this.randInt(data_goals.length);

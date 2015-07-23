@@ -118,7 +118,7 @@ function draw()
 		text_y += text_y_inc;
 		text("Body : " + current_person.getText(current_person.body), text_x, text_y);
 		text_y += text_y_inc;
-		text("Goal : " + current_person.getText(current_person.goal), text_x, text_y);
+		text("Goal : " + current_person.goal, text_x, text_y);
 		text_y += text_y_inc;
 		/*
 		text("Description : " + current_person.getText(current_person.description), text_x, text_y);
