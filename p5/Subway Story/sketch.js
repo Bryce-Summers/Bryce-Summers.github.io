@@ -50,9 +50,9 @@ function setup() {
   scene.prevStation   = station;
 
   
-  var button = createButton('Next Station');
-  button.position(room_w, 500);
-  button.mousePressed(nextStation);
+  var button = new gui_Button(room_w - 200 - 20, 200, 200, 40);
+  button.setMouseAction(nextStation());
+  button.message = "Next Station";
   
   /*
   button = createButton('Previous Station');
