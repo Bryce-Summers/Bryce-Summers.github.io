@@ -89,6 +89,7 @@ Button.prototype =
 		if(this.mouseIn())
 		{
 			buttonClickedOn = this;
+			current_person = this.person;
 		}
 	},
 	
@@ -134,7 +135,7 @@ Button.prototype =
 
 	click_action()
 	{
-		current_person = this.person;
+		
 	},
 	
 	move_action()
