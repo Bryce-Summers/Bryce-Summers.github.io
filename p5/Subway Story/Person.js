@@ -12,6 +12,16 @@ function Person()
 
 	var index = this.randInt(data_names.length);
 	this.name = data_names[index];
+	index = this.randInt(data_names.length);
+	this.name = this.name + data_names[index];
+	
+	
+	index = this.randInt(data_goals.length);
+	this.goal = data_goals[index];
+	
+	index = this.randInt(data_descriptions.length);
+	this.description = data_descriptions[index];
+	
 	this.eyes = this.randInt(2);
 	this.eye_color = this.randInt(200) + 55;
 	
@@ -24,6 +34,8 @@ function Person()
 	this.body = this.randInt(2);
 
 	this.station = this.randInt(station_count - 1);
+	
+	
 }
 
 Person.prototype =
