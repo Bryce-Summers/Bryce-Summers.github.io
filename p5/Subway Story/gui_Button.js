@@ -10,7 +10,7 @@ buttonClickedOn = null;
 buttonReleased = false;
  
  // Constructor.
-function Button(x, y, w, h)
+function gui_Button(x, y, w, h)
 {
 	this.x = x;
 	this.y = y;
@@ -24,7 +24,7 @@ function Button(x, y, w, h)
 	this.message = "";
 }
 
-Button.prototype =
+gui_Button.prototype =
 {
 
 	update()
