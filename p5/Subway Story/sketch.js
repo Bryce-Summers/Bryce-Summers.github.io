@@ -16,14 +16,19 @@ var info_circles = new List();
 
 var current_person = null;
 
-var data_names;
-var data_goals;
+var data_names = [0];
+var data_goals = [0];
+
+// The Next Station button.
+var button;
 
 function preload()
 {
+	//*
   data_names = loadStrings('data/names.txt');
   data_goals = loadStrings('data/goals.txt');
-  
+  //*/
+
 }
 
 function setup() {
@@ -50,8 +55,8 @@ function setup() {
   scene.prevStation   = station;
 
   
-  var button = new gui_Button(room_w - 200 - 20, 200, 200, 40);
-  button.setMouseAction(nextStation());
+  button = new gui_Button(room_w - 200 - 20, 200, 200, 40);
+  button.setMouseAction(nextStation);
   button.message = "Next Station";
   
   /*
@@ -125,6 +130,8 @@ function draw()
 		text_y += text_y_inc;
 		*/
 	}
+	
+	button.draw();
 }
 
 // int * int * boolean --> void.
@@ -137,12 +144,16 @@ function mousePressed()
 {
 	if(scene)
 		scene.mousePressed();
+	
+	button.mousePressed();
 }
 
 function mouseReleased()
 {
 	if(scene)
 		scene.mouseReleased();
+	
+	button.mouseReleased();
 }
 
 function keyPressed()

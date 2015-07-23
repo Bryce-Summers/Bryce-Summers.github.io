@@ -44,7 +44,9 @@ gui_Button.prototype =
 		rect(this.x, this.y, this.w, this.h);
 	  
 		textSize(this.text_size);
-		text(message, x, y);
+		fill(0);
+		textAlign(CENTER, CENTER);
+		text(this.message, this.x + this.w/2, this.y + this.h/2);
 		
 		if(buttonClickedOn === this)
 		{
