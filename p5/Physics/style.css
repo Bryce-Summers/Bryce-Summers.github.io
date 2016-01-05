@@ -1,0 +1,44 @@
+/*
+ * This sets the background image and makes sure that it centers itself.
+ */
+html 
+{ 
+
+	/*
+	background: url(./Logo.png) no-repeat center center fixed; 
+    background-size: cover;
+	*/
+	background-color: rgb(255,200,200);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;    
+
+	/* Default text is Roboto for large paragraphs mostly. */
+	/* Poiret One is used instead for titles. */
+	font-family: 'Roboto', sans-serif;
+}
+
+body
+{
+
+}
+
+h1
+{
+	background-color:rgba(0,0,0,0.0); /* Clear */
+	font-size: 200%;
+	color: #a4f653;
+	text-align: center;
+	opacity: 1.0;
+	
+	font-family: 'Poiret One', cursive;
+}
+
+/*
+ * This enables hyperlinked text within a heading to inherit the font color properties.
+ *
+ */
+h1 > a
+{
+	color: inherit;
+}

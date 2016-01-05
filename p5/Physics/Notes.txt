@@ -1,0 +1,10 @@
+Web Address:
+http://bryce-summers.github.io/p5/Subway%20Story/index.html
+
+
+Javascript does not really allow multiple functions with the same name, but different type signatures. This is rather annoying.
+
+Although javascript does not send off syntax errors immediatly, it is programmer friendly enough for my to make progress.
+
+
+Javascript does not use integer division!!! Beware the omniprescience of floating point numbers and use the Math.floor() function.
