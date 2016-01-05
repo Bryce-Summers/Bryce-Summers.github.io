@@ -110,7 +110,5 @@ gui_Button.prototype =
 
 		return output;
 
-	}	
-	
-
+	}
 }

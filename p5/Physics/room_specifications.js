@@ -45,8 +45,8 @@ room_specifications.prototype =
 				link("Kinetic Energy", "room_kinetic_energy")
 			);
 		}		
-		room.goto(room_menu);
-
+		
+		room.goto(room_menu, true);
 
 		// Now instantiate all of the content rooms.
 		this.newFormulaRoom(room_kinetic_energy,

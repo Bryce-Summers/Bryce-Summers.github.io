@@ -109,9 +109,35 @@ Room.prototype =
 		this.dynamics.push(obj);
 	},
 	
-	goto(room_in)
-	{
+	// In general normal callers won't need to pass a second argument,
+	// because undefined gets transribed to false.
+	goto(room_in, dont_store_history)
+	{		
 		room = room_in;
 		room_in.start_function();
+		
+		var stateObj = { room_index: room.index};
+		
+		if(!dont_store_history)
+		{
+			history.pushState(stateObj, "", "index.html");
+		}
+		
+		// Replace the current state instead.
+		if(dont_store_history === true)
+		{
+			history.replaceState(stateObj, "", "index.html");
+		}
+	}	
+};
+
+
+window.onpopstate = function(event)
+{
+	if(event.state)
+	if(event.state.room_index)
+	{
+		room.goto(rooms[event.state.room_index], true);
 	}
+	//alert("location: " + document.location + ", state: " + JSON.stringify(event.state));
 }
