@@ -39,6 +39,7 @@ room_specifications.prototype =
 
 		room_menu.start_function = function()
 		{
+			spec.clearText();
 			spec.setText(text_center,
 				link("Energy", "room_energy") + ", " +
 				link("Kinetic Energy", "room_kinetic_energy")
@@ -83,8 +84,7 @@ room_specifications.prototype =
 		room.addButtonOBJ(title);
 		*/
 		
-		spec.setText(text_title, title_text);
-		
+				
 		/*
 		var formula = new gui_Button(room_w/2 - this.button_hw, room_h/2 + this.button_hh, this.button_w, this.button_h);
 		formula.setMouseAction(noop);
@@ -118,6 +118,7 @@ room_specifications.prototype =
 		{
 			//this.clearText();
 			spec.setText(text_center, formula_text);
+			spec.setText(text_title, title_text);
 		}
 		
 		
