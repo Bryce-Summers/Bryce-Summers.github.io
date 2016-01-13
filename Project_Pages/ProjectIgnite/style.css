@@ -58,7 +58,7 @@ h2 > a
 h3
 {
 	background-color:rgba(255,50,50,0.7);
-	font-size: 200%;
+	font-size: 250%;
 	color: #53f6f6;
 	text-align: center;
 	opacity: 1.0;
@@ -91,13 +91,14 @@ h3 > a
 
 .description
 {
-	font-size: 200%;
+	font-size: 150%;
 	background-color:rgba(255,255,255,0.7);
 	text-indent: 5em;
 	vertical-align: middle;
+	line-height: 200%;
 }
 
-/* A list of header links to powerpoints, but with extra lines of text after eah one that describe a list of the pedegogical concepts covered.*/
+/* A list of header links to powerpoints, but with extra lines of text after each one that describe a list of the pedegogical concepts covered.*/
 .lesson_list
 {
 	font-size: 100%;
@@ -113,9 +114,15 @@ h3 > a
 	display:block;
 }
 
+ul{
+	background-color:rgba(255,255,255,0.7);
+}
+
 ul li {
     /*padding-left: 15px;*/
 	list-style-position:inside;
+	font-size: 200%;	
+	line-height: 200%;
 }
 
 ol li {
