@@ -30,6 +30,17 @@ room_specifications.prototype =
 		room_kinetic_energy = new Room();
 		room_energy = new Room();
 		room_work   = new Room();
+		room_visual_demo = new Room();
+		
+		// Standard Units (SI) Rooms.
+		room_kilograms = new Room();
+		room_meters    = new Room();
+		room_seconds   = new Room();
+		room_ampere    = new Room();
+		room_kelvin    = new Room();
+		room_mole      = new Room();
+		room_candela   = new Room();
+		
 		
 		// Create the HTML elements.
 		this.createHTML();
@@ -42,7 +53,8 @@ room_specifications.prototype =
 			spec.clearText();
 			spec.setText(text_center,
 				link("Energy", "room_energy") + ", " +
-				link("Kinetic Energy", "room_kinetic_energy")
+				link("Kinetic Energy", "room_kinetic_energy") + ", " +
+				link("Visual Demo", "room_visual_demo")
 			);
 		}		
 		
@@ -63,10 +75,15 @@ room_specifications.prototype =
 			"Energy is the ability for an object to do work (W), where $$W = F \\cdot d$$",
 			"Energy is the ability for an object to do work (W), where $$Work = Force \\cdot displacement$$",
 			"Energy is Measured in Joueles[J], where $$[J] = \\left[\\frac{kg \\cdot m^{2}}{s^{2}}\\right]$$");
-		
-		
-		
-		
+
+		this.newFormulaRoom(room_visual_demo,
+			"Visual Demo",
+			"This is a symbolic based explanation!",
+			"This is an english language based explanation!",
+			"This is an explanation with the types and units of quantities explicitly stated.",
+			new visual_fluid_incompressibility());
+
+
 	},
 	
 	initiateTableOfContents: function(room_menu)
@@ -75,7 +92,7 @@ room_specifications.prototype =
 	},
 	
 	// Inputs: Room, String, String, String, String.
-	newFormulaRoom: function(room, title_text, formula_text, english_text, units_text)
+	newFormulaRoom: function(room, title_text, formula_text, english_text, units_text, visual)
 	{		
 		/*
 		var title	 = new gui_Button(room_w/2 - this.button_hw, this.button_hh, this.button_w, this.button_h*2);
@@ -103,7 +120,13 @@ room_specifications.prototype =
 		room.addButtonOBJ(button_2);
 		room.addButtonOBJ(button_3);
 		
-		button_0.message = "Original";
+		// Rooms start in non visual mode.
+		room.show_visual = false;
+		
+		// May be undefined.
+		room.visual = visual;
+		
+		button_0.message = "Please Use Symbols";
 		button_0.action = function(){spec.setText(text_center, formula_text);}
 		
 		button_1.message = "Please Use English!";
@@ -113,6 +136,8 @@ room_specifications.prototype =
 		button_2.action = function(){spec.setText(text_center, units_text);}
 		
 		button_3.message = "Please show Visuals";
+		button_3.action = function(){spec.setText(text_center, ""); room.show_visual = true;}
+		
 		
 		room.start_function = function()
 		{

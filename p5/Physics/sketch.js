@@ -70,6 +70,12 @@ function draw()
 	room.update();
 	room.draw();
 	
+	if(room.show_visual && room.visual)
+	{
+		room.visual.update();
+		room.visual.draw(0, 0);
+	}
+	
 }
 
 // int * int * boolean --> void.

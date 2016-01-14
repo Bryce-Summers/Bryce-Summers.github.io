@@ -1,8 +1,7 @@
 /* 
- * Person Class.
+ * Object Class
  * Written on 7/6/2015 by Bryce Summers
- *
- * Represents the appearance and individual traits of people.
+ * Represents genaric entities that can be updated and drawn to a screen.
  */
  
  // Constructor.
