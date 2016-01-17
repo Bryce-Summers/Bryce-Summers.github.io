@@ -25,12 +25,27 @@ room_specifications.prototype =
 {
 	setup: function()
 	{
+		
+/* The Plan
+		 
+Bosons and Fermions
+Speed of Light
+Standard Units
+ - Second. (Time)
+ - Meter.  (Displacement)(Based on Speed of light.)
+ - 
+ */
+		
+	
 		// Here are the rooms, note: They are defined at global scope.
 		room_menu = new Room();
 		room_kinetic_energy = new Room();
 		room_energy = new Room();
 		room_work   = new Room();
 		room_visual_demo = new Room();
+		
+		room_speed_of_light = new Room();
+		room_si_units = new Room();
 		
 		// Standard Units (SI) Rooms.
 		room_kilograms = new Room();
@@ -40,7 +55,7 @@ room_specifications.prototype =
 		room_kelvin    = new Room();
 		room_mole      = new Room();
 		room_candela   = new Room();
-		
+				
 		
 		// Create the HTML elements.
 		this.createHTML();
@@ -52,6 +67,15 @@ room_specifications.prototype =
 		{
 			spec.clearText();
 			spec.setText(text_center,
+				link("Speed of Light", "room_speed_of_light") + ", " +
+				link("SI Units", "room_si_units"),
+				link("length", "room_meters") + ", " +
+				link("mass", "room_kilograms") + ", " +
+				link("time", "room_seconds") + ", " +
+				link("electric current", "room_ampere") + ", " +
+				link("thermodynamic temperature", "room_kelvin") + ", " +
+				link("amount of a substance", "room_mole") + ", " +
+				link("luminous intensity", "room_candela") + ", " +
 				link("Energy", "room_energy") + ", " +
 				link("Kinetic Energy", "room_kinetic_energy") + ", " +
 				link("Visual Demo", "room_visual_demo")
@@ -60,6 +84,77 @@ room_specifications.prototype =
 		
 		room.goto(room_menu, true);
 
+		
+		// Now instantiate all of the content rooms.
+		this.newFormulaRoom(room_speed_of_light,
+			"Speed of Light",
+			"All massless particles in the universe travel at a single universally constant speed though a vacuum. <br>" +
+			"This is known as the speed of light and can be used to define other standard quantities related to our existance such as <br>" +
+			"the length of a single " + link("meter", "room_meters") + ". It is also used as a theoretical upper bound on the rate information propogates in the universe.",
+			"",
+			"",
+			"",
+			"");
+		
+		this.newFormulaRoom(room_meters,
+			"Length",
+			"When defined in the context of SI units, length is a measurement of a dimension in space and is used to compare displacements and sizes in space. " +
+			"It is measured using the units of meter, which are a base unit of the ",
+			"",
+			"",
+			"",
+			"");
+		/*	
+		this.newFormulaRoom(,
+			"",
+			"",
+			"",
+			"",
+			"",
+			"");
+			
+		this.newFormulaRoom(,
+			"",
+			"",
+			"",
+			"",
+			"",
+			"");
+			
+		this.newFormulaRoom(,
+			"",
+			"",
+			"",
+			"",
+			"",
+			"");
+			
+		this.newFormulaRoom(,
+			"",
+			"",
+			"",
+			"",
+			"",
+			"");
+			
+		this.newFormulaRoom(,
+			"",
+			"",
+			"",
+			"",
+			"",
+			"");
+			
+		this.newFormulaRoom(,
+			"",
+			"",
+			"",
+			"",
+			"",
+			"");
+		*/
+		
+		
 		// Now instantiate all of the content rooms.
 		this.newFormulaRoom(room_kinetic_energy,
 			"Kinetic Energy",
@@ -84,6 +179,10 @@ room_specifications.prototype =
 			new visual_fluid_incompressibility());
 
 
+			
+
+		
+			
 	},
 	
 	initiateTableOfContents: function(room_menu)
@@ -92,7 +191,7 @@ room_specifications.prototype =
 	},
 	
 	// Inputs: Room, String, String, String, String.
-	newFormulaRoom: function(room, title_text, formula_text, english_text, units_text, visual)
+	newFormulaRoom: function(room, title_text, english_text, formula_text, units_text, visual)
 	{		
 		/*
 		var title	 = new gui_Button(room_w/2 - this.button_hw, this.button_hh, this.button_w, this.button_h*2);
@@ -126,13 +225,13 @@ room_specifications.prototype =
 		// May be undefined.
 		room.visual = visual;
 		
-		button_0.message = "Please Use Symbols";
-		button_0.action = function(){spec.setText(text_center, formula_text);}
+		button_0.message = "English";
+		button_0.action = function(){spec.setText(text_center, english_text);}
 		
-		button_1.message = "Please Use English!";
-		button_1.action = function(){spec.setText(text_center, english_text);}
+		button_1.message = "Mathematics";
+		button_1.action = function(){spec.setText(text_center, formula_text);}
 	
-		button_2.message = "Please show Units";
+		button_2.message = "Discussion of Units";
 		button_2.action = function(){spec.setText(text_center, units_text);}
 		
 		button_3.message = "Please show Visuals";
@@ -176,6 +275,7 @@ room_specifications.prototype =
 		//text2.style.zIndex = 1;    // if you still don't see the label, try uncommenting this.
 		text_center.style.width  = room_w;
 		text_center.style.height = this.button_h;
+		text_center.style.lineHeight = "200%";
 		text_center.style.backgroundColor = "clear";//"white";"clear";
 		text_center.style.color="#000000";//black
 		text_center.style.textAlign="center";
