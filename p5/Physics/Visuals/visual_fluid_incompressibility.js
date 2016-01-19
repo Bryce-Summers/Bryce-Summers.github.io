@@ -6,8 +6,7 @@
  * Shows a non divergant vector field.
  */
  
- // Constructor.
- // Constructs a random person.
+// Constructor.
 function visual_fluid_incompressibility()
 {
   this.vectors = [];
@@ -37,7 +36,6 @@ visual_fluid_incompressibility.prototype =
 	// Draws the given OBJ to the screen.
 	draw(x, y)
 	{
-		console.log("drawing");
 		stroke(0);
 				
 		for(var i = 0; i < this.len; i++)

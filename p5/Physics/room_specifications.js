@@ -55,7 +55,7 @@ Standard Units
 		room_kelvin    = new Room();
 		room_mole      = new Room();
 		room_candela   = new Room();
-				
+						
 		
 		// Create the HTML elements.
 		this.createHTML();
@@ -68,7 +68,7 @@ Standard Units
 			spec.clearText();
 			spec.setText(text_center,
 				link("Speed of Light", "room_speed_of_light") + ", " +
-				link("SI Units", "room_si_units"),
+				link("SI Units", "room_si_units") + ", " + 
 				link("length", "room_meters") + ", " +
 				link("mass", "room_kilograms") + ", " +
 				link("time", "room_seconds") + ", " +
@@ -84,29 +84,117 @@ Standard Units
 		
 		room.goto(room_menu, true);
 
+		//newFormulaRoom: function(room, title_text, english_text, formula_text, units_text, visual)
 		
 		// Now instantiate all of the content rooms.
 		this.newFormulaRoom(room_speed_of_light,
 			"Speed of Light",
-			"All massless particles in the universe travel at a single universally constant speed though a vacuum. <br>" +
-			"This is known as the speed of light and can be used to define other standard quantities related to our existance such as <br>" +
-			"the length of a single " + link("meter", "room_meters") + ". It is also used as a theoretical upper bound on the rate information propogates in the universe.",
-			"",
-			"",
-			"",
-			"");
+			"All massless particles in the universe travel at a <b>constant</b> speed though any specific medium. " +
+			"In particular, light travels at its fastest speed while travelling through a vacuum. <br>"+
+			"The speed of light in a vacuum is a theoretical upper bound on the rate information propogates in the universe is also used " +
+			"to define other standard quantities related to our existance such as <br>" +
+			"the length of a single " + link("meter", "room_meters") + ".",
+			
+			"The speed of light in a vacuum is usually denoted as $c$. <br> If the speed of light in a given material is $v$, then the index of refraction $\\eta$ of the material is $$\\eta = \\frac{c}{v}$$" +
+			"$\\eta$ may be interpretted as how many times slower light travels in a given material than in a vacuum.",
+			"The speed of light is a speed and is therefore denoted with units of $\\frac{m}{s}$. Please see " + link("meters (m)", "room_meters") + " and " + link("seconds (s)", room_seconds) + ".",
+			new visual_speed_of_light());
 		
 		this.newFormulaRoom(room_meters,
 			"Length",
-			"When defined in the context of SI units, length is a measurement of a dimension in space and is used to compare displacements and sizes in space. " +
-			"It is measured using the units of meter, which are a base unit of the ",
+			"Length is a measurement of a dimension in space and is used to compare displacements and sizes in space. " +
 			"",
+			"",
+			"Length is specified in terms of multiples of a <b>meter</b>. A meter is a base " + link("SI unit", "room_si_units") + " defined to be the distance that light travels in a vaccum in $\\frac{1}{299,792,458}$ seconds.",
+			"");
+			
+		this.newFormulaRoom(room_kilograms,
+			"Mass",
+			"Mass is a property of an object used to describe how it behaves under several phenomena. <b>Inertia mass </b> describes an object's resistance to being accelerated by a force as described by Newtons's second law of motion." +
+			"<b> Gravitational mass </b> measures the gravitational force exerted by an object on other objects and how it behaves under the influence of a gravitational field."
+			,
+			"",
+			"Mass is specified in terms of multiples of the base " + link("SI unit", "room_si_units") + " called the Kilogram. The Kilogram is currently defined to be equal to the mass of the Itnernational Prototype Kilogram and as such is subject " +
+			"to imprescision and change. The General Conference on Weights and Measures hopes to eventually redefine the kilogram to be a quantity based on a universally stable constant, such as the Planck constant.",
+			"Many other SI units are defined in terms of the Kilogram, so the integrity of the consistency of scientific work rests on the fate of the Kilogram.",
+			"");
+			
+		this.newFormulaRoom(room_seconds,
+			"Time",
+			"Time is a measurement of the ordering of events and which can also be used to measure the duration of events. Some people think of time as the 4th dimension wherebye our entire 3 dimensional " +
+			"universe moves through time mush like humans move through space."
+			,
+			"",
+			"Time is specified using the base " + link("SI unit", "room_si_units") + " called the <b>second</b>. The second is defined to be \"the duration of 9192631770 periods of the radiation corresponding to the transition between the two hyperfine levels of the ground state of the caesium 133 atom.\" "+
+			"This means that somewhere in the world, our clocks are being synchronized by measurments of the radiation of particles out of a caesium 133, which was probably chosen because the these particles radiate at a very stable and consistent rate."
+			,
+			"");
+			
+		this.newFormulaRoom(room_ampere,
+			"Electric Current",
+			"Electric Current is a measure of the flow of " + link("electric charge", "room_coulombs") + " across a surface per unit of time."
+			,
+			"",
+			"Electric current is specified using the base " + link("SI unit", "room_si_units") + " called the <b>ampere</b>. The ampere is defined to be " +
+			" \"the constant current which, if maintained in two straight parallel conductors of infinite length, of negligible circular cross-section, and placed 1 meter apart in a vacuum, would produce between these conductors a force equal to $2 \\cdot 10^{-7}$ newtons per meter of length.\""
+			,
+			"");
+			
+		this.newFormulaRoom(room_kelvin,
+			"Temperature",
+			"Temperature is a measure of the amount of thermal energy present in a system and is usually caused by rapidly vibrating particles. Matter that contains no thermal " +
+			" energy is said to be at absolute zero."
+			,
+			"",
+			"Temperature is specified using the base " + link("SI unit", "room_si_units") + " called the <b>kelvin</b>. The kelvin is defined to be " +
+			"\\frac{1}{273.16} of the thermodynamic temperature of the triple point of water. Historically, the unit of centigrade was used to measure temperature and it increments at the same rate as Kelvin, "+
+			"but 0 degrees celcius cooresponds to the freezing point of water, whereas 0 kelvin cooresponds to absolute zero (an absense of all heat). Kelvin = degrees celcius + 273.15, which reflects celcius's " +
+			"water centric positioning and Kelvin's absolute temperature based positioning."
+			,
+			"");
+			
+		this.newFormulaRoom(room_mole,
+			"Amount of a Substance",
+			"In Physics, often we can describe systems in terms of a sum of consituent components. To describe the amout or count of these entities we use the <b>mole</b>. " +
+			"It is important to think about the count of object when thinking about theories that try to derive macroscopic properties on the basis of the microscopic behavior " +
+			"of a large collection of entities, such as celestial bodies in cosmology, particles in stastistical mechanics, the concept of temperature, and other ways of viewing our universe."
+			,
+			"",
+			"Amount of a substance is specified using the base " + link("SI unit", "room_si_units") + " called the <b>mole</b>. The mole is defined to be " +
+			"the amount of substance of a system which contains as many elementary entities as there are atoms in 0.012 kilograms of carbon 12."
+			,
+			"");
+			
+		this.newFormulaRoom(room_candela,
+			"Luminous intensity",
+			"Luminous intensity is a measure of the wavelength-weighted power emitted by a point light source in a particular direction per solid angle. " + 
+			"Luminous intensity is a photometric measurement, which means it is a quantity of human perception, rather than objectivly physical value. " +
+			"This means that unlike many other standard units of measure used in Physics it is not governed by universal laws of the universe, but rather " +
+			"by models of the particular sensitivity of the human eye. Other species with eyes adapted in alternative ways would likely not find luminous intensity very useful. "
+			,
+			"",
+			"Luminous intensity is specified using the base " + link("SI unit", "room_si_units") + " called the <b>candela</b>. " +
+			"The candela is defined to be the luminous intensity in a given direction of a source that emits monochromatic radiation of frequency $540 \\cdot 10^{12}$ hertz and that has a radiant intensity in that direction of $\\frac{1}{683}$ watt per steradian."
+			,
+			"");
+		
+		this.newFormulaRoom(room_si_units,
+			"SI Units",
+			"The SI base units include " + link("kilograms", "room_kilograms") + " which measure mass, " + 
+			link("meters", "room_meters") +   " which measure portions of space, " + 
+			link("seconds", "room_seconds") + " which measure time, " + 
+			link("ampere", "room_ampere") +   " which measure electric current, " + 
+			link("kelvin", "room_kelvin") +   " which measure temperature, " + 
+			link("mole", "room_mole") +       " which measure amount of a substance, " +
+			link("candela", "room_candela") + " which measure the luminous intensity."
+			,
 			"",
 			"",
 			"");
-		/*	
+			
+				
+/*		
 		this.newFormulaRoom(,
-			"",
 			"",
 			"",
 			"",
@@ -118,19 +206,9 @@ Standard Units
 			"",
 			"",
 			"",
-			"",
 			"");
 			
 		this.newFormulaRoom(,
-			"",
-			"",
-			"",
-			"",
-			"",
-			"");
-			
-		this.newFormulaRoom(,
-			"",
 			"",
 			"",
 			"",
@@ -142,11 +220,9 @@ Standard Units
 			"",
 			"",
 			"",
-			"",
 			"");
 			
 		this.newFormulaRoom(,
-			"",
 			"",
 			"",
 			"",
@@ -226,22 +302,22 @@ Standard Units
 		room.visual = visual;
 		
 		button_0.message = "English";
-		button_0.action = function(){spec.setText(text_center, english_text);}
+		button_0.action = function(){spec.setText(text_center, english_text); room.show_visual = false;}
 		
 		button_1.message = "Mathematics";
-		button_1.action = function(){spec.setText(text_center, formula_text);}
+		button_1.action = function(){spec.setText(text_center, formula_text); room.show_visual = false;}
 	
 		button_2.message = "Discussion of Units";
-		button_2.action = function(){spec.setText(text_center, units_text);}
+		button_2.action = function(){spec.setText(text_center, units_text); room.show_visual = false;}
 		
-		button_3.message = "Please show Visuals";
+		button_3.message = "Visualization";
 		button_3.action = function(){spec.setText(text_center, ""); room.show_visual = true;}
 		
 		
 		room.start_function = function()
 		{
 			//this.clearText();
-			spec.setText(text_center, formula_text);
+			spec.setText(text_center, english_text);
 			spec.setText(text_title, title_text);
 		}
 		
