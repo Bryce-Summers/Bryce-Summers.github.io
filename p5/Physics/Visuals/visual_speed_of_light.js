@@ -6,6 +6,7 @@
  * 
  */
  
+ 
  // Constructor.
  function visual_speed_of_light()
 {
