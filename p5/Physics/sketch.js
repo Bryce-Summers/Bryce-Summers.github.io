@@ -1,6 +1,5 @@
 /*
- * Subway Game entry point.
- *
+ * Physics Pedegogical Web App entry point.
  */
 
 // Current room.
@@ -50,8 +49,7 @@ function setup() {
   spec.setup();
   
   //noLoop();
-  
-  
+ 
 }
 
 // A bogus function that is here for the time being. It doesn't do anything.
@@ -62,6 +60,7 @@ function noop()
 
 function draw()
 {
+	
 	// Clear the screen to white.
 	fill(255); // White.
 	rect(0, 0, room_w, room_h);

@@ -91,7 +91,7 @@ Standard Units
 			"Speed of Light",
 			"All massless particles in the universe travel at a <b>constant</b> speed though any specific medium. " +
 			"In particular, light travels at its fastest speed while travelling through a vacuum. <br>"+
-			"The speed of light in a vacuum is a theoretical upper bound on the rate information propogates in the universe is also used " +
+			"The speed of light in a vacuum is a theoretical upper bound on the rate information propogates in the universe and is also used " +
 			"to define other standard quantities related to our existance such as <br>" +
 			"the length of a single " + link("meter", "room_meters") + ".",
 			
@@ -309,9 +309,17 @@ Standard Units
 	
 		button_2.message = "Discussion of Units";
 		button_2.action = function(){spec.setText(text_center, units_text); room.show_visual = false;}
-		
+
+		// Specify the behavior that happens when the user clicks on the visualization button.
 		button_3.message = "Visualization";
-		button_3.action = function(){spec.setText(text_center, ""); room.show_visual = true;}
+		button_3.action = function(){
+			spec.setText(text_center, "");
+			room.show_visual = true;
+			if(room.visual)
+			{
+				room.visual.restart();
+			}
+		}
 		
 		
 		room.start_function = function()
@@ -344,24 +352,13 @@ Standard Units
 		text_title.style.fontFamily="'Poiret One', cursive";
 		//document.body.appendChild(text_title);
 		
+		var content_y = this.button_h*4;
 		
-		/* Displaying Text. */
-		text_center = document.createElement('div');
-		text_center.style.position = 'absolute';
-		//text2.style.zIndex = 1;    // if you still don't see the label, try uncommenting this.
-		text_center.style.width  = room_w;
-		text_center.style.height = this.button_h;
-		text_center.style.lineHeight = "200%";
-		text_center.style.backgroundColor = "clear";//"white";"clear";
-		text_center.style.color="#000000";//black
-		text_center.style.textAlign="center";
-		//ttext_center.style.verticalAlign="center";
-		text_center.innerHTML = "";
-		text_center.style.fontSize = this.text_height + "px";
-		text_center.style.top = room_h/2;
-		text_center.style.left = 0 + 'px';
-		//text2.style.fontFamily="'Play', sans-serif";
-		document.body.appendChild(text_center);
+		text_visual1_title = this.make_new_text(0, content_y, room_w/2, this.button_h, this.button_h);
+		text_visual2_title = this.make_new_text(room_w/2, content_y, room_w/2, this.button_h, this.button_h);
+		
+		text_center = this.make_new_text(0, content_y, room_w, room_h - content_y);
+		
 		
 		// A Text link to go back to the table of contents.
 		text_home = document.createElement('div');
@@ -377,16 +374,54 @@ Standard Units
 		text_home.style.fontSize = this.text_height + "px";
 		text_home.style.top = 0;
 		text_home.style.left = 0 + 'px';
-		//text2.style.fontFamily="'Play', sans-serif";
 		document.body.appendChild(text_home);
+
+		text_visual1 = this.make_new_text(room_w/24,    room_h*3/4, room_w*10/24, this.button_h);
+		text_visual2 = this.make_new_text(room_w*13/24, room_h*3/4, room_w*10/24, this.button_h);
+
+
+
+	},
+
+	make_new_text(x, y, w, h, font_size)
+	{
+		/* Displaying Text. */
+		text_object = document.createElement('div');
+		text_object.style.position = 'absolute';
+		//text2.style.zIndex = 1;    // if you still don't see the label, try uncommenting this.
+		text_object.style.width  = w;
+		text_object.style.height = this.button_h;
+		text_object.style.lineHeight = "200%";
+		text_object.style.backgroundColor = "clear";//"white";"clear";
+		text_object.style.color="#000000";//black
+		text_object.style.textAlign="center";
+		//ttext_center.style.verticalAlign="center";
+		text_object.innerHTML = "";
+		text_object.style.fontSize = this.text_height + "px";
+		if(font_size)
+		{
+			text_object.style.fontSize = font_size + "px";
+		}
+		text_object.style.top  = y;
+		text_object.style.left = x;
+		//text2.style.fontFamily="'Play', sans-serif";
+		document.body.appendChild(text_object);
 		
+		return text_object;
 	},
 	
 	// Sets all of the html elements to the empty string.
 	clearText()
 	{
-		text_center.innerHTML = "";
-		text_title.innerHTML  = "";
+		text_center.innerHTML  = "";
+		text_title.innerHTML   = "";
+		text_visual1.innerHTML = "as ad fa sh d as asjdska jlsak jdl;kasj dl;kas jl;asj dl;kasjlk;d as;ljdl;kas jdl;kas jd;lkas ;lsa dl;ajs;l da s;lj d";
+		text_visual2.innerHTML = "as ad fa sh d as asjdska jlsak jdl;kasj dl;kas jl;asj dl;kasjlk;d as;ljdl;kas jdl;kas jd;lkas ;lsa dl;ajs;l da s;lj d";
+		
+		
+		text_visual1_title.innerHTML = "Title1";
+		text_visual2_title.innerHTML = "Title2";
+		
 	},
 	
 	// Test is an html element.
