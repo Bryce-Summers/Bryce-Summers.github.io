@@ -8,3 +8,15 @@ Although javascript does not send off syntax errors immediatly, it is programmer
 
 
 Javascript does not use integer division!!! Beware the omniprescience of floating point numbers and use the Math.floor() function.
+
+
+
+
+
+Visuals:
+
+The Sketch maintains the proper bounds to the visual region as specified in the dimensions specification picture.
+
+Each visualization is responsible for maintaining the properly sized divide if they wish to display 2 animations, instead of 1.
+
+Visuals take 4 parameters to their draw function.

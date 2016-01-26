@@ -14,6 +14,32 @@ function visual_speed_of_light()
 
 visual_speed_of_light.prototype =
 {
+	// This class displays two visualizations on the screen. One on the left side and one on the right side.
+	// The Title that will be displayed on the screen for the left visualization.
+	title_left()
+	{
+		return "Constant Speed";
+	},
+	
+	// The Title that will be displayed on the screen for the right visualization.
+	title_right()
+	{
+		return "Wavelength vs. Frequency."
+	},
+	
+	// The text that will accompany the left visualization as a description.
+	text_left()
+	{
+		return "Light moves at a constant speed while in a constant medium. " +
+		"In the visualization light starts moving in a vacuum ($\\eta = 1$), slows down by a factor of 2 in the lighter gray medium ($\\eta = 2$), slows down again by a factor of 2 in the dark gray medium ($\\eta = 4$) and then speed back up in another vacuum at the end.";
+	},
+	
+	// The text that will accompany the right visualization as a description.
+	text_right()
+	{
+		return "Because the speed of light is constant, and $v = f \\cdot \\lambda$, light waves with larger frequencies have smaller wavelengths and light waves with smaller frequencies have larger wavelengths.";
+	},
+	
 	// All visualizations can be restarted.
 	restart()
 	{
@@ -23,17 +49,64 @@ visual_speed_of_light.prototype =
 	// Update's this OBJ's internal states.
 	update()
 	{
+		var n = 1; // 5
 		// Add a bunch of particles.
-		for(var i = 0; i < 5; i++)
+		for(var i = 0; i < n; i++)
 		{
-			var dir = random(TWO_PI);
+			var dir = random(PI/4);
+			
+			dir -= PI/8;
+			
 			var dx = cos(dir);
 			var dy = sin(dir);
-			var life_span = 100;
-			var v = room_h/4 / life_span;
+			var life_span = 400;
+			
+			// Long enough to cover 8 quarter screens. the index=2 region and index=4 regions
+			// Make up 1 and 3 extra quarters respectively, which comes out to 8 in total.
+			var v = (room_w*10.0/24)*2/life_span;
 			var rand = random(v);
 			
-			this.world.push(new Photon(room_w/4 + dx*rand, room_h/2 + dy*rand, dx*v, dy*v, life_span));
+			var photon = new Photon(0 + dx*rand, room_h/4 + dy*rand, dx*v, dy*v, life_span);
+			
+			photon.action1 = function(thiss)
+			{
+				if(thiss.state == 0 && thiss.p.x > thiss.medium1_x)
+				{
+					thiss.state = 1;// Slower medium.
+					thiss.v.mult(.5);
+					
+					// The normal direction of the boundary wall.
+					var N = createVector(-1, 0);
+					thiss.refract(N, 1, 2);
+				}
+				
+				if(thiss.state == 1 && thiss.p.x > thiss.medium2_x)
+				{
+					thiss.state = 2;// Slower medium.
+					thiss.v.mult(.5);
+									
+					// The normal direction of the boundary wall.
+					var N = createVector(-1, 0);
+					thiss.refract(N, 2, 4);
+					
+				}
+				
+				if(thiss.state == 2 && thiss.p.x > thiss.medium3_x)
+				{
+					thiss.state = 3;// Slower medium.
+					thiss.v.mult(4);
+					
+					// The normal direction of the boundary wall.
+					var N = createVector(-1, 0);
+					thiss.refract(N, 4, 1);
+				}
+			}
+			
+			photon.medium1_x = this.medium1_x;
+			photon.medium2_x = this.medium2_x;
+			photon.medium3_x = this.medium3_x;
+			
+			this.world.push(photon);
 		}
 		
 		this.world.update();
@@ -41,14 +114,38 @@ visual_speed_of_light.prototype =
 	},
 
 	// Draws the given OBJ to the screen.
-	draw(x, y)
+	// Variables in represent the region on the screen that this visualization should be drawn on.
+	draw(x, y, w, h)
 	{
+				
+		
+		// -- Calculate useful spatial measurments.
+		
+		var left_w = w*10/22;
+		var medium_w = left_w/4;
+		
+		// 0 is air.
+		this.medium1_x = medium_w;
+		this.medium2_x = medium_w*2;
+		this.medium3_x = medium_w*3; // Air.
+		
+		
+		// -- Draw Rectangles to represent different mediums.
+		
+		// Medium 1.
+		fill(200);
+		rect(x + medium_w, y, medium_w, h);
+	
+		// Medium 2.
+		fill(150);
+		rect(x + 2*medium_w, y, medium_w, h);
+		
+		// Draw the photon particles.
 		this.world.draw(x, y);
-
-		var wavelength = room_w/3;
-
-		var x = room_w*13/24;
+		
+		var x = room_w*13/24; // (10/24 + 2/24) / (22/24)
 		var w = room_w*10/24;
+		var wavelength = w;
 		this.drawWaveform(wavelength,   x, room_h/4,              w, room_h/6);
 		this.drawWaveform(wavelength/2, x, room_h/4 + room_h/6,   w, room_h/6);
 		this.drawWaveform(wavelength/4, x, room_h/4 + room_h*2/6, w, room_h/6);
@@ -107,15 +204,20 @@ visual_speed_of_light.prototype =
 		var n = w_in / wavelength;
 		for(var i = 0; i < n; i++)
 		{
-			ellipse(x_in + w_in - (this.time*velocity + i*(wavelength)) % w, y, radius, radius);
+			ellipse(radius + x_in + w_in - (this.time*velocity + i*(wavelength)) % w, y, radius, radius);
 		}
+		
+		var offset = (this.time*velocity) % wavelength;
+		radius = h/2 + h/2*sin(offset*PI/wavelength);
+		ellipse(x_in, y, radius, radius);
+				
 	},
 	
 	// Waveform function.
 	f1(i, len, w, wavelength)
 	{
 		return cos( i/len*TWO_PI  // Scale range to a 1 period per width.
-				   *w/wavelength // Scale the function 1 period per wavelength.
+				   *w/wavelength  // Scale the function 1 period per wavelength.
 					);
 	},
 	
@@ -123,37 +225,5 @@ visual_speed_of_light.prototype =
 	dead()
 	{
 		return false;
-	}
-}
-
-// -- Photons. Used for simulating particles on a screen.
-function Photon(x, y, dx, dy, lifespan)
-{
-	this.p = createVector(x, y);
-	this.v = createVector(dx, dy);
-	
-	this.time = 0;
-	this.lifespan = lifespan ? lifespan : 30;
-}
-
-Photon.prototype = 
-{
-	update()
-	{
-		this.p.add(this.v);
-		this.time++;
-	},
-
-	draw(x, y)
-	{
-		x += this.p.x;
-		y += this.p.y;
-		ellipse(x, y, 5, 5);
-		
-	},
-	
-	dead()
-	{
-		return this.time >= this.lifespan;
 	}
 }

@@ -28,7 +28,7 @@ function setup() {
   room_w = window.innerWidth - 1;	
   room_h = window.innerHeight - 1;
     
-  createCanvas(room_w, room_h);
+  createCanvas(room_w*23/24 + 4, room_h*3/4);
  
   room = new Room(0);
       
@@ -72,7 +72,9 @@ function draw()
 	if(room.show_visual && room.visual)
 	{
 		room.visual.update();
-		room.visual.draw(0, 0);
+		
+		// Bounds conform to the specification.
+		room.visual.draw(room_w/24, room_h/4, room_w*23/25, room_h/2);
 	}
 	
 }

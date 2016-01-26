@@ -1,4 +1,5 @@
-/* 
+/* Demonstration Visualization.
+ * 
  * Fluid Circulation Visualization.
  *
  * Written on 1/14/2016 by Bryce Summers

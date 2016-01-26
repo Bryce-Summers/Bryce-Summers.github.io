@@ -27,6 +27,11 @@ ObjContainer.prototype =
 		this.objs.make_empty();
 	},
 	
+	iterator()
+	{
+		return this.objs.iterator();
+	},
+	
 	// Update's this OBJ's internal states.
 	update()
 	{

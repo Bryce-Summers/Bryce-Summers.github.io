@@ -92,12 +92,15 @@ Standard Units
 			"All massless particles in the universe travel at a <b>constant</b> speed though any specific medium. " +
 			"In particular, light travels at its fastest speed while travelling through a vacuum. <br>"+
 			"The speed of light in a vacuum is a theoretical upper bound on the rate information propogates in the universe and is also used " +
-			"to define other standard quantities related to our existance such as <br>" +
+			"to define other standard quantities related to our existence such as <br>" +
 			"the length of a single " + link("meter", "room_meters") + ".",
 			
 			"The speed of light in a vacuum is usually denoted as $c$. <br> If the speed of light in a given material is $v$, then the index of refraction $\\eta$ of the material is $$\\eta = \\frac{c}{v}$$" +
-			"$\\eta$ may be interpretted as how many times slower light travels in a given material than in a vacuum.",
-			"The speed of light is a speed and is therefore denoted with units of $\\frac{m}{s}$. Please see " + link("meters (m)", "room_meters") + " and " + link("seconds (s)", room_seconds) + ".",
+			"$\\eta$ may be interpretted as how many times slower light travels in a given material than in a vacuum. <br>" +
+			"If $f$ is the frequency of a light wave and $\\lambda$ is the wavelength, then $v = f \\cdot \\lambda$, this means that the frequency of light is inversly proportional to its wavelength.",
+			"The speed of light is a speed and is therefore denoted with units of $\\frac{m}{s}$. Please see " + link("meters (m)", "room_meters") + " and " + link("seconds (s)", room_seconds) + "." +
+			"<br>The index of refraction $\\eta$ is a unitless number and merely describes a ratio between speeds. " +
+			"<br>Frequency $f$ is measured in Hertz which are $\\frac{1}{s}$. <br>Wavelength $\\lambda$ is measured in meters.",
 			new visual_speed_of_light());
 		
 		this.newFormulaRoom(room_meters,
@@ -147,11 +150,11 @@ Standard Units
 			,
 			"",
 			"Temperature is specified using the base " + link("SI unit", "room_si_units") + " called the <b>kelvin</b>. The kelvin is defined to be " +
-			"\\frac{1}{273.16} of the thermodynamic temperature of the triple point of water. Historically, the unit of centigrade was used to measure temperature and it increments at the same rate as Kelvin, "+
+			"$\\frac{1}{273.16}$ of the thermodynamic temperature of the triple point of water. Historically, the unit of centigrade was used to measure temperature and it increments at the same rate as Kelvin, "+
 			"but 0 degrees celcius cooresponds to the freezing point of water, whereas 0 kelvin cooresponds to absolute zero (an absense of all heat). Kelvin = degrees celcius + 273.15, which reflects celcius's " +
 			"water centric positioning and Kelvin's absolute temperature based positioning."
 			,
-			"");
+			new visual_temperature());
 			
 		this.newFormulaRoom(room_mole,
 			"Amount of a Substance",
@@ -302,23 +305,42 @@ Standard Units
 		room.visual = visual;
 		
 		button_0.message = "English";
-		button_0.action = function(){spec.setText(text_center, english_text); room.show_visual = false;}
+		button_0.action = function(){
+			spec.clearTabSpecificText();
+			spec.setText(text_center, english_text);
+			room.show_visual = false;
+		}
 		
 		button_1.message = "Mathematics";
-		button_1.action = function(){spec.setText(text_center, formula_text); room.show_visual = false;}
+		button_1.action = function(){
+			spec.clearTabSpecificText();
+			spec.setText(text_center, formula_text);
+			room.show_visual = false;
+		}
 	
-		button_2.message = "Discussion of Units";
-		button_2.action = function(){spec.setText(text_center, units_text); room.show_visual = false;}
+		button_2.message = "Units";
+		button_2.action = function(){
+			spec.clearTabSpecificText();
+			spec.setText(text_center, units_text);
+			room.show_visual = false;
+		}
 
 		// Specify the behavior that happens when the user clicks on the visualization button.
 		button_3.message = "Visualization";
 		button_3.action = function(){
-			spec.setText(text_center, "");
+			spec.clearTabSpecificText();
 			room.show_visual = true;
 			if(room.visual)
 			{
 				room.visual.restart();
+				
+				spec.setText(text_visual1_title, room.visual.title_left());
+				spec.setText(text_visual2_title, room.visual.title_right());
+				
+				spec.setText(text_visual1, room.visual.text_left());
+				spec.setText(text_visual2, room.visual.text_right());
 			}
+			
 		}
 		
 		
@@ -339,7 +361,7 @@ Standard Units
 		text_title = document.getElementById('title');
 		text_title.style.position = 'absolute';
 		//text2.style.zIndex = 1;    // if you still don't see the label, try uncommenting this.
-		text_title.style.width  = room_w;
+		text_title.style.width  = room_w*22/24;
 		text_title.style.height = this.button_h;
 		text_title.style.backgroundColor = "clear";//"white";"clear";
 		text_title.style.color="#000000";//black
@@ -348,16 +370,16 @@ Standard Units
 		text_title.innerHTML = "";
 		text_title.style.fontSize = this.text_height*2 + "px";
 		text_title.style.top = 0;
-		text_title.style.left = 0 + 'px';
+		text_title.style.left = room_w/24 + 'px';
 		text_title.style.fontFamily="'Poiret One', cursive";
 		//document.body.appendChild(text_title);
 		
-		var content_y = this.button_h*4;
+		var content_y = room_h/4 - this.button_h*2;
 		
-		text_visual1_title = this.make_new_text(0, content_y, room_w/2, this.button_h, this.button_h);
-		text_visual2_title = this.make_new_text(room_w/2, content_y, room_w/2, this.button_h, this.button_h);
+		text_visual1_title = this.make_new_text(room_w/24,    content_y, room_w*10/24, this.button_h, this.button_h);
+		text_visual2_title = this.make_new_text(room_w*13/24, content_y, room_w*10/24, this.button_h, this.button_h);
 		
-		text_center = this.make_new_text(0, content_y, room_w, room_h - content_y);
+		text_center = this.make_new_text(room_w/24, content_y, room_w*22/24, room_h - content_y);
 		
 		
 		// A Text link to go back to the table of contents.
@@ -378,7 +400,6 @@ Standard Units
 
 		text_visual1 = this.make_new_text(room_w/24,    room_h*3/4, room_w*10/24, this.button_h);
 		text_visual2 = this.make_new_text(room_w*13/24, room_h*3/4, room_w*10/24, this.button_h);
-
 
 
 	},
@@ -415,17 +436,43 @@ Standard Units
 	{
 		text_center.innerHTML  = "";
 		text_title.innerHTML   = "";
-		text_visual1.innerHTML = "as ad fa sh d as asjdska jlsak jdl;kasj dl;kas jl;asj dl;kasjlk;d as;ljdl;kas jdl;kas jd;lkas ;lsa dl;ajs;l da s;lj d";
-		text_visual2.innerHTML = "as ad fa sh d as asjdska jlsak jdl;kasj dl;kas jl;asj dl;kasjlk;d as;ljdl;kas jdl;kas jd;lkas ;lsa dl;ajs;l da s;lj d";
 		
+		// The Text that describes the visualizations.
+		text_visual1.innerHTML = "";
+		text_visual2.innerHTML = "";
 		
-		text_visual1_title.innerHTML = "Title1";
-		text_visual2_title.innerHTML = "Title2";
+		// The Titles of the visualizations.
+		text_visual1_title.innerHTML = "";
+		text_visual2_title.innerHTML = "";
+		
+	},
+	
+	// Sets all tab specific elements to the empy string.
+	// This is allows one tab of content to clear away all tab specific information from the screen.
+	// (Not the title).
+	clearTabSpecificText()
+	{
+		
+		//text_title.innerHTML   = "";
+		
+		// Text that describes the formulas and concepts associated with a topic.
+		text_center.innerHTML  = "";
+		
+		// The Text that describes the visualizations.
+		text_visual1.innerHTML = "";
+		text_visual2.innerHTML = "";
+		
+		// The Titles of the visualizations.
+		text_visual1_title.innerHTML = "";
+		text_visual2_title.innerHTML = "";
 		
 	},
 	
 	// Test is an html element.
 	// message is a string.
+	// Instead of directly manipulating html elements and their inner text,
+	// we will route all of the calls through this function.
+	// so that appropiate processing (such as latexing the contents) gets done.
 	setText(text, message)
 	{
 		// Change the html.
