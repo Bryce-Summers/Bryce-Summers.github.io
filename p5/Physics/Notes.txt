@@ -10,7 +10,9 @@ Although javascript does not send off syntax errors immediatly, it is programmer
 Javascript does not use integer division!!! Beware the omniprescience of floating point numbers and use the Math.floor() function.
 
 
+TODO:
 
+- Consider mapping fake web addresses to the different visualizations. This will allow people to share and reference them easier.
 
 
 Visuals:
@@ -20,3 +22,35 @@ The Sketch maintains the proper bounds to the visual region as specified in the 
 Each visualization is responsible for maintaining the properly sized divide if they wish to display 2 animations, instead of 1.
 
 Visuals take 4 parameters to their draw function.
+
+In general we are using a size of 20 pixels for slider buttons and the height of text.
+
+
+
+Physics:
+Photons have no mass, and yet they don't have infinite speed. This is because E = m*c^2, so m = E/(c^2), so energy causes the photons to in a way have a small non trivial mass.
+
+Why can we not "push" a photon an make it go faster than the speed of light? The answer is that we will never catch up to the photon to adminster the force, because our forcing mechanism cannot go faster than the speed of light. This is much the same as the reoson that we cannot thermodynamically cool a system to absolute 0, because the cooling is driven by a pressure gradient and the coolant itself would have to be at absolute zero.
+
+Every action causes an equal and opposite reaction. This is also a statement of conservation of momentum I suppose. This means that every time I jump from the earth, the earth accelerates in the opposite direction but at a magnitude porportional to the ratio of my mass and the earth's mass. This means that every time I take a single step I change the rotation of the earth due to the friction acting opposite my movement.
+
+This brings into mind the question of stability. Why does the earth seem to continue its macroscopic behaviors consistently. One answer is that the earth has much more mass than the dynamic entities on its surface and therefore our contribution is negligable. But, on a cosmological scale the entities still exhibit seemingly stable orbits, this stability must be natural. An n-body problem with no initial velocity will only converge, so orbits are caused by bodies with initial velocities. That implies that the cosmos must have started in motion, lest it collapse into itself. we perceive our motion to be stable, because we are being pulled down to the center of the earth, while being pushed up by the chairs, floors, and ground beneath our feet. So a large scale force is pulling us down, but microscopic forces represented by the unwllingness of solid materials to pass through each other forces us up.
+
+Heat
+----
+
+Average kinetic energy is conserved. Heat will only be emmitted from inelastic collisions. For the heat to be maintained, there must be a heat source.
+
+Conductor rod with a heat source and a length of heat propogation. Heat equation governs the spread of heat towards the laplace equation.
+
+
+What have I produced this week.
+What do I plan to do this next week.
+Do I need Kunal's help with anything.
+
+
+Email:
+
+- Communication.
+- Work done thus far.
+- Description of Temperature was very helpful.

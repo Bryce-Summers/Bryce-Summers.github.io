@@ -28,7 +28,7 @@ function setup() {
   room_w = window.innerWidth - 1;	
   room_h = window.innerHeight - 1;
     
-  createCanvas(room_w*23/24 + 4, room_h*3/4);
+  createCanvas(room_w*23/24 + 4, room_h*3/4 + 4);
  
   room = new Room(0);
       
@@ -60,22 +60,21 @@ function noop()
 
 function draw()
 {
-	
 	// Clear the screen to white.
 	fill(255); // White.
 	rect(0, 0, room_w, room_h);
 	
-	
-	room.update();
-	room.draw();
-	
+	// Update and handle the room's visual.
 	if(room.show_visual && room.visual)
 	{
 		room.visual.update();
 		
 		// Bounds conform to the specification.
 		room.visual.draw(room_w/24, room_h/4, room_w*23/25, room_h/2);
-	}
+	}	
+	
+	room.update();
+	room.draw();
 	
 }
 
@@ -88,13 +87,35 @@ function addCircle(x, y, isGood)
 function mousePressed()
 {
 	if(room)
-		room.mousePressed();	
+	{
+		room.mousePressed();
+		
+		// Send mouse pressed events to the visuals.
+		if(room.visual)
+		{
+			if(room.visual.mousePressed)
+			{
+				room.visual.mousePressed();
+			}
+		}
+	}
 }
 
 function mouseReleased()
 {
 	if(room)
+	{	
 		room.mouseReleased();
+	}
+	
+	// Send mouse pressed events to the visuals.
+	if(room.visual)
+	{
+		if(room.visual.mouseReleased)
+		{
+			room.visual.mouseReleased();
+		}
+	}
 }
 
 function keyPressed()

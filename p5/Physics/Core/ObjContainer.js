@@ -66,5 +66,36 @@ ObjContainer.prototype =
 	dead()
 	{
 		return false;
+	},
+	
+	mousePressed()
+	{
+		var iter = this.objs.iterator();
+	
+		// Call the mouse pressed function on every element if it has a mousePressed function.
+		while(iter.hasNext())
+		{		
+			var elem = iter.next();
+			if(elem.mousePressed)
+			{
+				elem.mousePressed();
+			}
+		}
+	},
+	
+	mouseReleased()
+	{
+		var iter = this.objs.iterator();
+		
+		// Call the mouse pressed function on every element if it has a mousePressed function.
+		while(iter.hasNext())
+		{		
+			var elem = iter.next();
+			if(elem.mouseReleased)
+			{
+				elem.mouseReleased();
+			}
+		}
 	}
+	
 }

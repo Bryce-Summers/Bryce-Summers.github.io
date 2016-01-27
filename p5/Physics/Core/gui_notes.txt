@@ -1,0 +1,5 @@
+Function names.
+
+GUI elements always use a function called 'action' when they want to send out information.
+Buttons use action()
+sliders use action(px, py), where 0 <= px, py <= 1 and represent percentages of where the knob is.

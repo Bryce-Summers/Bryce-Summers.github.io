@@ -22,6 +22,8 @@ function gui_Button(x, y, w, h)
 	this.action = null;
 	this.text_size = 20;
 	this.message = "";
+	
+	this.alive = true;
 }
 
 gui_Button.prototype =
@@ -52,6 +54,7 @@ gui_Button.prototype =
 		{
 			fill(0, 0, 0, 100);
 		}
+		// Mouse Over, makes the interior color transparent so that hovered over buttons have non faded text.
 		else if(buttonClickedOn === null && this.mouseIn())
 		{
 			fill(0, 0, 0, 0);
@@ -110,5 +113,10 @@ gui_Button.prototype =
 
 		return output;
 
-	}
+	},
+	
+	dead()
+	{
+		return !this.alive;
+	}	
 }

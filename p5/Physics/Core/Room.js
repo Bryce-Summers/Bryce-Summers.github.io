@@ -66,11 +66,10 @@ Room.prototype =
 		}
 		
 		
-		// Draw the statics.
 		len = this.dynamics.length;
 		for(var i = 0; i < len; i++)
 		{
-		  this.dynamics[i].draw();
+		  this.dynamics[i].update();
 		}
 	},
 	
