@@ -343,12 +343,12 @@ Standard Units
 			
 		}
 		
-		
+		// This function determines the initial state of the room when the user navigates to it.
 		room.start_function = function()
 		{
-			//this.clearText();
 			spec.setText(text_center, english_text);
 			spec.setText(text_title, title_text);
+			room.show_visual = false;
 		}
 		
 		
