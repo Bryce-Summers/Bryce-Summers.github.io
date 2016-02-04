@@ -3,3 +3,6 @@ Function names.
 GUI elements always use a function called 'action' when they want to send out information.
 Buttons use action()
 sliders use action(px, py), where 0 <= px, py <= 1 and represent percentages of where the knob is.
+If a slider is one dimensional, then it will return a percentage of -1 in the non used direction.
+
+mousePressed() and mouseReleased() are used for gui elements to specify what they should do during a mouse press and a release.

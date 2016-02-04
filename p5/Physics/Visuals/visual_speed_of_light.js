@@ -247,8 +247,8 @@ visual_speed_of_light.prototype =
 		var x = room_w*13/24; // (10/24 + 2/24) / (22/24)
 		var w = room_w*10/24;
 		
-		this.drawWaveform(this.wavelength1, x, room_h/4 - 20,              w, room_h/6);
-		this.drawWaveform(this.wavelength2, x, room_h/4 - 20 + room_h/6,   w, room_h/6);
+		this.drawWaveform(this.wavelength1, x, room_h/4 - 20,             w, room_h/6);
+		this.drawWaveform(this.wavelength2, x, room_h/4 - 20 + room_h/6,  w, room_h/6);
 		this.drawWaveform(this.wavelength3, x, room_h/4 - 20+ room_h*2/6, w, room_h/6);
 	},
 	

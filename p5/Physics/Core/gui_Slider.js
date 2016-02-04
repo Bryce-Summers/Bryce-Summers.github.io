@@ -72,7 +72,7 @@ gui_Slider.prototype =
 		textSize(this.text_size);
 		fill(0);
 		textAlign(CENTER, CENTER);
-		text(this.message, this.x + this.w/2, this.y + this.h/2 + this.text_size/2);
+		text(this.message, this.x + this.w/2, this.y + this.h/2 + this.text_size/2 - 2);
 		
 		if(buttonClickedOn === this)
 		{

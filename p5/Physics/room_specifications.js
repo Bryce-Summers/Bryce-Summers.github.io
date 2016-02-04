@@ -55,7 +55,10 @@ Standard Units
 		room_kelvin    = new Room();
 		room_mole      = new Room();
 		room_candela   = new Room();
-						
+		
+		
+		room_collisions = new Room();
+		
 		
 		// Create the HTML elements.
 		this.createHTML();
@@ -78,6 +81,7 @@ Standard Units
 				link("luminous intensity", "room_candela") + ", " +
 				link("Energy", "room_energy") + ", " +
 				link("Kinetic Energy", "room_kinetic_energy") + ", " +
+				link("Collisions", "room_collisions") + ", " +
 				link("Visual Demo", "room_visual_demo")
 			);
 		}		
@@ -148,7 +152,9 @@ Standard Units
 			"Temperature is a measure of the amount of thermal energy present in a system and is usually caused by rapidly vibrating particles. Matter that contains no thermal " +
 			" energy is said to be at absolute zero."
 			,
-			"",
+			"The Heat equation is $\\frac{\\partial u}{\\partial t} - \\alpha \\nabla^{2}u = 0$, where u is the temperature at a location in space, t is the time, " +
+			"$\\nabla^{2}u$ is the laplacian of temperature over space, and \\alpha is the thermal diffusivity of the material, which is a measure of what rate the material conducts heat.",
+			
 			"Temperature is specified using the base " + link("SI unit", "room_si_units") + " called the <b>kelvin</b>. The kelvin is defined to be " +
 			"$\\frac{1}{273.16}$ of the thermodynamic temperature of the triple point of water. Historically, the unit of centigrade was used to measure temperature and it increments at the same rate as Kelvin, "+
 			"but 0 degrees celcius cooresponds to the freezing point of water, whereas 0 kelvin cooresponds to absolute zero (an absense of all heat). Kelvin = degrees celcius + 273.15, which reflects celcius's " +
@@ -160,13 +166,21 @@ Standard Units
 			"Amount of a Substance",
 			"In Physics, often we can describe systems in terms of a sum of consituent components. To describe the amout or count of these entities we use the <b>mole</b>. " +
 			"It is important to think about the count of object when thinking about theories that try to derive macroscopic properties on the basis of the microscopic behavior " +
-			"of a large collection of entities, such as celestial bodies in cosmology, particles in stastistical mechanics, the concept of temperature, and other ways of viewing our universe."
+			"of a large collection of entities, such as celestial bodies in cosmology, particles in stastistical mechanics, the temperture of gases with regards to kinetic theory, and other ways of viewing our universe."
 			,
-			"",
+			// Mathematics.
+			"The mass of a Carbon-12 atom is denoted by $M(^{12}C)$ <br>" +
+			"Atomic Mass Units (AMU, u), also called Daltons (Da) are used to specify mass at the atomic or molecular scale." +
+			"1 Atomic mass unit is defined as follows: $1u = \\frac{1}{12}M(^{12}C)$ <br>" +
+			"The invariant mass of an electron is approximatly $5.489 \\times 10^{-4}$ [AMU] <br>" +
+			"Molar Mass constant $M_{u} = \\frac{M^{12}C}{A_{r}(^{12}C)} = 1 \\left[\\frac{g}{mol} \\right]$ <br>" +
+			"Avogadro's constant $N_{A} = \\frac{A_{r}(e)M_{u}}{m_{e}}$ (unitless)<br>" + 
+			"One experimentally derived value for $N_{A}$ is $6.022140857 \\times 10^{23} \\left[\\frac{1}{mol} \\right]$"
+			,
 			"Amount of a substance is specified using the base " + link("SI unit", "room_si_units") + " called the <b>mole</b>. The mole is defined to be " +
 			"the amount of substance of a system which contains as many elementary entities as there are atoms in 0.012 kilograms of carbon 12."
 			,
-			"");
+			new visual_amount());
 			
 		this.newFormulaRoom(room_candela,
 			"Luminous intensity",
@@ -195,6 +209,28 @@ Standard Units
 			"",
 			"");
 			
+			this.newFormulaRoom(room_collisions,
+			"Collisions",
+			"English",
+			"Let the positions of two objects be $p_{1}$ and $p_{2}$. <br> Let $d_{perp} = \\frac{p_{1} - p_{2}}{|p_{1} - p_{2}|}$ <br>" +
+			"Let $q_{1}$ and $q_{2}$ be the velocities of the two objects. <br> We can then decompose each of them into components perpendicular and parrallel to the line or plane of collision as follows: <br>" +
+			"$perp_{i} = q_{i} \\cdot d_{perp}$, $par_{i} = q_{i} - perp_{i}$ <br>" +
+			"Let $m_{1}$ and $m_{2}$ be the masses of two objects. <br>" +
+			"Let $u_{1}$ and $u_{2}$ be the velocities of the objects before the collision and " +
+			"let $v_{1}$ and $v_{2}$ be equal to $perp_{1}$ and $perp_{2}$ repectivly. <br>" +
+			"In a perfectly elastic collision, both momentum and kinetic energy are conserved " +
+			"By the conservation of momentum, $m_{1}u_{1} + m_{2}u_{2} = m_{1}v_{1} + m_{1}v_{2}$ <br>" + 
+			"By the conservation of energy and because their is no change in potential energy, $\\frac{m_{1}u_{1}^{2}}{2} + \\frac{m_{2}u_{2}^{2}}{2} = \\frac{m_{1}v_{1}^{2}}{2} + \\frac{m_{1}v_{2}^{2}}{2}$ <br>" +
+			"You can solve these systems of equations for the for $v_{1}$ and $v_{2}$ after a perfectly elastic collision. <br>" + 
+			"$v_{1} = \\frac{u_{1}(m_{1} - m_{2}) + 2m_{2}u_{2}}{m_{1} + m_{2}}$ and $v_{2} = \\frac{u_{2}(m_{2} - m_{1}) + 2m_{1}u_{1}}{m_{2} + m_{1}}$ <br>" +
+			"Given a scalar coeficient of restitution $C_{R}$, we solve for $v_{1}$ and $v_{2}$ after an inelastic collision. <br>" +
+			"$v_{1} = \\frac{C_{R}m_{2}(u_{2}-u_{1}) + m_{1}u_{1} + m_{2}u_{2}}{m_{1} + m_{2}}$ and " +
+			"$v_{2} = \\frac{C_{R}m_{1}(u_{1}-u_{2}) + m_{1}u_{1} + m_{2}u_{2}}{m_{1} + m_{2}}$ <br>" +
+			"Please note that $C_{R} = 1$ in a perfectly elastic collision and $C_{R} = 0$ in a perfectly inelastic collision. <br>" +
+			"We then add $v_{1}$ and $v_{2}$ to $par_{1}$ and $par_{2}$ respectivly to compute the final result of an arbitrary dimensional collision."
+			,
+			"Units",
+			new visual_collisions());
 				
 /*		
 		this.newFormulaRoom(,
@@ -257,7 +293,8 @@ Standard Units
 			"This is an explanation with the types and units of quantities explicitly stated.",
 			new visual_fluid_incompressibility());
 
-
+		
+		
 			
 
 		
@@ -374,7 +411,7 @@ Standard Units
 		text_title.style.fontFamily="'Poiret One', cursive";
 		//document.body.appendChild(text_title);
 		
-		var content_y = room_h/4 - this.button_h*2;
+		var content_y = this.button_h*3;
 		
 		text_visual1_title = this.make_new_text(room_w/24,    content_y, room_w*10/24, this.button_h, this.button_h);
 		text_visual2_title = this.make_new_text(room_w*13/24, content_y, room_w*10/24, this.button_h, this.button_h);

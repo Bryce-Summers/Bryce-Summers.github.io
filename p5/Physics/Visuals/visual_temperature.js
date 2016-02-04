@@ -8,11 +8,8 @@
 // Constructor.
 function visual_temperature()
 {
-	// Stores the bouncing photons.
-	this.world   = new ObjContainer();
-	
-	// Stores the collision signal circles.
-	this.signal = new ObjContainer();
+	// Worlds are pretty much always useful.
+	this.world = new ObjContainer();
 }
 
 visual_temperature.prototype =
@@ -22,25 +19,28 @@ visual_temperature.prototype =
 	
 	title_left()
 	{
-		return "Cold Temperature";
+		return "Temperature Conductivity";
 	},
 	
 	// The Title that will be displayed on the screen for the right visualization.
 	title_right()
 	{
-		return "Hot Temperature";
+		return "";
 	},
 	
 	// The text that will accompany the left visualization as a description.
 	text_left()
 	{
-		return "A system with low energy will not have as many collisions and will therefore not release as much heat and will be colder";
+		return "In this visualization, heat starts at a stable souce of heat and propogates throughout a conductive medium over time via the heat equation. Notice that temperature varies over time. " +
+		"Heat loss to the external environment is represented by small floating bars. Thermal diffusivity represents the rate of heat flow.";
 	},
 	
 	// The text that will accompany the right visualization as a description.
 	text_right()
 	{
-		return "A system with higher energy will have more collisions and will therefore release more thermal energy and will be warmer.";
+		return  "When the thermal energy is fully conserved, the distriution of heat will eventually level out to a constant temperature. " +
+				"Low thermal diffusivity and thermal conservation lead to a steeper ending gradient. High diffusivity and conservation leads to a If thermal diffusivity is low and thermal conservation is also low, then the gradient will be less steep, ";
+				"because heat will be able to propogate farther form the input source before it leaves the system."
 	},
 	
 	// All visualizations can be restarted.
@@ -48,109 +48,186 @@ visual_temperature.prototype =
 	{
 		this.world.make_empty();
 		this.time = 0;
-
-		var cold_speed = 1;
-		var warm_speed = 7;
 		
-		this.addCollider(room_w*5 /24, room_h/4, cold_speed);
-		this.addCollider(room_w*18/24, room_h/4, warm_speed);
-	},
+		
+		// Heat measurements.
+		this.heat   = [];
 	
-	addCollider(collider_x, collider_y, speed)
-	{
-		for(var i = 0; i < 30; i++)
+		// Heat measurements derivatives.
+		this.heat_d = [];
+		this.heat_a = [];
+		
+		this.heat_loss = [];
+		
+		this.len = 100;
+		var len = this.len;
+		
+		for(var i = 0; i < len; i++)
 		{
-			var dir = random(TWO_PI);
-			var dx = cos(dir);
-			var dy = sin(dir);
-			
-			var photon = new Photon(collider_x + dx*60, collider_y + dy*60, dx*speed, dy*speed, -1);
-			
-			photon.world = this.world;
-			photon.world2 = this.signal;
-			photon.center_x = collider_x;
-			photon.center_y = collider_y;
-			
-			photon.action1 = function(thiss)
-			{
-				// In local coordinate space.
-				var center_screen = createVector(thiss.center_x, thiss.center_y);
-				var offset = p5.Vector.sub(thiss.p, center_screen);
-				if(offset.magSq() > (room_h/4)*(room_h/4))
-				{
-					var N = p5.Vector.mult(offset, -1);
-					N.normalize();
-					
-					if(p5.Vector.dot(thiss.v, N) < 0)
-					{
-						thiss.reflect(N);
-					}
-				}
-				
-				var iter = this.world.iterator();
-	
-				// Iterate throuh all photons and compute collisions.
-				while(iter.hasNext())
-				{					
-					var photon = iter.next();
-					
-					// don't collide photons with themselves.
-					if(photon === thiss)
-					{
-						continue;
-					}
-
-					var diff = p5.Vector.sub(photon.p, thiss.p);
-					
-					if(p5.Vector.dot(photon.v, thiss.v) < 1 && diff.mag() < 20)
-					{
-						diff.normalize();
-						
-						// Reflect both objects off each other.
-						photon.reflect(diff);
-						diff.mult(-1);						
-						thiss.reflect(diff);
-						
-						var signal = new Photon(thiss.p.x, thiss.p.y, 0, 0, 30);
-						
-						signal.action1 = function(this2)
-						{
-							this2.radius += 5;
-						}
-						
-						thiss.world2.push(signal);
-						
-					}
-				}
-			}
-
-			this.world.push(photon);
+			this.heat.push(0);
+			this.heat_d.push(0);
+			this.heat_a.push(0);
+			this.heat_loss.push(0);
 		}
+		
+		// Parameters that control the animation.
+		this.conductivity_coef  = .5;
+		this.thermal_loss_coef  = .9;
+		this.initial_temperture = 1.0;
+		this.source_index = this.len/2;
+		
+		
+		// -- Slider 1 : Initial temperature.
+		var slider_h = 20;
+		var slider;
+		slider = new gui_Slider(room_w/24, room_h/4 + room_h/8, slider_h, room_h/8, slider_h);
+		slider.setPer(1, 0);
+		slider.world = this;
+		slider.action = function(x, y)
+		{
+			this.world.initial_temperture = 1.0 - y;
+		}
+		this.world.push(slider);
+		
+		// -- Slider 2 : Temperature Source location.
+		slider = new gui_Slider(room_w/24 + slider_h, room_h*3/4 - slider_h, room_w*22/24 - slider_h, slider_h, slider_h);
+		slider.setPer(.5, 0);
+		slider.world = this;
+		slider.action = function(x, y) // Function that gives percentage scroll values between 0 and 1 in both dimensions.
+		{
+			this.world.source_index = Math.floor((this.world.len - 1)*x);
+		}
+		this.world.push(slider);
+		
+		// -- Slider 3 : conductivity_coeficient.
+		slider = new gui_Slider(room_w/24 + slider_h, room_h*3/4 - slider_h*2, room_w*5/24 - slider_h, slider_h, slider_h);
+		slider.setPer(.5, 0);
+		slider.world = this;
+		slider.action = function(x, y) // Function that gives percentage scroll values between 0 and 1 in both dimensions.
+		{
+			// Ranges from [min to max].
+			var min = .1;
+			var max = .5;
+			this.world.conductivity_coef = min + (max - min)*x;
+		}
+		slider.message = "Thermal diffusivity";
+		this.world.push(slider);
+		
+		// -- Slider 4 : 
+		slider = new gui_Slider(room_w/24 + slider_h, room_h*3/4 - slider_h*3, room_w*5/24 - slider_h, slider_h, slider_h);
+		slider.setPer(0, 0);
+		slider.world = this;
+		slider.action = function(x, y) // Function that gives percentage scroll values between 0 and 1 in both dimensions.
+		{
+			// Ranges from [min to max].
+			var min = .9;
+			var max = 1.0;
+			this.world.thermal_loss_coef = min + (max - min)*(x);
+		}
+		slider.message = "Thermal Conservation";
+		this.world.push(slider);
+		
 	},
-	
+
 	// Update's this OBJ's internal states.
 	update()
 	{
-		// Add particles here.
 		this.world.update();
-		this.signal.update();
 		this.time++;
+		
+		// Compute heat equation 2nd order curvature.
+		for(var i = 1; i < this.len - 1; i++)
+		{
+			// Compute the curvature using the method of finite differences.
+			var h0 = this.heat[i - 1];
+			var h1 = this.heat[i];
+			var h2 = this.heat[i + 1];
+			
+			this.heat_a[i] = ((h2 - h1) - (h1 - h0)); // h2 - 2*h1 + h0;
+		}
+		
+		// Handle the endpoints.
+		this.heat_a[this.len - 1] = -(this.heat[this.len - 1] - this.heat[this.len - 2]);
+		this.heat_a[0] = (this.heat[1] - this.heat[0]);
+		
+		
+		// -- Integrate 1st order gradient.
+		for(var i = 0; i < this.len; i++)
+		{
+			// Compute the curvature using the method of finite differences.
+			//this.heat_d[i] = (this.heat_d[i] + this.heat_a[i]*this.conductivity_coef)*.9; // Damped.
+			this.heat_d[i] = this.heat_a[i]*this.conductivity_coef; // Damped.
+		}
+		
+		
+		// -- Integrate the temeprature values over time.
+		for(var i = 0; i < this.len; i++)
+		{
+			// Heat without external thermal loss.
+			var perfect_heat = (this.heat[i] + this.heat_d[i]);
+			var heat_with_loss = perfect_heat*this.thermal_loss_coef;
+			
+			this.heat_loss[i] = perfect_heat - heat_with_loss;
+
+			// Set the heat to the new value.
+			this.heat[i] = heat_with_loss;
+			
+			// Create particles to signify heat escaping.
+			//var photon = new Photon(0, -, dx*v, dy*v, life_span);
+		}
+		
+		// Make the left most value the initial temperature.
+		this.heat[this.source_index] = max(this.initial_temperture, this.heat[this.source_index]);
+	
 	},
 
 	// Draws the given OBJ to the screen.
 	// Variables in represent the region on the screen that this visualization should be drawn on.
-	draw(x, y, w, h)
-	{
-		// Draw the photon particles.
-		this.world.draw(x, y);
+	draw(x_in, y_in, w, h)
+	{		
+		// -- Integrate the temeprature values over time.
+		// Draw all of the bars.
+		var bar_w = (w - 20)/this.len;
+		for(var i = 0; i < this.len; i++)
+		{
+			var x = 20 + x_in + bar_w*i;
+			var y = y_in + h/2;
+			
+			// Vertical radius of the bar.
+			var heat = this.heat[i];
+			var max_heat = h/4;
+			var bar_h = heat*max_heat;
+			fill(255*heat, 0, 255*(1 - heat));
+			rect(x, y - bar_h, bar_w, bar_h*2);
+			
+			var loss = this.heat_loss[i]*h/2;
+
+			if(loss > .2)
+			for(var l = 0; l < max_heat; l += max_heat/4)
+			{
+				var offset =  bar_h + (l + (this.time % max_heat/4));
+				rect(x, y - offset - loss, bar_w, loss);
+				rect(x, y + offset, bar_w, loss);
+			}
+		}
+
 		
-		// Draw the photon particles.
-		this.signal.draw(x, y);
+		this.world.draw(x_in, y_in);		
 	},
 	
 	// Returns true iff this OBJ should be deleted.
 	dead()
 	{
 		return false;
+	},
+	
+	mousePressed()
+	{
+		this.world.mousePressed();
+	},
+	
+	mouseReleased()
+	{
+		this.world.mouseReleased();
 	}
 }
