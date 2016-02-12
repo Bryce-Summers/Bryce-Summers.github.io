@@ -1,4 +1,4 @@
-/* 
+ /* 
  * Temperature visualization.
  *
  * Written on 1/25/2016 by Bryce Summers
@@ -19,7 +19,7 @@ visual_temperature.prototype =
 	
 	title_left()
 	{
-		return "Temperature Conductivity";
+		return "Temperature and Heat Flow";
 	},
 	
 	// The Title that will be displayed on the screen for the right visualization.
@@ -31,16 +31,18 @@ visual_temperature.prototype =
 	// The text that will accompany the left visualization as a description.
 	text_left()
 	{
-		return "In this visualization, heat starts at a stable souce of heat and propogates throughout a conductive medium over time via the heat equation. Notice that temperature varies over time. " +
-		"Heat loss to the external environment is represented by small floating bars. Thermal diffusivity represents the rate of heat flow.";
+		return	"This visualization represents a conductive rod where heat steadily flows in at a source and flows out at a sink. " +
+				"The Temperature of a given section of the rod is represented by a color, where white represents higher amounts of internal thermal energy and black represents lower amounts of internal thermal energy. " +
+				"The amount of heat, flowing locally into and out of sections of the rod is represented by the rod's height. " +
+				"Over time the rate of heat flow will become constant at every location between the source and the sink.";
 	},
 	
 	// The text that will accompany the right visualization as a description.
 	text_right()
 	{
-		return  "When the thermal energy is fully conserved, the distriution of heat will eventually level out to a constant temperature. " +
-				"Low thermal diffusivity and thermal conservation lead to a steeper ending gradient. High diffusivity and conservation leads to a If thermal diffusivity is low and thermal conservation is also low, then the gradient will be less steep, ";
-				"because heat will be able to propogate farther form the input source before it leaves the system."
+		return  "The floating bars represent energy coming into and out of the system. " +
+				"If the incoming heat exceeds the outgoing heat, then the system as a whole will tend towards an infinite amount of temperature. " +
+				"Greater conductivity leads to decreased overall temperature, because heat flows more efficiently to the sink and thus there are less build ups in temperature.";				
 	},
 	
 	// All visualizations can be restarted.
@@ -50,16 +52,17 @@ visual_temperature.prototype =
 		this.time = 0;
 		
 		
-		// Heat measurements.
+		// Temperature measurments.
 		this.heat   = [];
 	
-		// Heat measurements derivatives.
+		// The derivative is the amount of heat flowing from one bar to another.
+		// Heat is therefore the derivative of temperature in this case.
 		this.heat_d = [];
 		this.heat_a = [];
 		
 		this.heat_loss = [];
 		
-		this.len = 100;
+		this.len = 30;
 		var len = this.len;
 		
 		for(var i = 0; i < len; i++)
@@ -71,10 +74,11 @@ visual_temperature.prototype =
 		}
 		
 		// Parameters that control the animation.
-		this.conductivity_coef  = .5;
-		this.thermal_loss_coef  = .9;
-		this.initial_temperture = 1.0;
-		this.source_index = this.len/2;
+		this.conductivity_coef  = .1;
+		this.thermal_loss = .1;// The amount of heat that gets lost from the system at every frame.
+		this.thermal_gain = .1;// The amount of heat that gets added to the system at every frame.
+		this.source_index = 0;
+		this.sink_index   = this.len/2;
 		
 		
 		// -- Slider 1 : Initial temperature.
@@ -84,24 +88,39 @@ visual_temperature.prototype =
 		slider.setPer(1, 0);
 		slider.world = this;
 		slider.action = function(x, y)
-		{
-			this.world.initial_temperture = 1.0 - y;
+		{			
+			var min = 0;
+			var max = .1;
+			this.world.thermal_gain = min + (max - min)*(1.0 - y);
 		}
 		this.world.push(slider);
 		
 		// -- Slider 2 : Temperature Source location.
 		slider = new gui_Slider(room_w/24 + slider_h, room_h*3/4 - slider_h, room_w*22/24 - slider_h, slider_h, slider_h);
-		slider.setPer(.5, 0);
+		slider.setPer(0, 0);
 		slider.world = this;
 		slider.action = function(x, y) // Function that gives percentage scroll values between 0 and 1 in both dimensions.
 		{
 			this.world.source_index = Math.floor((this.world.len - 1)*x);
 		}
+		slider.message = "Heat Source";
+		this.world.push(slider);
+		
+		
+		// -- Slider 2.5 : Temperature loss location.
+		slider = new gui_Slider(room_w/24 + slider_h, room_h*3/4 - slider_h*2, room_w*22/24 - slider_h, slider_h, slider_h);
+		slider.setPer(.5, 0);
+		slider.world = this;
+		slider.action = function(x, y) // Function that gives percentage scroll values between 0 and 1 in both dimensions.
+		{
+			this.world.sink_index = Math.floor((this.world.len - 1)*x);
+		}
+		slider.message = "Heat Sink";
 		this.world.push(slider);
 		
 		// -- Slider 3 : conductivity_coeficient.
-		slider = new gui_Slider(room_w/24 + slider_h, room_h*3/4 - slider_h*2, room_w*5/24 - slider_h, slider_h, slider_h);
-		slider.setPer(.5, 0);
+		slider = new gui_Slider(room_w/24 + slider_h, room_h*3/4 - slider_h*3, room_w*5/24 - slider_h, slider_h, slider_h);
+		slider.setPer(0, 0);
 		slider.world = this;
 		slider.action = function(x, y) // Function that gives percentage scroll values between 0 and 1 in both dimensions.
 		{
@@ -110,21 +129,21 @@ visual_temperature.prototype =
 			var max = .5;
 			this.world.conductivity_coef = min + (max - min)*x;
 		}
-		slider.message = "Thermal diffusivity";
+		slider.message = "Conductivity";
 		this.world.push(slider);
 		
-		// -- Slider 4 : 
-		slider = new gui_Slider(room_w/24 + slider_h, room_h*3/4 - slider_h*3, room_w*5/24 - slider_h, slider_h, slider_h);
-		slider.setPer(0, 0);
+		// -- Slider 4 : Thermal Loss value.
+		slider = new gui_Slider(room_w*23/24 - slider_h, room_h/4 + room_h/8, slider_h, room_h/8, slider_h);
+		slider.setPer(1.0, 0);
 		slider.world = this;
 		slider.action = function(x, y) // Function that gives percentage scroll values between 0 and 1 in both dimensions.
 		{
 			// Ranges from [min to max].
-			var min = .9;
-			var max = 1.0;
-			this.world.thermal_loss_coef = min + (max - min)*(x);
+			var min = 0;
+			var max = .1;
+			this.world.thermal_loss = min + (max - min)*(1.0 - y);
 		}
-		slider.message = "Thermal Conservation";
+		//slider.message = "Thermal Loss";
 		this.world.push(slider);
 		
 	},
@@ -134,6 +153,9 @@ visual_temperature.prototype =
 	{
 		this.world.update();
 		this.time++;
+		
+		// Inject heat into the system.
+		this.heat[this.source_index] += this.thermal_gain;
 		
 		// Compute heat equation 2nd order curvature.
 		for(var i = 1; i < this.len - 1; i++)
@@ -160,14 +182,14 @@ visual_temperature.prototype =
 		}
 		
 		
-		// -- Integrate the temeprature values over time.
+		// -- Integrate the temperature values over time.
 		for(var i = 0; i < this.len; i++)
 		{
 			// Heat without external thermal loss.
 			var perfect_heat = (this.heat[i] + this.heat_d[i]);
-			var heat_with_loss = perfect_heat*this.thermal_loss_coef;
+			var heat_with_loss = perfect_heat;
 			
-			this.heat_loss[i] = perfect_heat - heat_with_loss;
+			this.heat_loss[i] = 0;// No heat loss, except at sink.
 
 			// Set the heat to the new value.
 			this.heat[i] = heat_with_loss;
@@ -175,9 +197,15 @@ visual_temperature.prototype =
 			// Create particles to signify heat escaping.
 			//var photon = new Photon(0, -, dx*v, dy*v, life_span);
 		}
+			
+								
+		this.heat_loss[this.sink_index] = min(this.heat[this.sink_index], this.thermal_loss);
+		this.heat_loss[this.source_index] = -this.thermal_gain;
+				
+		this.heat[this.sink_index] -= this.heat_loss[this.sink_index];
 		
-		// Make the left most value the initial temperature.
-		this.heat[this.source_index] = max(this.initial_temperture, this.heat[this.source_index]);
+		this.heat_d[this.source_index] -= this.heat_loss[this.source_index];
+		this.heat_d[this.sink_index]   -= this.heat_loss[this.sink_index];
 	
 	},
 
@@ -187,27 +215,38 @@ visual_temperature.prototype =
 	{		
 		// -- Integrate the temeprature values over time.
 		// Draw all of the bars.
-		var bar_w = (w - 20)/this.len;
+		var bar_w = (w - 50)/this.len;
 		for(var i = 0; i < this.len; i++)
 		{
 			var x = 20 + x_in + bar_w*i;
-			var y = y_in + h/2;
+			var y = y_in + h/2 - 20*2;
 			
 			// Vertical radius of the bar.
-			var heat = this.heat[i];
+			var temp = this.heat[i];
 			var max_heat = h/4;
-			var bar_h = heat*max_heat;
-			fill(255*heat, 0, 255*(1 - heat));
-			rect(x, y - bar_h, bar_w, bar_h*2);
+			var bar_h = 100*this.heat_d[i]*max_heat;// The height represents heat.
+			var scalar = 5;// Scales down the temperature gradient.
+			var val = 255*temp/scalar;
+			fill(val, val, val);
+			rect(x, y - bar_h, bar_w, bar_h + max_heat);
 			
 			var loss = this.heat_loss[i]*h/2;
-
-			if(loss > .2)
+			
+			if(abs(loss) > 0)
 			for(var l = 0; l < max_heat; l += max_heat/4)
 			{
-				var offset =  bar_h + (l + (this.time % max_heat/4));
-				rect(x, y - offset - loss, bar_w, loss);
-				rect(x, y + offset, bar_w, loss);
+				
+				if(loss > 0)
+				{
+					var offset =  bar_h + (l + (this.time % max_heat/4));
+					rect(x, y - offset - loss, bar_w, loss);
+				}
+				else
+				{
+					var offset =  bar_h + (l - (this.time) % max_heat/4);
+					rect(x, y - offset - max_heat/4, bar_w, loss);
+				}
+				//rect(x, y + offset, bar_w, loss);
 			}
 		}
 

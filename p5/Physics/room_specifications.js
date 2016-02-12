@@ -55,9 +55,9 @@ Standard Units
 		room_kelvin    = new Room();
 		room_mole      = new Room();
 		room_candela   = new Room();
-		
-		
+				
 		room_collisions = new Room();
+		room_ideal_gas_law = new Room();
 		
 		
 		// Create the HTML elements.
@@ -82,6 +82,7 @@ Standard Units
 				link("Energy", "room_energy") + ", " +
 				link("Kinetic Energy", "room_kinetic_energy") + ", " +
 				link("Collisions", "room_collisions") + ", " +
+				link("Ideal Gas Law", "room_ideal_gas_law") + ", " +
 				link("Visual Demo", "room_visual_demo")
 			);
 		}		
@@ -89,6 +90,7 @@ Standard Units
 		room.goto(room_menu, true);
 
 		//newFormulaRoom: function(room, title_text, english_text, formula_text, units_text, visual)
+
 		
 		// Now instantiate all of the content rooms.
 		this.newFormulaRoom(room_speed_of_light,
@@ -149,11 +151,15 @@ Standard Units
 			
 		this.newFormulaRoom(room_kelvin,
 			"Temperature",
-			"Temperature is a measure of the amount of thermal energy present in a system and is usually caused by rapidly vibrating particles. Matter that contains no thermal " +
-			" energy is said to be at absolute zero."
+			"Temperature is a measure of the amount of thermal energy present in a system and is usually caused by rapidly vibrating particles. <br>" +
+			"Matter that contains no thermal energy is said to be at absolute zero. <br>" +
+			"The energy coming into or out of a system is called heat. You can think of the net heat gained at a given moment as the derivative of temperature over time." +
+			"When you feel an object and observe that it is hot, then you are observing that there is a high rate of heat flow from the object to yourself, but you are not necessarily observing anything about the object's temperture."
 			,
 			"The Heat equation is $\\frac{\\partial u}{\\partial t} - \\alpha \\nabla^{2}u = 0$, where u is the temperature at a location in space, t is the time, " +
-			"$\\nabla^{2}u$ is the laplacian of temperature over space, and \\alpha is the thermal diffusivity of the material, which is a measure of what rate the material conducts heat.",
+			"$\\nabla^{2}u$ is the laplacian of temperature over space, and \\alpha is the thermal diffusivity of the material, which is a measure of what rate the material conducts heat."
+			
+			,
 			
 			"Temperature is specified using the base " + link("SI unit", "room_si_units") + " called the <b>kelvin</b>. The kelvin is defined to be " +
 			"$\\frac{1}{273.16}$ of the thermodynamic temperature of the triple point of water. Historically, the unit of centigrade was used to measure temperature and it increments at the same rate as Kelvin, "+
@@ -209,9 +215,12 @@ Standard Units
 			"",
 			"");
 			
-			this.newFormulaRoom(room_collisions,
+		this.newFormulaRoom(room_collisions, 
 			"Collisions",
-			"English",
+			"Collisions happen whenever two objects run into each other. Collisions are resolved in nature by changing the velocity of each of the two objects in a way that conserves the total momentum of the two objects and the total " + link("energy. ", "room_energy") +
+			"If energy is lost during a collision, for instance through " + link("heat", "room_kelvin") + ", then it is called an inelastic collision. Otherwise it suffices to ensure that the total " + link("kinetic energy", "room_kinetic_energy") + " is conserved, because velocity is the only thing that changes. " +
+			"We do not need to worry about potential energy, because position is invariant during the collision."
+			,
 			"Let the positions of two objects be $p_{1}$ and $p_{2}$. <br> Let $d_{perp} = \\frac{p_{1} - p_{2}}{|p_{1} - p_{2}|}$ <br>" +
 			"Let $q_{1}$ and $q_{2}$ be the velocities of the two objects. <br> We can then decompose each of them into components perpendicular and parrallel to the line or plane of collision as follows: <br>" +
 			"$perp_{i} = q_{i} \\cdot d_{perp}$, $par_{i} = q_{i} - perp_{i}$ <br>" +
@@ -229,16 +238,32 @@ Standard Units
 			"Please note that $C_{R} = 1$ in a perfectly elastic collision and $C_{R} = 0$ in a perfectly inelastic collision. <br>" +
 			"We then add $v_{1}$ and $v_{2}$ to $par_{1}$ and $par_{2}$ respectivly to compute the final result of an arbitrary dimensional collision."
 			,
-			"Units",
+			"The " + link("mass", "room_kilograms") + " of each object is measured in kilograms. <br>" +
+			"The velocity of each object is a direction associted with a speed with units of $\\frac{m}{s}$ <br>" +
+			"The momentum of each object has units of $\\frac{kg \\cdot m}{s}$. <br>" + 
+			"The Kinetic energy of each object is measured in Joueles (J), with units of $\\frac{kg \\cdot m^{2}}{s^{2}}$."
+			,
 			new visual_collisions());
-				
-/*		
-		this.newFormulaRoom(,
-			"",
-			"",
-			"",
-			"",
-			"");
+
+
+		this.newFormulaRoom(room_ideal_gas_law,
+			"Ideal Gas Law",
+			"The Ideal gas law describes the behavior of a mathematically pure \"ideal gas\"."
+			,
+			"The Ideal gas law is: $PV = nRT$, where $P$ stands for pressure, " +
+			"$V$ stands for volume," +
+			"$n$ stands for " + link("amount", "room_mole") + " in moles, " +
+			"$R$ is the ideal gas constant (Equivalant to the Boltzmann constant), " +
+			"and $T$ stands for the temperature of the gas. <br>" +
+			"The Universal gas constant is around $8.3144598 \\frac{J}{mol \\cdot K}$"
+			,
+			"$PV = nRT$ is expressed by the units $\\[\\frac{N}{m^{2}}\\]\\[m^{3}\\]=\\[\\]\\[\\]"
+			,
+			new visual_kinetic_theory());
+			
+			
+			
+			/*
 			
 		this.newFormulaRoom(,
 			"",

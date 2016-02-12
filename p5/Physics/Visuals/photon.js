@@ -4,6 +4,9 @@ function Photon(x, y, dx, dy, lifespan)
 {
 	this.p = createVector(x, y);
 	this.v = createVector(dx, dy);
+	
+	this.v_scale = 1.0; // Scales the speed that this particle goes at.
+	
 	this.p_start = createVector(x, y);// The Original Position.
 	
 	this.time = 0;
@@ -20,7 +23,7 @@ Photon.prototype =
 	// Calls a custom action update if necessary.
 	update()
 	{
-		this.p.add(this.v);
+		this.p.add(p5.Vector.mult(this.v, this.v_scale));
 		this.time++;
 
 		if(this.action1)

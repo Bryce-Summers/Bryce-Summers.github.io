@@ -59,8 +59,8 @@ visual_collisions.prototype =
 		this.v2_original = -.001;
 		this.v2 = this.v2_original;
 		
-		this.mass1 = 10;
-		this.mass2 = 10;
+		this.mass1 = room_h/4;
+		this.mass2 = room_h/4;
 		
 		this.coef = 1.0;// Coeficient of restitution.
 		
@@ -91,6 +91,22 @@ visual_collisions.prototype =
 		
 		var slider;
 		
+		// Coeficient of Restitution Slider.
+		slider = new gui_Slider(room_w/2 - room_w*3/24, room_h*3/4 - 2*slider_h, room_w*6/24, slider_h, slider_h);
+		slider.setPer(1.0, 0);
+		slider.world = this;
+		slider.action = function(x, y)
+		{
+			var min = 0;
+			var max = 1.0;
+			this.world.coef = min + (max - min)*x;
+			this.message = "Coeficient of Restitution = " + Math.floor(this.world.coef*100)/100;
+			this.world.stop();
+		}
+		slider.message = "Coeficient of Restitution: 1.0";
+		this.world.push(slider);
+		
+		
 		// Position Sliders.
 		slider = new gui_Slider(room_w/24, room_h*3/4 - slider_h, room_w*10/24, slider_h, slider_h);
 		slider.setPer(0, 0);
@@ -102,6 +118,7 @@ visual_collisions.prototype =
 			this.world.p1_original = min + (max - min)*x;
 			this.world.stop();
 		}
+		slider.message = "Left Initial Position.";
 		this.world.push(slider);
 		
 		slider = new gui_Slider(13*room_w/24, room_h*3/4 - slider_h, room_w*10/24, slider_h, slider_h);
@@ -114,6 +131,7 @@ visual_collisions.prototype =
 			this.world.p2_original = min + (max - min)*x;
 			this.world.stop();
 		}
+		slider.message = "Right Initial Position.";
 		this.world.push(slider);
 		
 		// Velocity Sliders.
@@ -127,6 +145,7 @@ visual_collisions.prototype =
 			this.world.v1_original = min + (max - min)*x;
 			this.world.stop();
 		}
+		slider.message = "Left Initial Velocity";
 		this.world.push(slider);
 		
 		slider = new gui_Slider(13*room_w/24 + room_w*5/25, room_h*3/4 - slider_h*2, room_w*5/24, slider_h, slider_h);
@@ -139,6 +158,7 @@ visual_collisions.prototype =
 			this.world.v2_original = min + (max - min)*x;
 			this.world.stop();
 		}
+		slider.message = "Right Initial Velocity";
 		this.world.push(slider);
 		
 		// -- Mass Sliders.
@@ -190,6 +210,8 @@ visual_collisions.prototype =
 			return;
 		}
 		
+		// Integrate velocities over time.
+		// This leads to the positions being updated.
 		this.p1 += this.v1;
 		this.p2 += this.v2;
 
@@ -206,7 +228,18 @@ visual_collisions.prototype =
 			this.v1 = (this.coef*m2*(u2 - u1) + m1*u1 + m2*u2)/(m1 + m2);
 			this.v2 = (this.coef*m1*(u1 - u2) + m2*u2 + m1*u1)/(m2 + m1);
 		}
-		
+
+		// Bounce the left object off of the left wall.
+		if(this.p1 <= 0 && this.v1 < 0)
+		{
+			this.v1 *= -1;
+		}
+
+		// Bounce the right object off of the right wall.
+		if(this.p2 >= 1 && this.v2 > 0)
+		{
+			this.v2 *= -1;
+		}
 	},
 
 	// Draws the given OBJ to the screen.
@@ -216,8 +249,8 @@ visual_collisions.prototype =
 		
 		var box_w = room_w/30;
 		
-		var box_x1 = room_w/24 + box_w + (room_w*22/24 - box_w*2)*this.p1;
-		var box_x2 = room_w/24 + box_w + (room_w*22/24 - box_w*2)*this.p2;
+		var box_x1 = 20 + room_w/24 + box_w + (room_w*22/24 - box_w*2 - 40)*this.p1;
+		var box_x2 = 20 + room_w/24 + box_w + (room_w*22/24 - box_w*2 - 40)*this.p2;
 				
 		// Left box.
 		fill(255, 0, 0);
