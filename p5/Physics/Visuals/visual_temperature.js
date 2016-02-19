@@ -42,7 +42,8 @@ visual_temperature.prototype =
 	{
 		return  "The floating bars represent energy coming into and out of the system. " +
 				"If the incoming heat exceeds the outgoing heat, then the system as a whole will tend towards an infinite amount of temperature. " +
-				"Greater conductivity leads to decreased overall temperature, because heat flows more efficiently to the sink and thus there are less build ups in temperature.";				
+				"Greater conductivity leads to decreased overall temperature, because heat flows more efficiently to the sink and thus there are less build ups in temperature. " + 
+				"If the heat intake is no greater than the heat loss, then the system will eventually come to an equilibrium where the heat is constant everywhere and is equal to the heat coming into and out of the system.";
 	},
 	
 	// All visualizations can be restarted.

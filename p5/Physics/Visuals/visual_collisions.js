@@ -1,10 +1,9 @@
 /* 
  * Collisions Visualization.
- *
  * Written on 2/3/2016 by Bryce Summers
  * 
  */
- 
+
 // Constructor.
 function visual_collisions()
 {
@@ -19,19 +18,21 @@ visual_collisions.prototype =
 	
 	title_left()
 	{
-		return "left_title";
+		return "Red Object";
 	},
 	
 	// The Title that will be displayed on the screen for the right visualization.
 	title_right()
 	{
-		return "right_title";
+		return "Green Object";
 	},
 	
 	// The text that will accompany the left visualization as a description.
 	text_left()
 	{
-		return "text_left";
+		return "The two objects will perfectly invert their momentum when they hit a wall and will resolve collisions with each " +
+		"other in a way that conserves momentum and kinetic energy. " +
+		"Please try changing the masses. An object with more " +link("mass", "room_kilogram") + " will be more resistant to altering its velocity.";
 	},
 	
 	// The text that will accompany the right visualization as a description.

@@ -1,8 +1,18 @@
 // -- Photons. Used for simulating particles on a screen.
 // A lifespan <= 0 implies the particle will live forever.
-function Photon(x, y, dx, dy, lifespan)
+function Photon(x, y, dx, dy, lifespan, z, dz)
 {
-	this.p = createVector(x, y);
+	if(!z)
+	{
+		z = 0.0;
+	}
+	
+	if(!dz)
+	{
+		dz = 0.0;
+	}
+	
+	this.p = createVector(x, y, z);
 	this.v = createVector(dx, dy);
 	
 	this.v_scale = 1.0; // Scales the speed that this particle goes at.
@@ -15,6 +25,9 @@ function Photon(x, y, dx, dy, lifespan)
 	// An integer used to maintain a state of behavior for photons.
 	this.state  = 0;
 	this.radius = 5;
+	
+	
+	this.z_range = 1.0;
 }
 
 Photon.prototype =
@@ -75,7 +88,10 @@ Photon.prototype =
 	{
 		x += this.p.x;
 		y += this.p.y;
-		ellipse(x, y, this.radius, this.radius);
+		
+		var r = this.radius*(1 - this.p.z/this.z_range);
+		
+		ellipse(x, y, r, r);
 	},
 	
 	dead()
