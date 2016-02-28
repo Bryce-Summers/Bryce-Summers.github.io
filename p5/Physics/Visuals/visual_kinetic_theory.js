@@ -14,6 +14,8 @@ function visual_kinetic_theory()
 	
 	// Stores the collision signal circles.
 	this.signal = new ObjContainer();
+	
+	this.plots = new List();
 }
 
 visual_kinetic_theory.prototype =
@@ -37,7 +39,8 @@ visual_kinetic_theory.prototype =
 	{
 		return  "As volume decreases or temperature or amount increases, pressure increases. " +
 				"In this visualization, uniform mass particles start going in a uniformly random direction in 3D space. " +
-				"They then proceed to bounce between each other in perfectly elastic collsions.";
+				"They then proceed to bounce between each other in perfectly elastic collsions. " +
+				"Pressure is measured over discrete time intervals, with a larger time interval cooresponding to more stable measurements.";
 	},
 	
 	// The text that will accompany the right visualization as a description.
@@ -62,6 +65,7 @@ visual_kinetic_theory.prototype =
 		this.amount = 30; // amount of particles. (In pretend moles.)
 		this.kinetic_energy = 1.0; // Temperature. (As a function of kinetic energy.
 
+		this.time_step = 100;
 
 		// Experimentally Derived Variable. The current experiment going on is to determine pressure over a time interval.
 		this.pressure = 0.0;
@@ -73,7 +77,7 @@ visual_kinetic_theory.prototype =
 		
 		// 1.0 - 7.0;
 
-		this.collider_x = room_w*5 /24;
+		this.collider_x = room_h/4;//room_w*5/24;
 		this.collider_y = room_h/4;
 		
 		this.addCollider(this.collider_x, this.collider_y, this.amount);
@@ -81,10 +85,15 @@ visual_kinetic_theory.prototype =
 
 		var slider;
 		var slider_h = 20;
-		var slider_x = 13/24*room_w;
+		this.slider_h = slider_h;
+		var slider_x = 15/24*room_w;
+		this.slider_w = room_w*23/24 - slider_x;
+		
+		this.slider_y = room_h/2 + slider_h*4;
+		var slider_y = this.slider_y;
 		
 		// Control the Temperature.
-		slider = new gui_Slider(slider_x, room_h/2, room_w*10/24, slider_h, slider_h);
+		slider = new gui_Slider(slider_x, slider_y, this.slider_w, slider_h, slider_h);
 		slider.setPer(0, 0);
 		slider.world = this;
 		slider.action = function(x, y)
@@ -92,12 +101,14 @@ visual_kinetic_theory.prototype =
 			var min = 1.0;
 			var max = 10.0;
 			this.world.kinetic_energy = min + (max - min)*x;
+			
+			this.world.reset_time();
 		}
 		slider.message = "Kinetic Energy^2";
 		this.world.push(slider);
 		
 		// Control the amount of particles.
-		slider = new gui_Slider(slider_x, room_h/2 + slider_h, room_w*10/24, slider_h, slider_h);
+		slider = new gui_Slider(slider_x, slider_y + slider_h, this.slider_w, slider_h, slider_h);
 		slider.setPer(0, 0);
 		slider.world = this;
 		slider.action = function(x, y)
@@ -114,13 +125,15 @@ visual_kinetic_theory.prototype =
 			}
 			// Explicitly set the amount to the correct value 
 			// to kill off particles if the amount has decreased.
-			this.world.amount = new_amount;
+			this.world.amount = Math.ceil(new_amount);
+			
+			this.world.reset_time();
 		}
 		slider.message = "Amount";
 		this.world.push(slider);
 		
-		
-		slider = new gui_Slider(slider_x, room_h/2 + slider_h*2, room_w*10/24, slider_h, slider_h);
+		// Volume slider.
+		slider = new gui_Slider(slider_x, slider_y + slider_h*2, this.slider_w, slider_h, slider_h);
 		slider.setPer(0, 0);
 		slider.world = this;
 		slider.action = function(x, y)
@@ -128,10 +141,41 @@ visual_kinetic_theory.prototype =
 			var min = room_h/8;
 			var max = room_h/4;
 			this.world.radius = min + (max - min)*x;
+			
+			this.world.reset_time();
 		}
 		slider.message = "Volume";
 		this.world.push(slider);
+
+		// Time Step slider.
+		slider = new gui_Slider(slider_x, slider_y + slider_h*3, this.slider_w, slider_h, slider_h);
+		slider.setPer(0, 0);
+		slider.world = this;
+		slider.action = function(x, y)
+		{
+			var min = 20;
+			var max = 240;
+			this.world.time_step = Math.ceil(min + (max - min)*x);
+			this.world.reset_time();
+		}
+		slider.message = "Time Step";
+		this.world.push(slider);
 		
+		
+		var button = new gui_Button(room_w*18/24, room_h*3/4 - slider_h*2, room_w*2/24, slider_h*2);
+		this.world.push(button);
+		button.message = "Clear Plot";
+		button.world = this;
+		button.action = function(){
+			this.world.plots.make_empty();
+		}
+		
+	},
+	
+	reset_time()
+	{
+		this.time = 1;
+		this.pressure = 0;
 	},
 
 	addCollider(collider_x, collider_y, amount)
@@ -249,14 +293,20 @@ visual_kinetic_theory.prototype =
 	// Update's this OBJ's internal states.
 	update()
 	{
-		if(this.time % 100 === 0)
+		if(this.time % this.time_step === 0)
 		{
-			this.pressure_histogram.enq(this.pressure);
-			if(this.pressure_histogram.size > this.max_histogram_size)
+			var val = this.pressure*100/this.time_step;
+			this.pressure_histogram.enq(val);
+			var obj = new Object();
+			obj.x = this.kinetic_energy;
+			obj.y = val;
+			console.log(obj.x);
+			this.plots.enq(obj);
+			if(this.pressure_histogram.size >= this.max_histogram_size)
 			{
 				this.pressure_histogram.deq();
 			}
-
+			
 			this.pressure = 0.0;
 		}
 		
@@ -271,26 +321,50 @@ visual_kinetic_theory.prototype =
 	draw(x, y, w, h)
 	{
 		// Draw the photon particles.
+		this.sort_z(this.particles.objs);
 		this.world.draw(x, y);
 		
 		// Draw the photon particles.
 		this.signal.draw(x, y);
 		noFill();
-		ellipse(room_w*6 /24, room_h/2, this.radius*2, this.radius*2);
+		ellipse(this.collider_x + room_w/24, room_h/4 + this.collider_y, this.radius*2, this.radius*2);
 
 		var iter = this.pressure_histogram.iterator();
 		var c = 0;
-		var hist_w = room_w*10/24/this.max_histogram_size;
+		var hist_w = this.slider_w/this.max_histogram_size;
 		while(iter.hasNext())
 		{
 			var pressure_val = iter.next();
 			var h = pressure_val*room_h/2*.001; // Height of info bar.
 			rect(//room_w*13/24 + hist_w*c,
 				 room_w*23/24 - hist_w*(c+1),
-				 room_h/2 - h, hist_w,
+				 this.slider_y - h, hist_w,
 				 h);
 			c++;
 		}
+		
+		var pressure_val = this.pressure*100/this.time_step;		
+		var h = pressure_val*room_h/2*.001; // Height of info bar.
+			rect(//room_w*13/24 + hist_w*c,
+				 room_w*23/24 - hist_w*(c+1),
+				 this.slider_y - h, hist_w,
+				 h);
+		
+		
+		// -- Draw the plot.
+		var iter = this.plots.iterator();
+		while(iter.hasNext())
+		{
+			var val = iter.next();
+			rect(room_w*7/24 + val.x*room_w*7/24/10, room_h*3/4 - val.y*3/4*8/10 - this.slider_h*3, 10, 10);
+		}
+		
+		
+		stroke(0, 0, 0);
+		fill(0, 0, 0);
+		textSize(20);
+		text("y = pressure, x = Kinetic Energy", room_w*10/24, room_h*3/4 - this.slider_h);
+		
 	},
 	
 	// Returns true iff this OBJ should be deleted.
@@ -307,5 +381,46 @@ visual_kinetic_theory.prototype =
 	mouseReleased()
 	{
 		this.world.mouseReleased();
+	},
+	
+	// Insertion Sort for a list of particles with z location components.
+	sort_z(list)
+	{
+		var array = [];
+		
+		// Load the world's linked list into this array.
+		while(!list.isEmpty())
+		{
+			array.push(list.deq());
+		}
+		
+		var start = 0, end = array.length;
+		
+		// Insertion Sort the array.
+		for(var i = start + 1; i < end; i++)
+		{
+			var val = array[i];
+			var insert_index = i;
+			
+			while(insert_index > start && array[insert_index - 1].p.z < val.p.z)
+			{
+				this.swap(array, insert_index, insert_index - 1);
+				insert_index--;
+			}
+		}
+		
+		for(var i = 0; i < end; i++)
+		{
+			list.enq(array[i]);
+		}
+		
+		
+	},
+	
+	swap: function(array, index1, index2)
+	{
+		var temp = array[index1];
+		array[index1] = array[index2];
+		array[index2] = temp;
 	}
 }

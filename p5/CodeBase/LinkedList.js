@@ -87,7 +87,6 @@ List.prototype =
 			console.log(iter.next());
 		}
 	}
-
 }
 
 function ListNode(data, next)

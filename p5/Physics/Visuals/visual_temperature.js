@@ -80,11 +80,32 @@ visual_temperature.prototype =
 		this.thermal_gain = .1;// The amount of heat that gets added to the system at every frame.
 		this.source_index = 0;
 		this.sink_index   = this.len/2;
-		
-		
-		// -- Slider 1 : Initial temperature.
+
+		this.play = false;
+
 		var slider_h = 20;
 		var slider;
+		
+		var button = new gui_Button(room_w*11/24, room_h*3/4 - slider_h*4, room_w*2/24, slider_h*2);
+		this.world.push(button);
+		button.message = "Play";
+		button.world = this;
+		button.action = function(){
+			
+			this.world.play = !this.world.play;
+			if(this.world.play)
+			{
+				this.message = "Stop";
+			}
+			else // Stopped state.
+			{				
+				this.message = "Go";
+			}
+		}
+
+
+		// -- Slider 1 : Initial temperature.
+
 		slider = new gui_Slider(room_w/24, room_h/4 + room_h/8, slider_h, room_h/8, slider_h);
 		slider.setPer(1, 0);
 		slider.world = this;
@@ -95,7 +116,7 @@ visual_temperature.prototype =
 			this.world.thermal_gain = min + (max - min)*(1.0 - y);
 		}
 		this.world.push(slider);
-		
+
 		// -- Slider 2 : Temperature Source location.
 		slider = new gui_Slider(room_w/24 + slider_h, room_h*3/4 - slider_h, room_w*22/24 - slider_h, slider_h, slider_h);
 		slider.setPer(0, 0);
@@ -152,6 +173,12 @@ visual_temperature.prototype =
 	// Update's this OBJ's internal states.
 	update()
 	{
+		// Don't update the world if we are not currently playing.
+		if(!this.play)
+		{
+			return;
+		}
+		
 		this.world.update();
 		this.time++;
 		
