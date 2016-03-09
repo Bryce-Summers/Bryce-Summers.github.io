@@ -116,11 +116,17 @@ Standard Units
 		
 		this.newFormulaRoom(room_meters,
 			"Length",
-			"Length is a measurement of a dimension in space and is used to compare displacements and sizes in space. " +
-			"",
-			"",
-			"Length is specified in terms of multiples of a <b>meter</b>. A meter is a base " + link("SI unit", "room_si_units") + " defined to be the distance that light travels in a vaccum in $\\frac{1}{299,792,458}$ seconds.",
-			"");
+			"Length is a measurement of a dimension in space and is used to compare and specify distances, displacements, sizes in space. " +
+			"In Physics, distance is thought of as the total length of a given path between two points. Displacement is the length of the shortest path between two points. " +
+			"The notion of size cooresponds to the amout of space along an object in 1 dimension. Size can be generalized to the notion of volume, which is the amount of space that an object inhabits."
+			,
+			"The euclidean displacement between points $(x_{1}, y_{1}, z_{1}, \\cdots)$ and $(x_{2}, y_{2}, z_{2}, \\cdots)$ in n dimensions is $(x_{2}, y_{2}, z_{2}, \\cdots) - (x_{1}, y_{1}, z_{1}, \\cdots)$ <br>" +
+			"The magnitude of the euclidean displacement is $\\sqrt{(x_{1} - x_{2})^{2} + (y_{1} - y_{2})^{2} + (z_{1} - z_{2})^{2} + \\cdots}$ <br>" +
+			"The distance of a path specified as the function of " + link("time", "room_seconds") + " $f(t)$ on the time interval [a, b] is $\\int_{a}^{b}|f'(t)|dt$ <br>" +
+			"The average speed over the interval is the total distance travelled divided by the amount of time that has transpired, e.g. $\\frac{\\int_{a}^{b}|f'(t)|dt}{(b-a)}$"
+			,
+			"Length is specified in terms of multiples of a <b>meter</b>. A meter is a base " + link("SI unit", "room_si_units") + " defined to be the distance that light travels in a vaccum in $\\frac{1}{299,792,458}$ " + link("time", "room_seconds"),
+			new visual_length());
 			
 		this.newFormulaRoom(room_kilograms,
 			"Mass",
@@ -256,7 +262,7 @@ Standard Units
 
 		this.newFormulaRoom(room_ideal_gas_law,
 			"Ideal Gas Law",
-			"The Ideal gas law describes the behavior of a mathematically pure \"ideal gas\"."
+			"The Ideal gas law describes the behavior of a mathematically pure \"ideal gas\". It is said to be ideal, because it assumes that the pressure exerted by the gas particles is constant for any timestep, whereas the pressure may vary across small periods of time in real gases."
 			, 
 			"The Ideal gas law is: $PV = nRT$, where $P$ stands for pressure, " +
 			"$V$ stands for volume," +

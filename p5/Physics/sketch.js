@@ -17,7 +17,7 @@ var spec;
 
 function preload()
 {
-	/*
+  /*
   data_names = loadStrings('data/names.txt');
   data_goals = loadStrings('data/goals.txt');
   */
