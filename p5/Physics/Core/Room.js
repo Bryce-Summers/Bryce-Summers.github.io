@@ -120,7 +120,7 @@ Room.prototype =
 		// Normal callers push the history to the stack.
 		if(!dont_store_history)
 		{
-			var hash = encodeURIComponent(room.hash_string);
+			var hash = room.hash_string;
 			history.pushState(stateObj, "", "index.html#" + hash);
 		}
 

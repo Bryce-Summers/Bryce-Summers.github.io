@@ -349,8 +349,10 @@ Standard Units
 	newFormulaRoom: function(room, title_text, english_text, formula_text, units_text, visual)
 	{
 		// Associate this room with a unique hash string.
-		this.rooms[title_text] = room;
-		room.hash_string = title_text;
+		var hash = encodeURIComponent(title_text);
+		this.rooms[hash] = room;
+		// Note: We need to encode the title without whitespace, so this replaces spaces with '%20'
+		room.hash_string = hash;
 
 		/*
 		var title	 = new gui_Button(room_w/2 - this.button_hw, this.button_hh, this.button_w, this.button_h*2);
