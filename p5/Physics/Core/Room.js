@@ -117,12 +117,14 @@ Room.prototype =
 		
 		var stateObj = { room_index: room.index};
 		
+		// Normal callers push the history to the stack.
 		if(!dont_store_history)
 		{
-			history.pushState(stateObj, "", "index.html");
+			history.pushState(stateObj, "", "index.html#" + room.hash_string);
 		}
-		
-		// Replace the current state instead.
+
+		// Special callers replace the current state instead.
+		// This prevents things like infinite loops.
 		if(dont_store_history === true)
 		{
 			history.replaceState(stateObj, "", "index.html");

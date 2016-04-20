@@ -91,7 +91,10 @@ Photon.prototype =
 		
 		var r = this.radius*(1 - this.p.z/this.z_range);
 		
-		ellipse(x, y, r, r);
+		//ellipse(x, y, r, r);
+		image(sphere_image, x - r, y - r,
+				r*2,
+				r*2);
 	},
 	
 	dead()

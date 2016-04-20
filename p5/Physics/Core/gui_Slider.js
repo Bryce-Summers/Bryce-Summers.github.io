@@ -18,7 +18,8 @@ buttonClickedOn = null;
 buttonReleased = false;
  
  // Constructor.
-function gui_Slider(x, y, w, h, knob_size)
+ 
+function gui_Slider(x, y, w, h, knob_size, unbounded)
 { 
 	this.x = x;
 	this.y = y;
@@ -37,6 +38,13 @@ function gui_Slider(x, y, w, h, knob_size)
 	this.message = "";
 	
 	this.alive = true;
+	
+	// If the user wants, they can use this class as a pure draggable node on the screen.
+	this.unbounded = false;
+	if(unbounded)
+	{
+		this.unbounded = unbounded;
+	}
 }
 
 gui_Slider.prototype =
@@ -59,7 +67,14 @@ gui_Slider.prototype =
 			// Perform the scroll signal action on drag events.
 			if(this.action)
 			{
-				this.action(this.getXPer(), this.getYPer());
+				if(this.unbounded)
+				{
+					this.action(this.knob_x, this.knob_y);
+				}
+				else
+				{
+					this.action(this.getXPer(), this.getYPer());
+				}
 			}
 		}
 	},
@@ -113,9 +128,26 @@ gui_Slider.prototype =
 		if(this.mouseIn() || buttonClickedOn === this)
 		{
 			buttonClickedOn = this;
+			
 			this.knob_x = constrain(mouseX - this.knob_size/2, this.x, this.x2 - this.knob_size);
 			this.knob_y = constrain(mouseY - this.knob_size/2, this.y, this.y2 - this.knob_size);
+			
+			// Unbounded can go anywhere.
+			if(this.unbounded)
+			{
+				this.knob_x = mouseX;
+				this.knob_y = mouseY;
+				this.move(mouseX, mouseY);
+			}
 		}
+	},
+	
+	move(x, y)
+	{
+		this.x = x;
+		this.y = y;
+		this.x2 = x + this.w;
+		this.y2 = y + this.h;
 	},
 	
 	mouseReleased()
@@ -124,7 +156,11 @@ gui_Slider.prototype =
 		{
 			if(buttonClickedOn === this)
 			{
-				if(this.action)
+				if(this.unbounded)
+				{
+					this.action(this.knob_x, this.knob_y);
+				}
+				else
 				{
 					this.action(this.getXPer(), this.getYPer());
 				}

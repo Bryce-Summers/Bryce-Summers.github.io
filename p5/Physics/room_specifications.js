@@ -18,7 +18,9 @@ function room_specifications()
 	this.button_hh = this.button_h/2;
 	
 	this.text_height = 20;
-	
+
+	// spec.rooms is an associative array that converts from string names to room objects.
+	this.rooms = {};
 }
 
 room_specifications.prototype =
@@ -55,7 +57,7 @@ Standard Units
 		room_kelvin    = new Room();
 		room_mole      = new Room();
 		room_candela   = new Room();
-				
+
 		room_collisions = new Room();
 		room_ideal_gas_law = new Room();
 		
@@ -92,6 +94,8 @@ Standard Units
 			);
 		}		
 		
+		room_menu.hash_string = "home";
+		this.rooms["home"] = room_menu;
 		room.goto(room_menu, true);
 
 		//newFormulaRoom: function(room, title_text, english_text, formula_text, units_text, visual)
@@ -325,7 +329,8 @@ Standard Units
 			"Energy",
 			"Energy is the ability for an object to do work (W), where $$W = F \\cdot d$$",
 			"Energy is the ability for an object to do work (W), where $$Work = Force \\cdot displacement$$",
-			"Energy is Measured in Joueles[J], where $$[J] = \\left[\\frac{kg \\cdot m^{2}}{s^{2}}\\right]$$");
+			"Energy is Measured in Joueles[J], where $$[J] = \\left[\\frac{kg \\cdot m^{2}}{s^{2}}\\right]$$",
+			new visual_conservation_of_energy());
 
 		this.newFormulaRoom(room_visual_demo,
 			"Visual Demo",
@@ -333,13 +338,6 @@ Standard Units
 			"This is an english language based explanation!",
 			"This is an explanation with the types and units of quantities explicitly stated.",
 			new visual_fluid_incompressibility());
-
-		
-		
-			
-
-		
-			
 	},
 	
 	initiateTableOfContents: function(room_menu)
@@ -349,14 +347,17 @@ Standard Units
 	
 	// Inputs: Room, String, String, String, String.
 	newFormulaRoom: function(room, title_text, english_text, formula_text, units_text, visual)
-	{		
+	{
+		// Associate this room with a unique hash string.
+		this.rooms[title_text] = room;
+		room.hash_string = title_text;
+
 		/*
 		var title	 = new gui_Button(room_w/2 - this.button_hw, this.button_hh, this.button_w, this.button_h*2);
 		title.text_size = 40;
 		title.message = title_text;
 		room.addButtonOBJ(title);
 		*/
-		
 				
 		/*
 		var formula = new gui_Button(room_w/2 - this.button_hw, room_h/2 + this.button_hh, this.button_w, this.button_h);
@@ -566,6 +567,5 @@ Standard Units
 // Returns an html string creating a link that goes to another local page for this web application.
 function link(text, page)
 {
-	return "<a href=\"PleaseEnableJavascript.html\" onclick=\"room.goto(" + page + ");return false;\">" + text + "</a>";
 	return "<a href=\"PleaseEnableJavascript.html\" onclick=\"room.goto(" + page + ");return false;\">" + text + "</a>";
 }

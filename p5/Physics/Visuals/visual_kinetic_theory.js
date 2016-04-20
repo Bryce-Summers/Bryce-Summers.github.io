@@ -16,6 +16,7 @@ function visual_kinetic_theory()
 	this.signal = new ObjContainer();
 	
 	this.plots = new List();
+	
 }
 
 visual_kinetic_theory.prototype =
@@ -73,7 +74,7 @@ visual_kinetic_theory.prototype =
 		// A Record of the pressure over previous time periods.
 		this.pressure_histogram = new List();
 		this.max_histogram_size = 5;
-		
+		this.color_index = 0;	
 		
 		// 1.0 - 7.0;
 
@@ -305,6 +306,7 @@ visual_kinetic_theory.prototype =
 			if(this.pressure_histogram.size >= this.max_histogram_size)
 			{
 				this.pressure_histogram.deq();
+				this.color_index = (this.color_index + 1) % this.max_histogram_size;
 			}
 			
 			this.pressure = 0.0;
@@ -327,13 +329,21 @@ visual_kinetic_theory.prototype =
 		// Draw the photon particles.
 		this.signal.draw(x, y);
 		noFill();
+		// Draw the collider bounding sphere.
 		ellipse(this.collider_x + room_w/24, room_h/4 + this.collider_y, this.radius*2, this.radius*2);
-
+		
+		// Draw the histogram big bars.
+		var i = this.color_index;
 		var iter = this.pressure_histogram.iterator();
 		var c = 0;
 		var hist_w = this.slider_w/this.max_histogram_size;
 		while(iter.hasNext())
 		{
+			// Color calculation code.
+			i = (i + 1) % this.max_histogram_size;
+			var val = i*255/this.max_histogram_size;
+			fill(val, val, val);
+			
 			var pressure_val = iter.next();
 			var h = pressure_val*room_h/2*.001; // Height of info bar.
 			rect(//room_w*13/24 + hist_w*c,
@@ -342,6 +352,10 @@ visual_kinetic_theory.prototype =
 				 h);
 			c++;
 		}
+		
+		i = (i + 1) % this.max_histogram_size;
+		var val = i*255/this.max_histogram_size;
+		fill(val, val, val);
 		
 		var pressure_val = this.pressure*100/this.time_step;		
 		var h = pressure_val*room_h/2*.001; // Height of info bar.
@@ -352,6 +366,7 @@ visual_kinetic_theory.prototype =
 		
 		
 		// -- Draw the plot.
+		fill(200, 200, 200);
 		var iter = this.plots.iterator();
 		while(iter.hasNext())
 		{
@@ -359,11 +374,11 @@ visual_kinetic_theory.prototype =
 			rect(room_w*7/24 + val.x*room_w*7/24/10, room_h*3/4 - val.y*3/4*8/10 - this.slider_h*3, 10, 10);
 		}
 		
-		
 		stroke(0, 0, 0);
 		fill(0, 0, 0);
 		textSize(20);
 		text("y = pressure, x = Kinetic Energy", room_w*10/24, room_h*3/4 - this.slider_h);
+
 		
 	},
 	

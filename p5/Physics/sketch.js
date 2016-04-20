@@ -1,7 +1,7 @@
 /*
  * Physics Pedegogical Web App entry point.
  */
-
+ 
 // Current room.
 var room;
 var rooms = [];
@@ -22,12 +22,18 @@ function preload()
   data_goals = loadStrings('data/goals.txt');
   */
 
+  sphere_image = loadImage("sphere.png");
+  
 }
 
 function setup() {
   room_w = window.innerWidth - 1;	
   room_h = window.innerHeight - 1;
-    
+  
+  var page = window.location.hash.substring(1);
+  console.log("The Page's hash is: " + page);
+  
+  
   createCanvas(room_w*23/24 + 4, room_h*3/4 + 4);
  
   room = new Room(0);
@@ -47,15 +53,24 @@ function setup() {
   // Create all of the content rooms.
   spec = new room_specifications();
   spec.setup();
-  
+
+  // We could potentially optimize the drawing by disabling looping.
   //noLoop();
- 
+
+  // Goto a specific 'fake' room if the user supplied a hash in their url.
+  // Page is a string.
+  if(page)
+  {
+	// spec.rooms is an associative array that converts from string names to room objects.
+	room.goto(spec.rooms[page]);
+  }
+
 }
 
 // A bogus function that is here for the time being. It doesn't do anything.
 function noop()
 {
-	
+
 }
 
 function draw()
@@ -63,7 +78,7 @@ function draw()
 	// Clear the screen to white.
 	fill(255); // White.
 	rect(0, 0, room_w, room_h);
-	
+
 	// Update and handle the room's visual.
 	if(room.show_visual && room.visual)
 	{
