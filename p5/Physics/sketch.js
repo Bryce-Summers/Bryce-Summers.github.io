@@ -23,16 +23,24 @@ function preload()
   */
 
   sphere_image = loadImage("sphere.png");
-  
+
 }
 
 function setup() {
-  room_w = window.innerWidth - 1;	
+
+
+  room_w = window.innerWidth - 1;
   room_h = window.innerHeight - 1;
-  
+
+  view_x = 0;
+  view_y = 0;
+
+
+  // We route to specific 'fake' pages by parsing the URL's hash value:
+  // "/index.html#energy" --> "energy"
+  // The substring function removes the '#' symbol.
   var page = window.location.hash.substring(1);
   console.log("The Page's hash is: " + page);
-  
   
   createCanvas(room_w*23/24 + 4, room_h*3/4 + 4);
  

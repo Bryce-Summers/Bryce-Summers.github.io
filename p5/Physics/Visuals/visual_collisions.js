@@ -32,13 +32,14 @@ visual_collisions.prototype =
 	{
 		return "The two objects will perfectly invert their momentum when they hit a wall and will resolve collisions with each " +
 		"other in a way that conserves momentum and kinetic energy. " +
-		"Please try changing the masses. An object with more " +link("mass", "room_kilogram") + " will be more resistant to altering its velocity.";
+		"Please try changing the masses. An object with more " +link("mass", "room_kilogram") + " will be more resistant to altering its velocity. " +
+		"The objects collide with the left and right walls causing pressure equal to their entire momentum. "
 	},
 	
 	// The text that will accompany the right visualization as a description.
 	text_right()
 	{
-		return  "text_right";
+		return  "";//text_right";
 	},
 	
 	// All visualizations can be restarted.

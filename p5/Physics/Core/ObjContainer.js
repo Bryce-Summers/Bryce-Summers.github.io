@@ -12,6 +12,11 @@
 function ObjContainer()
 {
 	this.objs = new List();
+	
+	// These should be set externally by programmatic user.
+	this.enabled = true;
+	this.visible = true;
+	
 }
 
 ObjContainer.prototype =
@@ -35,6 +40,11 @@ ObjContainer.prototype =
 	// Update's this OBJ's internal states.
 	update()
 	{
+		if(!this.enabled)
+		{
+			return;
+		}
+		
 		var iter = this.objs.iterator();
 	
 		// Update all elements, remove dead ones.
@@ -52,6 +62,11 @@ ObjContainer.prototype =
 	// Draws the given OBJ to the screen.
 	draw(x, y)
 	{
+		if(!this.visible)
+		{
+			return;
+		}
+		
 		var iter = this.objs.iterator();
 	
 		// Update all elements, remove dead ones.

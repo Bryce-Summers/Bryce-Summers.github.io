@@ -427,6 +427,9 @@ Standard Units
 		// This function determines the initial state of the room when the user navigates to it.
 		room.start_function = function()
 		{
+			// -- Reset the global view variables.
+			view_x = 0;
+			view_y = 0;
 			spec.clearTabSpecificText();
 			spec.setText(text_center, english_text);
 			spec.setText(text_title, title_text);

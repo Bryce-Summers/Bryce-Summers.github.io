@@ -17,7 +17,7 @@
 buttonClickedOn = null;
 buttonReleased = false;
  
- // Constructor.
+// Constructor.
  
 function gui_Slider(x, y, w, h, knob_size, unbounded)
 { 
@@ -45,6 +45,8 @@ function gui_Slider(x, y, w, h, knob_size, unbounded)
 	{
 		this.unbounded = unbounded;
 	}
+	
+	this.view_dependant = false;
 }
 
 gui_Slider.prototype =
@@ -81,36 +83,61 @@ gui_Slider.prototype =
 	
 	draw()
 	{
-		fill(255);// White.
-		rect(this.x, this.y, this.w, this.h);
+		var x = this.x;
+		var y = this.y;
+		// Offset the drawing of this slider if it is view_dependant.
+		if(this.view_dependant)
+		{
+			x -= view_x;
+			y -= view_y;
+		}
+		
+		if(!this.unbounded)
+		{
+			fill(255);// White.
+			rect(x, y, this.w, this.h);
+		}
 	  
 		textSize(this.text_size);
 		fill(0);
 		textAlign(CENTER, CENTER);
-		text(this.message, this.x + this.w/2, this.y + this.h/2 + this.text_size/2 - 2);
-		
-		if(buttonClickedOn === this)
-		{
-			fill(0, 0, 0, 100);
+		text(this.message, x + this.w/2, y + this.h/2 + this.text_size/2 - 2);
+
+		if(!this.unbounded)
+		{		
+			if(buttonClickedOn === this)
+			{
+				fill(0, 0, 0, 100);
+			}
+			
+			// hover color.
+			else if(buttonClickedOn === null && this.mouseIn())
+			{
+				fill(20, 20, 20, 100);
+			}
+			else // Normal, resting.
+			{
+				fill(255, 255, 255, 100);
+			}
+
+			// Draw the overlay which darkens non selected boxes.
+			rect(x, y, this.w, this.h);
 		}
-		
-		// hover color.
-		else if(buttonClickedOn === null && this.mouseIn())
-		{
-			fill(20, 20, 20, 100);
-		}
-		else // Normal, resting.
-		{			
-			fill(255, 255, 255, 100);
-		}
-		
-		// Draw the overlay.
-		rect(this.x, this.y, this.w, this.h);
 
 		// Draw the movable knob.
-		fill(255);
+		fill(255);// White.
 		//rect(this.knob_x, this.knob_y, this.knob_size, this.knob_size);
-		ellipse(this.knob_x + this.knob_size/2, this.knob_y + this.knob_size/2, this.knob_size, this.knob_size);
+		
+		if(this.view_dependant)
+		{
+			ellipse(this.knob_x + this.knob_size/2 - view_x,
+					this.knob_y + this.knob_size/2 - view_y,
+					this.knob_size, this.knob_size);
+		}
+		else // screen coordinates = knob coordinates.
+		{
+			ellipse(this.knob_x + this.knob_size/2, this.knob_y + this.knob_size/2, this.knob_size, this.knob_size);
+		}
 	},
 	
 	draw2()
@@ -129,15 +156,29 @@ gui_Slider.prototype =
 		{
 			buttonClickedOn = this;
 			
-			this.knob_x = constrain(mouseX - this.knob_size/2, this.x, this.x2 - this.knob_size);
-			this.knob_y = constrain(mouseY - this.knob_size/2, this.y, this.y2 - this.knob_size);
+			var mx = mouseX;
+			var my = mouseY;
+			
+			// Translate incoming mouse coordinates 
+			// From screen space to slider world space.
+			if(this.view_dependant)
+			{
+				mx += view_x;
+				my += view_y;
+				
+				console.log(mx + ", " + my + " [" + this.x + ", " + this.y + "]");
+				
+			}
+			
+			this.knob_x = constrain(mx - this.knob_size/2, this.x, this.x2 - this.knob_size);
+			this.knob_y = constrain(my - this.knob_size/2, this.y, this.y2 - this.knob_size);
 			
 			// Unbounded can go anywhere.
 			if(this.unbounded)
 			{
-				this.knob_x = mouseX;
-				this.knob_y = mouseY;
-				this.move(mouseX, mouseY);
+				this.knob_x = mx;
+				this.knob_y = my;
+				this.move(mx, my);
 			}
 		}
 	},
@@ -165,7 +206,7 @@ gui_Slider.prototype =
 					this.action(this.getXPer(), this.getYPer());
 				}
 				buttonClickedOn = null;
-			}			
+			}
 		}
 				
 		buttonReleased = true;
@@ -193,9 +234,21 @@ gui_Slider.prototype =
 	mouseIn()
 	{
 
+		var mx = mouseX;
+		var my = mouseY;
+
+		// Translate from screen space to slider world space.
+		if(this.view_dependant)
+		{
+			mx += view_x;
+			my += view_y;
+
+			console.log(mx + ", " + my + " [" + this.x + ", " + this.y + "]");
+		}
+
 		var output = 
-			this.x <= mouseX && mouseX <= this.x2 &&
-			this.y <= mouseY && mouseY <= this.y2;
+			this.x <= mx && mx <= this.x2 &&
+			this.y <= my && my <= this.y2;
 
 		return output;
 

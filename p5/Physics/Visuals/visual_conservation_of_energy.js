@@ -1,4 +1,4 @@
-/* 
+/*
  * A visualization of the conservation of Energy.
  * Written on 2/3/2016 by Bryce Summers
  * New version written on 3/21/2016.
@@ -14,7 +14,16 @@
 function visual_conservation_of_energy()
 {
 	// Worlds are pretty much always useful.
-	this.world = new ObjContainer();
+	this.world         = new ObjContainer();
+	
+	/* We will separate the normal UI from the path generating UI so
+	 * that we can choose not to draw the control knobs.
+	 * This will also allow us to transform the drawing of knobs
+	 * according to viewport transformations. */
+	this.control_knobs = new ObjContainer();
+	
+	// Push the control knobs as a sub container inside of the world.
+	this.world.push(this.control_knobs);
 }
 
 visual_conservation_of_energy.prototype =
@@ -24,7 +33,7 @@ visual_conservation_of_energy.prototype =
 	
 	title_left()
 	{
-		return "Measurement of Length";
+		return "Conservation of Energy";
 	},
 	
 	// The Title that will be displayed on the screen for the right visualization.
@@ -36,7 +45,7 @@ visual_conservation_of_energy.prototype =
 	// The text that will accompany the left visualization as a description.
 	text_left()
 	{
-		return "";
+		return "This is a visualization of a roller coaster which demonstrates the conservation of energy.";
 	},
 	
 	// The text that will accompany the right visualization as a description.
@@ -54,16 +63,21 @@ visual_conservation_of_energy.prototype =
 	 */
 
 	// All visualizations can be restarted.
+	// Note: In this energy roller coaster animation generatePath() is used to restart the simulation
+	// instead of restart directly, because we want to maintain the UI state,
+	// such as whether the control points are drawn and whether the camera is locked.
 	restart()
 	{
 		this.world.make_empty();
+		this.control_knobs.make_empty();
+		this.world.push(this.control_knobs);
 		this.time = 0;
 		
 		// -- Define local variables.
 		this.coaster_radius = 40;
 
 		this.min_x = room_w/24;
-		this.max_x = room_w*23/24;
+		this.max_x = room_w*3*23/24;
 		this.min_y = room_h/4;
 		this.max_y = room_h*3/4;
 
@@ -76,7 +90,17 @@ visual_conservation_of_energy.prototype =
 		this.control_pts = [];
 		this.initialize_control_points(this.control_pts);
 		
+		// This controls whether the camera follows the current location of the ball or not.
+		this.camera_lock = true;
+		// The leftmost x coordinate of x view frame of the camera.
+		// The view will scroll from left to right with the roller coaster ball.
+		view_x = 0;
+		
+		this.play = false;
+		
 		this.generatePath();
+		
+		
 		
 		//this.computeOffsetCurve(this.lines, this.offsets);
 
@@ -106,11 +130,17 @@ visual_conservation_of_energy.prototype =
 				
 		// Roller coaster dynamics.
 		this.total_energy = (room_h - this.coaster_position.y) + 30; // Unit mass, unit gravity.
+		this.start_energy = this.total_energy;
+
+		// Potential vs Kinetic Energy vs. Friction.
+		this.k_energy = 0;
+		this.p_energy = 0;
+		this.f_energy_loss = 0;// The amount of energy lost to friction in a time step.
 
 		this.angle = 0;
 
 		this.direction = 1;
-		this.friction = .001;
+		this.friction  = .001;
 	},
 	
 	// INPUT : An array of ctrl points.
@@ -139,9 +169,15 @@ visual_conservation_of_energy.prototype =
 	{
 		this.world.update();
 		
+		// Don't perform any kinetic updates if we are not currently playing.
+		if(!this.play)
+		{
+			return;
+		}
+		
+		
 		if(this.lines)
 		{
-					
 			this.potential_energy = (room_h - this.coaster_position.y); // Unit mass, unit gravity.
 			var k_energy = this.total_energy - this.potential_energy;
 
@@ -159,6 +195,8 @@ visual_conservation_of_energy.prototype =
 			
 			this.last_line_index = this.line_index;
 			this.last_line_percentage = this.line_percentage;
+			
+			this.kinetic_energy = k_energy;
 			
 			// NOTE: This fails for negative kinetic energy.
 			var vel = sqrt(k_energy);
@@ -187,10 +225,19 @@ visual_conservation_of_energy.prototype =
 	updatePosition(lines)
 	{
 		if(0 <= this.line_index && this.line_index < this.lines.length - 1)
-		{	
+		{
 			var p0 = lines[this.line_index];
 			var p1 = lines[this.line_index + 1];
 			this.coaster_position = this.lerp(p0, p1, this.line_percentage);
+			
+			if(this.camera_lock)
+			{
+				var new_view_x = this.coaster_position.x - room_w/2;
+				var old_factor = 9;
+				var new_factor = 1;
+				var total_factor = old_factor + new_factor;
+				view_x = (old_factor*view_x + new_factor*new_view_x)/total_factor;
+			}
 		}
 	},
 	
@@ -349,9 +396,9 @@ visual_conservation_of_energy.prototype =
 		*/
 
 		// Simply generate an array of control points.
-		var min = 10;
-		var max = room_w - 10;
-		var len = 10;
+		var min = this.min_x + 10;
+		var max = this.max_x - 10;
+		var len = 30;
 		for(var i = 0; i < len; i++)
 		{
 			var pt = new control_point(createVector(min + (max - min)*i/len, room_h/4 + (room_h/2 - min)*sin(i*1.0/(len - 1)*PI)),
@@ -478,6 +525,7 @@ visual_conservation_of_energy.prototype =
 	{
 		this.drawCoasterBody();
 		this.drawDiscreteTrack();
+		this.drawEnergyBars();
 		
 		this.world.draw(x_in, y_in);
 	},
@@ -492,18 +540,17 @@ visual_conservation_of_energy.prototype =
 		noFill();
 		stroke(0, 0, 0);
 				
-		ellipse(pos.x, pos.y, radius, radius);
+		ellipse(pos.x - view_x, pos.y, radius, radius);
 		
 		// The radius of the ellipse.
 		var e_rad = radius / 2;
 		
-		arc(pos.x, pos.y, e_rad, e_rad, this.angle, this.angle + PI/8);
-		arc(pos.x, pos.y, e_rad, e_rad, this.angle + PI, this.angle + PI + PI/8);
+		arc(pos.x - view_x, pos.y, e_rad, e_rad, this.angle, this.angle + PI/8);
+		arc(pos.x - view_x, pos.y, e_rad, e_rad, this.angle + PI, this.angle + PI + PI/8);
 	},
-	
+
 	drawDiscreteTrack()
 	{
-		
 		fill(0, 0, 0);
 
 		noFill();
@@ -512,9 +559,32 @@ visual_conservation_of_energy.prototype =
 		for(var i = 0; i < points.length; i++)
 		{
 			var point = points[i];
-			vertex(point.x, point.y);
+			vertex(point.x - view_x, point.y);
 		}
 		endShape();
+	},
+	
+	// Draws some horzintal bars that show the relationship between total energy, kinetic energy, and potential energy.
+	drawEnergyBars()
+	{		
+		// The total width of the bottom bar is porportional to the total energy,
+		// weighted to be of full width with the intitial energy.
+		var visible_room_w = room_w*22/24;
+		var w  = visible_room_w*this.total_energy / this.start_energy;
+		var h  = this.knob_size*2;
+		var x0 = room_w/2 - w/2;
+		var y  = this.ui_y - h;
+
+		var potential_energy_w = this.kinetic_energy / this.total_energy * w;
+		var kinetic_energy_w = this.potential_energy / this.total_energy * w;
+
+		// Draw the potential energy bar.
+		fill(255, 163, 166); // Red.
+		rect(x0, y, potential_energy_w, h);
+		
+		// Draw the kinetic energy bar.
+		fill(163, 228, 255); // Blue.
+		rect(x0 + potential_energy_w, y, kinetic_energy_w, h);
 	},
 
 	drawArrow(x1, y1, x2, y2, size)
@@ -557,16 +627,17 @@ visual_conservation_of_energy.prototype =
 	{
 
 		// Make a slide for every control point in this.control_pts;
+		// These sliders will be unbounded, which will effectively make them draggable knobs.
 		var len = this.control_pts.length;
 
 		for(var i = 0; i < len; i++)
 		{
 			// Get the Current Control point.
 			var pt = this.control_pts[i];
-			
+
 			var knob_size = 10;
-			
-			// The position slider.
+
+			// This creates each position slider.
 			var pos = new gui_Slider(pt.pos.x, pt.pos.y, knob_size, knob_size, knob_size, true);// Note: the true at the end makes it unbounded.
 			pos.setPer(1.0, 0);
 			pos.world_pt = pt;// Give the slider a reference to this point.
@@ -577,16 +648,23 @@ visual_conservation_of_energy.prototype =
 				this.world_pt.pos.y = y;
 				this.world.generatePath();
 			}
-			//pos.message = "Coeficient of Restitution: 1.0";
-			this.world.push(pos);
+			//pos.message = "message";
+			pos.view_dependant = true; // Allow UI_knobs to float with the view.
+			this.control_knobs.push(pos);			
 		}
 
+		var  ui_y = room_h*3/4 - knob_size*2;
+		this.ui_y = ui_y;
+		var  ui_x = room_w/24;
+
 		var knob_size = 20;
+		var ui_w = 150;
+		this.knob_size = knob_size;
 		
-		// The position slider.
-		var slider = new gui_Slider(100, room_h/4, 100, knob_size, knob_size);// Note: the true at the end makes it unbounded.
+		// The Friction Slider.
+		var slider = new gui_Slider(ui_x, ui_y, ui_w, knob_size, knob_size);// Note: the true at the end makes it unbounded.
 		slider.setPer(0.0, 0);
-		slider.world = this;
+		slider.world  = this;
 		slider.action = function(x, y)
 		{
 			var min = .001;
@@ -595,16 +673,99 @@ visual_conservation_of_energy.prototype =
 		}
 		slider.message = "Friction";
 		this.world.push(slider);
+		ui_x += ui_w;
+		
 
-		var button = new gui_Button(200, room_h/4, 100, knob_size);
+		// The reset button.
+		var button = new gui_Button(ui_x, ui_y, ui_w, knob_size);
 		this.world.push(button);
 		button.message = "Reset";
 		button.world = this;
-		button.action = function(){
-			
+		button.action = function()
+		{
 			this.world.generatePath();
 		}
-	
+		ui_x += ui_w;
+		
+		// -- The Camera view slider.
+		var slider = new gui_Slider(ui_x, ui_y, room_w*3/4 - ui_x, knob_size, knob_size);
+		slider.setPer(0.0, 0);
+		slider.world = this;
+		slider.action = function(x, y)
+		{
+			// x and y are between 0 and 1.
+			var min = this.world.min_x;
+			var max = this.world.max_x - room_w;
+			
+			// Driectly modify global view_x.
+			view_x = min + x*(max - min);
+		}
+		slider.message = "Horizontal View Control";
+		this.world.push(slider);
+		ui_x = room_w*3/4;
+
+		
+		// The Camera Locking toggle button.
+		var button = new gui_Button(ui_x, ui_y, ui_w, knob_size);
+		this.world.push(button);
+		button.message = "unlock camera";
+		button.world = this;
+		button.action = function()
+		{
+			this.world.camera_lock = !this.world.camera_lock;
+			
+			if(this.world.camera_lock)
+			{
+				this.message = "unlock camera";
+			}
+			else
+			{
+				this.message = "lock camera";
+			}
+		}
+		ui_x += ui_w;
+
+		// The Camera Locking toggle button.
+		var button = new gui_Button(ui_x, ui_y, ui_w, knob_size);
+		this.world.push(button);
+		button.message = "Hide Points";
+		button.world = this.control_knobs;
+		button.action = function()
+		{
+			this.world.visible = !this.world.visible;
+
+			if(this.world.visible)
+			{
+				this.message = "Hide Points";
+			}
+			else
+			{
+				this.message = "Show Points";
+			}
+		}
+		ui_x += ui_w;
+
+		
+		
+		button = new gui_Button(ui_x, ui_y, 100, knob_size);
+		this.world.push(button);
+		button.message = "Play";
+		button.world = this;
+		button.action = function(){
+			
+			this.world.play = !this.world.play;
+			if(this.world.play)
+			{
+				this.message = "Stop";
+			}
+			else // Stopped state.
+			{				
+				this.message = "Go";
+				this.world.stop();
+			}
+				
+		}
+		
 	}
 	
 }

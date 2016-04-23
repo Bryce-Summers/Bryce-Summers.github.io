@@ -9,12 +9,11 @@
 function visual_kinetic_theory()
 {
 	// Stores the bouncing photons.
-	this.world   = new ObjContainer();
+	this.world     = new ObjContainer();
 	this.particles = new ObjContainer();
 	
 	// Stores the collision signal circles.
 	this.signal = new ObjContainer();
-	
 	this.plots = new List();
 	
 }
@@ -26,7 +25,7 @@ visual_kinetic_theory.prototype =
 	
 	title_left()
 	{
-		return "Kinetic Theory Experiment";
+		return "3D Sphere Kinetic Theory Experiment";
 	},
 	
 	// The Title that will be displayed on the screen for the right visualization.
@@ -93,6 +92,8 @@ visual_kinetic_theory.prototype =
 		this.slider_y = room_h/2 + slider_h*4;
 		var slider_y = this.slider_y;
 		
+		this.max_kinetic_energy = 10;
+		
 		// Control the Temperature.
 		slider = new gui_Slider(slider_x, slider_y, this.slider_w, slider_h, slider_h);
 		slider.setPer(0, 0);
@@ -100,7 +101,7 @@ visual_kinetic_theory.prototype =
 		slider.action = function(x, y)
 		{
 			var min = 1.0;
-			var max = 10.0;
+			var max = this.world.max_kinetic_energy;
 			this.world.kinetic_energy = min + (max - min)*x;
 			
 			this.world.reset_time();
@@ -162,13 +163,35 @@ visual_kinetic_theory.prototype =
 		slider.message = "Time Step";
 		this.world.push(slider);
 		
-		
-		var button = new gui_Button(room_w*18/24, room_h*3/4 - slider_h*2, room_w*2/24, slider_h*2);
+		// 18/24 would center the button on the histogram, but we have moved it
+		// over with the addition of the play button.
+		var button = new gui_Button(room_w*17/24, room_h*3/4 - slider_h*2, room_w*2/24, slider_h*2);
 		this.world.push(button);
 		button.message = "Clear Plot";
 		button.world = this;
 		button.action = function(){
 			this.world.plots.make_empty();
+		}
+
+		this.play = false;
+		
+		// -- Play Button.
+		var button = new gui_Button(room_w*19/24, room_h*3/4 - slider_h*2, room_w*2/24, slider_h*2);
+		this.world.push(button);
+		button.message = "Play";
+		button.world = this;
+		button.action = function(){
+			
+			this.world.play = !this.world.play;
+			if(this.world.play)
+			{
+				this.message = "Stop";
+			}
+			else // Stopped state.
+			{				
+				this.message = "Go";
+			}
+				
 		}
 		
 	},
@@ -294,6 +317,17 @@ visual_kinetic_theory.prototype =
 	// Update's this OBJ's internal states.
 	update()
 	{
+		
+		// Don't do anything if the simulation is not currently playing.
+		this.particles.enabled = this.play;
+		if(!this.play)
+		{
+			// We still need to update the UI, so we update the world,
+			// but with the particle system disabled.
+			this.world.update();
+			return;
+		}
+		
 		if(this.time % this.time_step === 0)
 		{
 			var val = this.pressure*100/this.time_step;
@@ -364,22 +398,63 @@ visual_kinetic_theory.prototype =
 				 this.slider_y - h, hist_w,
 				 h);
 		
-		
+		// Draw the plot of recorded measurements.
+		this.drawPlot();
+	},
+	
+	drawPlot()
+	{
 		// -- Draw the plot.
 		fill(200, 200, 200);
+		
+		var min_x = room_w*7/24;
+		var min_y = room_h/4;
+		var max_y = room_h*3/4 - this.slider_h*2;
+		
+		var max_x = room_w*15/24;
+		var range_x = max_x - min_x;
+		var range_y = 1/2;
+		
+		var step = 10;
+		
+		// Here x acts as an offset in both the x and y directions.
+		for(var x = 0; x < range_x; x += step)
+		{
+			if(x % (step*4) === 0)
+			{
+				strokeWeight(2);				
+			}
+			else if(x % (step*2) === 0)
+			{
+				strokeWeight(1);
+			}
+			else
+			{
+				strokeWeight(.5);
+			}
+			
+			// Vertical Line.
+			line(min_x + x, min_y, min_x + x, max_y);
+
+			
+			// Horizontal Line.
+			if(min_y + x < max_y)
+			line(min_x, min_y + x, max_x, min_y + x);
+		}
+		
+		strokeWeight(1);
+		
 		var iter = this.plots.iterator();
 		while(iter.hasNext())
 		{
 			var val = iter.next();
-			rect(room_w*7/24 + val.x*room_w*7/24/10, room_h*3/4 - val.y*3/4*8/10 - this.slider_h*3, 10, 10);
+			rect(min_x + (val.x - .5)*range_x/this.max_kinetic_energy, max_y - val.y*range_y - this.slider_h*3, 30, 30);
 		}
 		
 		stroke(0, 0, 0);
 		fill(0, 0, 0);
 		textSize(20);
 		text("y = pressure, x = Kinetic Energy", room_w*10/24, room_h*3/4 - this.slider_h);
-
-		
 	},
 	
 	// Returns true iff this OBJ should be deleted.
