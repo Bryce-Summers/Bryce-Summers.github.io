@@ -4,7 +4,7 @@
 html
 {
 
-	background: url(./background.jpg) no-repeat center center fixed;
+	background: url(./Images/background.jpg) no-repeat center center fixed;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -128,6 +128,7 @@ ol li {
 #images{
     text-align:center;
     margin:50px auto; 
+    background-color:rgba(255,255,255,0.7);
 }
 #images a{
     margin:10px 20px;
@@ -136,4 +137,5 @@ ol li {
     color:black;
     
     font-size: 200%;
+    background-color:rgba(255,255,255,0.7);
  }
