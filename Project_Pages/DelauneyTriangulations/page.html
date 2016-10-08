@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Links the style sheet to this webpage -->
+<link rel="stylesheet" type="text/css" href="../../style.css">
+</head>
+
+<body>
+
+<h3><a href="../../index.html">Bryce </a></h3>
+
+<h2>Easy Delauney Triangulations</h2>
+
+<h3>Introduction</h3>
+<div class='description'>
+This page describes an algorithm and implementation for computing Delauney Triangulations
+that I designed and implemented during January of 2016.
+</div>
+
+
+<h3>Naive Triangulation</h3>
+
+<div class='text_no_indent'>
+A <i>triangulation</i> <b>T(P)</b> is a mapping from a set of points <b>P</b> to a set of triangles <b>T</b> such that:
+<ol>
+<li> <b>T</b> only contains vertices at points in <b>P</b>
+<li> <b>T</b> fills the convex hull of <b>P</b>
+<li> <b>T</b> does not contain overlapping triangles.
+
+</ol>
+
+FIXME: Add more illustrative Pictures.
+<br>
+A <i>halfedge mesh</i> is a data structure for efficiently storing the connectivity information defined for a manifold polyhedral mesh with possible boundaries.
+<i>Manifold</i> just means that every neighborhood for ever vertex looks roughly like a circle which prevents certain degeneracies such as edges contained in more than 2 possible faces.
+
+<div id="images">
+<img src="HalfedgeMeshFigure.png" alt="Half Edge Mesh Diagram" height="300px">
+<div class="caption">Half Edge Mesh Connectivity</div>
+</div>
+
+A <i> sweep line </i> refers to a common class of computational geometry algorithms that sort the data in space and then gradualy solve the problem from in spacial order.
+For instance, in the computation of triangulations we will compute the triangulation for the leftmost 3 points and then compute the triangulation for the leftmost <b>4, 5, 6, etc</b> points, therebye solving the problem successively in left to right spatial order.
+<br><br>
+
+A point is said to be an <i>exterior point</i> with regards to <b>T</b>
+if and only if it is not contained within any triangles in <b>T</b>.
+<br><br>
+A exterior point <b>e</b> is said to be <i>visible</i> with regards to a vertex <b>v</b> within <b>T</b>
+if and only if the ray from <b>e</b> through <b>v</b> does not intersect any triangles in <b>T</b>
+<br><br>
+<pre>addExteriorPointToTriangulation()</pre>
+Here is an algorithm for adding an exterior point <b>e</b> to a well formed half edge mesh.
+<ol>
+<li>Find a half edge on the border of the triangulation originating at a vertex <b>v</b>
+such that is visible from <b>e</b>.
+<li>Transverse the halfedge boundary from <b>v</b> to find the first and last points in the
+external face that are visible from <b>e</b>. Call them <b>p0</b> and <b>p1</b>
+<li>Add the fan of triangles formed by the the endpoints of the halfedges from <b>p0</b> and <b>p1</b> and the third point <b>e</b> to the half edge mesh.
+<li>Link up all of the half edge mesh connectivity information to restore the half edge mesh invariants.
+</ol>
+
+An implementation of this algorithm may be found 
+<a href="https://github.com/Bryce-Summers/JavaCode/blob/master/TriangleMeshProcessing/src/Project/HalfEdgeMesh/HalfEdgeMesh.java#L350">
+here</a>.
+
+<br>
+<pre>initTriangulation()</pre>
+Here is naive algorithm to compute <b>T(P)</b> based on my
+function found
+<a href="https://github.com/Bryce-Summers/JavaCode/blob/master/TriangleMeshProcessing/src/Project/HalfEdgeMesh/HalfEdgeMesh.java#L189">here</a>.
+It forms and uses a halfedge mesh structure in addition to the concept of a sweep line.
+
+<ol>
+<li> Sort <b>P</b> by y coordinate, then sort in place by x coordinate.
+<li> Instantiate a Half Edge mesh representation <b>H</b>.
+<li> Initialize <b>H</b> with the trivial triangulation for the first 2 points.
+<li> In order, add each point to the triangulation. Since they are sorted they are all exterior points relative to their respective states of <b>H</b>.
+     Therefore we can simply use the algorithm stated above.
+</ol>
+
+<br>
+We now have a naive triangulation that looks something like the following image for a rectangularly bounded set of randomly chosen points:
+
+</div>
+
+<center>
+<img src="Naive1.png" alt="Nice looking output image"  width="100%">
+</center>
+
+<h3> Delauney Triangulations</h3>
+
+<div class="text_no_indent">
+A triangulation <b>T(P)</b> is said to be delauney if for every triangle <b>s</b>,
+the circumcircle of <b>s</b> contains no points in <b>p</b> beyond those in <b>s</b>.
+<br><br>
+
+Thankfully we can narrow down delauneyness to a local property of edges.
+An edge is delauney if its exterior triangle angles sum up to less than 180 degrees.
+<br><br>
+A function may be written as follows to determine this for an edge in a half edge mesh:
+
+<pre>// Assumes that this is a triangle mesh.
+public boolean isDelauney(Edge edge)
+{
+	// Find the relevant 4 vertices.
+	HEdge he1 = edge.edge;
+	HEdge he2 = he1.twin;
+		
+	// Inner vertices on the edge.
+	Vertex i1 = he1.vertex;
+	Vertex i2 = he2.vertex;
+		
+	// outer vertices.
+	Vertex o1 = he1.prev.vertex;
+	Vertex o2 = he2.prev.vertex;
+		
+	// We don't really care about the orientation, because the problem is symmetrical.
+				
+	// An edge is delauney if its exterior triangle angles sum up to less than 180 degrees.
+	return GeometricQueries.angle(i1, o1, i2) +
+	       GeometricQueries.angle(i1, o2, i2)  <= Math.PI; 
+}
+</pre>
+
+Please note that the definition for GeometricQueries.angle may be found
+<a href="https://github.com/Bryce-Summers/JavaCode/blob/master/TriangleMeshProcessing/src/Project/Operations/GeometricQueries.java">
+here</a>.
+<br><br>
+
+If an edge is shared by two triangles, then it may be <i>flipped</i> by connecting it to the two end points of the two triangles that it was not previously connected to as shown in the following figure:
+
+<div id="images">
+<img src="FlipSquare.png" alt="Edge Flipping" height="300px">
+<div class="caption">Triangle Mesh edge flipping</div>
+</div>
+
+We can then convert any triangulation, including our naive triangulation into a delauney triangulation
+by randomly flipping any edges which are not currently delauney. Eventually after a random number of flips (around N log N in expectation), all 
+edges will be delauny and therefore the entire triangulation will be delauney.
+An implementation of this algorithm may be found
+<a href="https://github.com/Bryce-Summers/JavaCode/blob/master/TriangleMeshProcessing/src/Project/HalfEdgeMesh/HalfEdgeMesh.java#L461">
+here.</a>
+
+We now have a delauny triangulation which will look something like the following for another set of random points.
+
+</div>
+
+<center>
+<img src="Delauney1.png" alt="Nice looking delauney triangulation"  width="100%">
+</center>
+
+<h3>Convex Hull</h3>
+<div class='text_no_indent'>
+The <i>convex hull</i> <b>C(P)</b> of a set of points includes the region formed by the union of all possible triangles that may be constructed from the set of points.
+In other words, if you were to stretch a rubber band around the set of points, the convex hull would be defined by the points the rubber band sticks to when it tightens.
+
+If you are in the mood, you can easily retrieve the convex hull of the triangulation
+by starting at an exterior half edge or a triangulation and walking around the exterior face.
+Convex hulls are held in high esteem within the field of computational geometry.
+</div>
+
+<h3><a href="../../index.html" >Bryce</a></h3>
+
+</body>
+</html>

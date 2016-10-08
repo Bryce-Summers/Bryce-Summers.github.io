@@ -1,7 +1,7 @@
 /* 
  * Button Class.
  * Written on 7/22/2015 by Bryce Summers
- *
+ * Works with P5JS.
  * Genaric Text buttons.
  */
 

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Links the style sheet to this webpage -->
+<link rel="stylesheet" type="text/css" href="../../style.css">
+</head>
+
+<body>
+
+<h3><a href="/index.html" >Bryce</a></h3>
+<h2>Ticket Roll Line Renderings</h2>
+
+<div class='description'>
+
+During the Spring of 2016 I was running the Carnegie Mellon movie theatre on weekends,
+where we sold tickets from tightly packed rolls. I was also hanging out at the STUDIO for 
+creative Inquiry where saw the amazing
+<a href="http://ben-snell.com/">Ben Snell</a> make some 
+<a href="http://ben-snell.com/Robot-Drawings">drawings</a>
+with a robot arm that reminded me of the patterns that I was observing in the ticket rolls. So,
+I decided to go and make some simple 2D computer generated line drawings representing my own
+take on the phenomena. I dedicate them to my friend Ben. Please take note of the aliasing patterns 
+and the distictions between line size, line curvature, etc.
+<br><br>
+
+You can find the processing source code
+<a href="https://github.com/Bryce-Summers/ProjectIgnite/tree/master/Projects/tickets_rendering">
+here</a>.
+
+</div>
+
+<h3> Renderings </h3>
+
+
+
+<script>
+
+
+// add all of the renderings as image elements to the page.
+for (var i = 0; i < 22; i++)
+{
+document.body.innerHTML = document.body.innerHTML +
+"<img src=\"o" + i + ".png\" alt=\"ticket roll rendering image\"  width=\"50%\">";
+}
+
+
+</script>
+
+<h3><a href="/index.html" >Bryce</a></h3>
+
+</body>
+</html>
