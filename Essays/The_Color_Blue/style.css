@@ -1,0 +1,190 @@
+/*
+ * This sets the background image and makes sure that it centers itself.
+ */
+html 
+{ 
+
+	/*background: url(./Logo.png) no-repeat center center fixed; */
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;    
+
+	/* Default text is Roboto for large paragraphs mostly. */
+	/* Poiret One is used instead for titles. */
+	font-family: 'Roboto', sans-serif;
+}
+
+body
+{
+
+    background-color: #8AB5F9;
+
+}
+
+h1, h2, h3
+{
+    background-color:rgba(7, 103, 247, 0.7);
+}
+
+h1
+{
+	font-size: 800%;
+	color: #53f6f6;
+	text-align: center;
+	opacity: 1.0;
+	
+	font-family: 'Poiret One', cursive;
+}
+
+/*
+ * This enables hyperlinked text within a heading to inherit the font color properties.
+ */
+
+h1 > a
+{
+	color: inherit;
+}
+
+h2
+{
+    background-color:rgba(50, 103, 200, 0.7);
+	font-size: 400%;
+	color: #53f6f6;
+	text-align: center;
+	opacity: 1.0;
+	font-family: 'Poiret One', cursive;
+}
+
+h2 > a
+{
+	color: inherit;
+} 
+
+h3
+{
+    background-color:rgba(50, 120, 255, 0.7);
+	font-size: 250%;
+	color: #53f6f6;
+	text-align: center;
+	opacity: 1.0;
+	font-family: 'Poiret One', cursive;
+}
+
+h3 > a
+{
+	color: inherit;
+} 
+
+.project
+{
+	font-size: 200%;
+
+	text-indent: 5em;
+	vertical-align:top; /*Change to middle*/
+	line-height: 128px;
+	/*height: 128px;*/
+	
+	background-color:rgba(255,255,255,0.7);
+}
+
+.project > a 
+{
+  /*float: left; Remove this*/
+  /*display:table-cell;*/    /*Add this*/
+  vertical-align:top; /*Change to middle*/
+}
+
+.description
+{
+	font-size: 150%;
+	background-color:rgba(255,255,255,0.7);
+	text-indent: 5em;
+	vertical-align: middle;
+	line-height: 200%;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+/* A list of header links to powerpoints, but with extra lines of text after each one that describe a list of the pedegogical concepts covered.*/
+.lesson_list
+{
+	font-size: 200%;
+	vertical-align: middle;
+	line-height: 200%;
+}
+
+
+.centeredImage
+{
+	text-align:center;
+	display:block;
+}
+
+ul li {
+    /*padding-left: 15px;*/
+	list-style-position:inside;
+	font-size: 100%;
+	line-height: 200%;
+}
+
+ol li {
+    /*padding-left: 15px;*/
+	list-style-position:inside;
+	font-size: 100%;
+}
+
+table th
+{
+	background-color:rgba(255,50,50,0.7);
+	color: #53f6f6;
+	width:33%;
+	font-size: 200%;
+	font-family: 'Poiret One', cursive;
+}
+
+table
+{
+	background-color:rgba(255,255,255,0.7);
+}
+
+table td
+{
+    font-size: 200%;
+}
+
+tr:nth-child(even)
+{
+	background-color:rgba(255,255,255,0.7);
+}
+
+tr:nth-child(odd)
+{
+    background-color:rgba(235,235,235,0.7);
+}
+
+/* Second column */
+table td + td{  /* this will go to the 2nd column of a table directly */
+
+    font-size: 100%;
+
+}
+
+img, #images{
+    text-align:center;
+    margin:50px auto; 
+    background-color:rgba(255,255,255,0.7);
+}
+#images a{
+    margin:10px 20px;
+    display:inline-block;
+    text-decoration:none;
+    color:black;
+    
+    font-size: 200%;
+    background-color:rgba(255,255,255,0.7);
+}
+	

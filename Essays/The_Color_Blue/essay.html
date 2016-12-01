@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Use the Project Ignite Style Sheet -->
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="style.css"
+</head>
+
+<body>
+
+<h1><a href="www.brycesummers.com" >The Color Blue</a></h1>
+
+<h3>Introduction</h3>
+
+<div class='description'>
+This is a visual essay about isolating ideas from each other.
+It discusses the communication of seemingly obvious abstract concepts,
+geometry, and how we can use these ideas in teaching and the journey torwards awareness.
+</div>
+
+<h3>What is a trivial idea?</h3>
+
+<div class='description'>
+Have you ever thought that there are some abstract ideas are so "simple" or "obvious" that
+you could indicate their essential character through referential actions such as pointing them out in the real world?
+The ideas that come to my mind are things like colors and numbers. So long have I been aware of their existence and used them in my day to day life that it is sometimes hard to imagine not knowing about them.
+Although they may be comfortable, with colors perhaps being more appealing than numbers to some thinkers,
+I wonder how they can be communicated to people who truly do not yet know them.
+We start by considering a color education narrative.
+</div>
+
+<h3>Hypothetical Story Time</h3>
+
+<div class='description'>
+Lets say their was a woman named Jill who had a son named Rick.
+Rick had been living empirically within reality, but had not yet discerned that the electromagnetic radiation waves
+visible in our environment affected our photoreceptors in an organized manner, irrespective of their use in helping us
+to differentiate between objects.
+</div>
+
+<div class='description'>
+Now, being a good person Jill tries to explain what a color is empirically by pointing out the concept in her local environment.
+She starts by pointing to a blue wall in her home.
+</div>
+
+<div id="images">
+<img src="images/blue_wall_1.jpg" alt="Blue wall with light switch and intercom." width="50%">
+<div class="caption">Blue wall found in the wild.</div>
+</div>
+
+<div class='description'>
+When she points to that wall as an example of <i>blue</i>,
+here are some Rick's possible misinterpretations:
+
+<ul>
+<li>Blue means wall.</li>
+<li>Blue means light switch.</li>
+<li>Blue means white.</li>
+<li>Blue means intercom.</li>
+<li>Blue means 2</li>
+<li>Blue means illuminated surface.</li>
+<li>Blue means this a particular shade of dark blue.</li>
+<li>Blue means rectangle.</li>
+<li>Blue means diagonal spacing.</li>
+</ul>
+
+</div>
+
+<div class='description'>
+"Ok" Jill thinks. She decides that she wasn't specific enough in her referencing.
+The then leads Rick closer to the wall and points out a specific unadorned patch of bone fide blue painted wall.
+</div>
+
+<div id="images">
+<img src="images/blue_wall_2.jpg" alt="Detailed image involving an unused portion of a wall with a blue rough texture to it as well as a specular highlight." width="50%">
+<div class="caption">Blue wall detail.</div>
+</div>
+
+<div class='description'>
+"Ok" Jill thinks. She decides that she wasn't specific enough in her referencing,
+so she then leads Rick closer to the wall and points out a specific unadorned patch of bone fide blue painted wall.
+</div>
+
+<div id="images">
+<img src="images/blue_computer_screen.jpg" alt="Blue wall with light switch and intercom." width="50%">
+<div class="caption">Computer Screen Displaying a monochromatic image of the color blue.</div>
+</div>
+
+
+<div class='description'>
+In Josef Alber's book <a href="https://www.amazon.com/Interaction-Color-Anniversary-Josef-Albers/dp/0300179359">Interaction of Color</a>
+explains how humans don't ever see any 1 color in isolation, but rather our perception of a color is a function
+of its relationship to its environment.
+Plato would probably agree, believing that much like triangles, we've never actually seen colors out in the wild, rather we have only seen representations of them.
+
+Merriam-Webster defines Geometry as, "a :  a branch of mathematics that deals with the measurement, properties, and relationships of points, lines, angles, surfaces, and solids; broadly :  the study of properties of given elements that <i>remain invariant</i> under specified transformations"
+</div>
+
+
+<!-- Create a place for depositing the three.js rendering on screen." -->
+<center>
+<div id="Visual1">
+</div>
+</center>
+
+<script src="three.min.js"></script>
+<script>
+    var scene = new THREE.Scene();
+
+    var size = window.innerWidth/2;
+    var w = size;
+    var h = size/2;
+    
+    var camera = new THREE.PerspectiveCamera( 75, w/h, 0.1, 1000 );
+
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setSize(w, h);
+    document.getElementById("Visual1").appendChild(renderer.domElement);
+
+    var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+    //var material = new THREE.MeshBasicMaterial( { color: 0x68D1FF } );
+    var material = new THREE.MeshPhongMaterial( { color: 0x68D1FF, specular: 0xffffff, shininess: 30, shading: THREE.FlatShading } );
+    var cube = new THREE.Mesh( geometry, material );
+    scene.add( cube );
+
+    camera.position.z = 5;
+    
+    // Top light.
+    var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.75 );
+    directionalLight.position.set( 0, 1, 1 );
+    scene.add( directionalLight );
+
+    var render = function () {
+        requestAnimationFrame( render );
+
+        cube.position.x += .01;
+        //cube.rotation.x += 0.1;
+        cube.rotation.y += 0.01;
+        
+
+        renderer.render(scene, camera);
+    };
+
+    render();
+</script>
+</center>
+
+</body>
+</html>

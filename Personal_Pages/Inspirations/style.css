@@ -147,4 +147,40 @@ table
 {
 	background-color:rgba(255,255,255,0.7);
 }
-	
+
+table td
+{
+    font-size: 200%;
+}
+
+tr:nth-child(even)
+{
+	background-color:rgba(255,255,255,0.7);
+}
+
+tr:nth-child(odd)
+{
+    background-color:rgba(235,235,235,0.7);
+}
+
+/* Second column */
+table td + td{  /* this will go to the 2nd column of a table directly */
+
+    font-size: 100%;
+
+}
+
+img, #images{
+    text-align:center;
+    margin:50px auto; 
+    background-color:rgba(255,255,255,0.7);
+}
+#images a{
+    margin:10px 20px;
+    display:inline-block;
+    text-decoration:none;
+    color:black;
+    
+    font-size: 200%;
+    background-color:rgba(255,255,255,0.7);
+}

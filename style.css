@@ -16,9 +16,13 @@ body
 
 }
 
+h1, h2, h3
+{
+	background-color:rgba(0,0,0,0.7);   
+}
+
 h1
 {
-	background-color:rgba(0,0,0,0.7);
 	font-size: 800%;
 	color: white;
 	text-align: center;
@@ -37,7 +41,6 @@ h1 > a
 
 h2
 {
-	background-color:rgba(0,0,0,0.7);
 	font-size: 400%;
 	color: white;
 	text-align: center;
@@ -52,7 +55,6 @@ h2 > a
 
 h3
 {
-	background-color:rgba(0,0,0,0.7);
 	font-size: 200%;
 	color: white;
 	text-align: center;
@@ -125,7 +127,7 @@ ol li {
 	list-style-position:inside;
 }
 
-#images{
+img, #images{
     text-align:center;
     margin:50px auto; 
     background-color:rgba(255,255,255,0.7);
