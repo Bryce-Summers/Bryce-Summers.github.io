@@ -108,7 +108,7 @@ Merriam-Webster defines Geometry as, "a :  a branch of mathematics that deals wi
 <script>
     var scene = new THREE.Scene();
 
-    var size = window.innerWidth/2;
+    var size = Math.min(window.innerWidth, 900);
     var w = size;
     var h = size/2;
     

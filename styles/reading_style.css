@@ -1,0 +1,221 @@
+/*
+ * This sets the background image and makes sure that it centers itself.
+ */
+html 
+{ 
+
+	/*background: url(./Logo.png) no-repeat center center fixed;*/
+    background-color: #E5E5E5;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;    
+
+	/* Default text is Roboto for large paragraphs mostly. */
+	/* Poiret One is used instead for titles. */
+	font-family: 'Roboto', sans-serif;
+}
+
+body
+{
+    background-color: #ffffff;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Sets fill color of elements in any of the headings. */
+h1,h2,h3
+{
+    /* Purple.*/
+    /*background-color:rgba(118, 0, 173, .7);*/
+    
+    /* Redish */
+    /*
+    background-color:rgba(206, 24, 0, .7);
+    */
+    
+    /* Font Color */
+    /*color: #00E5FF;*/
+    /* Analagous Green color to go with the blue links. */
+    color: #000000;
+
+}
+
+h1
+{
+    max-width: 100%;
+
+	font-size: 300%;
+	color: #000000;
+	text-align: center;
+	opacity: 1.0;
+	
+	font-family: 'Poiret One', cursive;
+}
+    
+
+/*
+ * This enables hyperlinked text within a heading to inherit the font color properties.
+ *
+ */
+h1 > a
+{
+	color: inherit;
+} 
+
+h2
+{
+	font-size: 200%;
+	
+	text-align: left;
+
+	opacity: 1.0;
+	font-family: 'Poiret One', cursive;
+    padding-left: 25px;
+}
+
+date
+{
+    font-size: 100%;
+    
+    text-align: left;
+
+    opacity: 1.0;
+    font-family: 'Poiret One', cursive;
+    padding-left: 25px;
+}
+
+h2 > a
+{
+	/*color: inherit;*/
+
+} 
+
+h3
+{
+	font-size: 150%;
+	text-align: center;
+	opacity: 1.0;
+	font-family: 'Poiret One', cursive;
+    color: #aaaaaa;
+}
+
+h3 > a
+{
+	color: inherit;
+} 
+
+.project
+{
+	font-size: 200%;
+
+	text-indent: 5em;
+	vertical-align:top; /*Change to middle*/
+	line-height: 128px;
+	/*height: 128px;*/
+	
+	background-color:rgba(255,255,255,0.7);
+}
+
+.project > a 
+{
+  /*float: left; Remove this*/
+  /*display:table-cell;*/    /*Add this*/
+  vertical-align:top; /*Change to middle*/
+}
+
+p
+{
+	font-size: 100%;
+	/*background-color:rgba(255,255,255, 1.0);*/
+	text-indent: 5em;
+	vertical-align: middle;
+	line-height: 200%;
+    color: #111111;
+
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
+.description
+{
+    text-indent: 0em;
+}
+
+.quote
+{
+    text-indent: 0em;
+    font-size:120%;
+    font-style: italic;
+}
+
+/* All links will be displayed in blue. */
+a
+{
+    /* Stylized Blue. */
+    color: #00E5FF;
+    text-decoration: none;
+}
+
+a#b
+{
+     /* SLightly Darker Blue. */
+    /*color: #00a0b2;*/
+    color: #0066ff;
+    text-decoration: none;   
+}
+
+a:hover
+{
+    background-color: black;
+    color:white;
+}
+
+.centeredImage
+{
+	text-align:center;
+	display:block;
+}
+
+ul li {
+    /*padding-left: 15px;*/
+	list-style-position:inside;
+	font-size: 100%;	
+	line-height: 100%;
+    padding-left: 1.28571429em;
+    text-indent: -1.28571429em;
+}
+
+ol li {
+    /*padding-left: 15px;*/
+	list-style-position:inside;
+	font-size: 100%;
+
+
+}
+
+table th
+{
+    /* Stylized Blue. */
+    color: #00FF9A;;
+	font-size: 150%;
+	font-family: 'Poiret One', cursive;
+
+    text-align: left;
+}
+
+table
+{
+}
+
+table td
+{
+    /* White Text */
+    color: #ffffff;
+}
+
+img
+{
+    width: 300px;    
+}

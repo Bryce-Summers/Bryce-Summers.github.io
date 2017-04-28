@@ -20,6 +20,11 @@ body
 
     background-color: #8AB5F9;
 
+    /* Narrow the Page to a presentable width. */
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+
 }
 
 h1, h2, h3
