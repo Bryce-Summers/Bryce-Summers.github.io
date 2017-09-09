@@ -5,7 +5,7 @@ html
 { 
 
 	/*background: url(./Logo.png) no-repeat center center fixed;*/
-    background-color: #E5E5E5;
+    background-color: #000000;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -19,12 +19,9 @@ html
 body
 {
     /* background-color: #57068C; */
-    background-color: #ffffff;
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
-
-    padding: 10px 20px 10px 20px;
 }
 
 /* Sets fill color of elements in any of the headings. */
@@ -38,8 +35,10 @@ h1,h2,h3
     background-color:rgba(206, 24, 0, .7);
     */
     
-    /* Font Color Defaults to Black. */
-    color: #000000;
+    /* Font Color */
+    /*color: #00E5FF;*/
+    /* Analagous Green color to go with the blue links. */
+    color: #00FF9A;
 
 }
 
@@ -48,7 +47,7 @@ h1
     max-width: 100%;
 
 	font-size: 300%;
-	color: #000000;
+	color: #ffffff;
 	text-align: center;
 	opacity: 1.0;
 	
@@ -116,29 +115,32 @@ p
 {
 	font-size: 100%;
 	/*background-color:rgba(255,255,255, 1.0);*/
-	/*text-indent: 5em;*/
+	text-indent: 5em;
 	vertical-align: middle;
 	line-height: 200%;
-    /*color: #000000;*/
-}
-
-.description
-{
-    text-indent: 0em;
+    color: #ffffff;
 }
 
 /* All links will be displayed in blue. */
 a
 {
     /* Stylized Blue. */
-    color: #0066ff;
+    color: #00E5FF;
     text-decoration: none;
+}
+
+a#b
+{
+     /* SLightly Darker Blue. */
+    /*color: #00a0b2;*/
+    color: #0066ff;
+    text-decoration: none;   
 }
 
 a:hover
 {
-    background-color: black;
-    color:white;
+    background-color: white;
+    color:black;
 }
 
 .centeredImage
@@ -149,17 +151,21 @@ a:hover
 
 ul li {
     /*padding-left: 15px;*/
-	/*list-style-position:inside;*/
+	list-style-position:inside;
+	
+    color: white;
 }
 
 ol li {
+    /*padding-left: 15px;*/
 	list-style-position:inside;
+	font-size: 200%;
 }
 
 table th
 {
     /* Stylized Blue. */
-    color: #00C120;
+    color: #00FF9A;;
 	font-size: 150%;
 	font-family: 'Poiret One', cursive;
 
@@ -173,19 +179,14 @@ table
 table td
 {
     /* White Text */
-    color: #000000;
-    vertical-align: top;
-
-    padding: 0px 10px 0px 10px;
+    color: #ffffff;
 }
 
 img
 {
-    /*width: 425px;*/
+    width: 300px;    
 }
 
 /* Odd / Even rules for table rows */
-/*
-tr:nth-child(even){background: #ffffff}
-tr:nth-child(odd) {background: #f0f0f0}
-*/
+tr:nth-child(even){background: #333333}
+tr:nth-child(odd) {background: #000000}
