@@ -1,9 +1,0 @@
-img
-{
-    width: 300px;
-}
-
-/* Odd / Even rules for table rows */
-
-tr:nth-child(even){background: #ffffff}
-tr:nth-child(odd) {background: #f0f0f0}
