@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Use the Project Ignite Style Sheet -->
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="./styles/main.css">
+<link rel="stylesheet" type="text/css" href="./styles/table_list_style.css">
+
+<!-- By default, links open in a new tab. -->
+<base target="_blank">
+</head>
+
+<body>
+
+<h2><a href="http://bryce-summers.github.io/index.html">Home</a>
+</h2>
+ 
+<h1>Visuality Guide</h1>
+<h3>by Bryce Summers</h3>
+
+<p>
+
+This page shows and describes guidelines for visuality in the Graphics Diner Project.
+
+There are 6 sections:
+
+<ol>
+<li>perception</li>
+<li>geometry</li>
+<li>materiality</li>
+<li>light transport</li>
+<li>topology</li>
+<li>computer systems</li>
+</ol>
+
+</p>
+
+<h2>Perception</h2>
+
+<p>
+Here are some references:
+<ul>
+<li>Edward Tufte Books.</li>
+<li>Interaction of Color by Josef Albers.</li>
+<li>Gestalt Psychology</li>
+<li>Visual Design</li>
+</ul>
+</p>
+
+
+<center>
+<table>
+
+<!-- Header rows. -->
+<tr>
+<th>Topic</th>
+<th>Example Image</th>
+<th>Features</th>
+</tr>
+
+
+<tr>
+<td>Signal</td>
+<td><img src="./Perception/01_signal.jpg"></td>
+<td>Photorealism, as the machine captures physical photons.</td>
+</tr>
+
+<tr>
+<td>Frequency Response</td>
+<td><img src="./Perception/02_eye_frequency_response_r.jpg">
+    <img src="./Perception/02_eye_frequency_response_g.jpg">
+    <img src="./Perception/02_eye_frequency_response_b.jpg"></td>
+<td>
+<ul>
+<li>The human perceives only that light that is visible to them.</li>
+<li>They perceive it in a red, blue, and green spectrums based on the biology of their eyeballs.</li>
+<li>Color blind people perceive limited spectrums.</li>
+<li>Snakes perceive infrared.</li>
+</ul>
+
+While the photons may have any frequency, they are projected into how far their wavelenth's line up with the receptors of the animal perceiving them.
+
+</td>
+</tr> 
+
+<tr>
+<td>Noise Removal</td>
+<td><img src="./Perception/03_iconic.png"></td>
+<td>The Signal is parsed into an iconic form.</td>
+</tr>
+
+<tr>
+<td>Extant</td>
+<td><img src="./Perception/04_extants.png"></td>
+<td>Low frequency signals are combined to determine the extant of the objects on the view plane.</td>
+</tr>
+
+<tr>
+<td>Discretization</td>
+<td><img src="./Perception/05_discretization.png">
+<img src="./Perception/05_sphere_normals.png"></td>
+<td>The signal is chopped up into constituent objects.
+<ul>
+<li>Contrast is used to discretize and divide extants.</li>
+<li>
+ The mind's eye can also discretize based on a particular way of seeing, for instance this sphere has been discretized based on the direction of the surface normals. A dermatologist discretized based on the features of the skin.</li>
+</ul></td>
+</tr>
+
+<tr>
+<td>Interaction of Color</td>
+<td><img src="./Perception/06_interaction_of_color.png"></td>
+<td>Various regions influence each other due to signal fatigue. This can lead to optical illusions. See Joseph Alber's Interaction of color.</td>
+</tr>
+
+<tr>
+<td>Quantization</td>
+<td><img src="./Perception/07_quantization.png"></td>
+<td>We assign meanings to known objects. The meanings may also then be assigned normative names.</td>
+</tr>
+
+<tr>
+<td>Inference</td>
+<td><img src="./Perception/08_inference.png"></td>
+<td>
+<ul>
+<li>We use the known meanings to infer the unknown meanings.</li>
+<li>We can infer scale using familiar objects such as humans.</li>
+<li>We can infer depth based on our familiarity with light scattering, such as with a foggy city.</li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td>Connections
+</td>
+<td><img src="./Perception/09_groups.png"></td>
+<td>We perceive groups according to Gestalt Psychology.
+</td>
+</tr>
+</table>
+</center>
+
+<h2>Geometry</h2>
+<center>
+<table>
+
+<!-- Header rows. -->
+<tr>
+<th>Topic</th>
+<th>Example Image</th>
+<th>Features</th>
+</tr>
+
+
+<tr>
+<td>Surface Normals</td>
+<td>
+    <img src="./Geometry/01_surface_normal_01.png">
+    <img src="./Geometry/01_surface_normal_04.png">
+    <img src="./Geometry/01_surface_normal_02.png">
+    <img src="./Geometry/01_surface_normal_03.png">
+</td>
+<td>
+
+The Surface normal along the boundary can define the a space's shape. These images discretize the shape via its surface normals.
+
+</td>
+</tr>
+
+<tr>
+<td>Projections</td>
+<td><img src="./Geometry/02_projection.png">
+    <img src="./Geometry/02_torus.png">
+</td>
+<td>
+
+The Silhouettes determine the visual extent of an object. Projections from other vantage points can indicate more of the 3D form of the object. Shadows are nothing more than projections.
+
+</td>
+</tr>
+
+
+Geometry
+- Shape, form, structure, without lighting.
+- Shadow can provide more details about the overall structure.
+
+</table>
+</center>
+
+<h2>Materiality</h2>
+<p>
+When showing materiality, it is important to show properties at the photon level and at the beam/image level. The microbehavior produces the macro behavior, but depending on the context, a computer scientist will need to think about both properties.
+
+Materiality deals with the overall behavior of how a surface interacts with all possible spectrums of incoming light.
+</p>
+
+<center>
+<table>
+
+<!-- Header rows. -->
+<tr>
+<th>Topic</th>
+<th>Example Image</th>
+<th>Features</th>
+</tr>
+
+
+<tr>
+<td>Diffuse</td>
+<td><img src="./Materiality/material_diffuse.png"></td>
+<td>
+<ul>
+<li>Diffuse reflectance is characterized by uniform hemi-spheres of light reflecting from an object. </li>
+<li>On the individual path scale, the bouncing is uniformly random.
+On the beam scale the bean bounces as a hemi-sphere away from the point of impact.</li>
+<li> Yellow aura's can indicate that a surface material is emmitting photons. Suns emit, mirrors scatter.
+</ul>
+</td>
+</tr>
+
+<tr>
+<td>Lambertian Reflectance</td>
+<td>
+<img src="./Materiality/lambertian_sphere.png">
+<img src="./Materiality/lambertian_torus.png">
+<img src="./Materiality/lambertian_hand.png">
+<img src="./Materiality/lambertian_bunny.png">
+</td>
+<td>Lambertian Reflectance is the combination of diffuse reflection and the law of cosines. Light comes in with a directionality and is scattered uniformly randomly at every point, therebye every point is seen by the eye in proportion to the number of photons coming in. Because of the law of cosines, the proportion of photons hitting a surface point to the total energy of the beam of light is equivalent to the cosince of angle between the surface normal and the incoming beam of light.
+
+I find that understanding this is very tricky for people. <br> <br>
+
+Please see the law of cosines diagrams in the light sections.
+
+ </td>
+</tr>
+
+<tr>
+<td>Specular</td>
+<td><img src="./Materiality/material_specular.png"></td>
+<td>
+<ul>
+<li>Individual photons bounce like a billiards ball. Beams of light maintain their form, which is why mirrors preserve images.
+</ul>
+
+</td>
+</tr>
+
+</table>
+</center>
+
+
+Materiality
+- Incoming and outgoing light paths.
+-
+
+<h2>Light</h2>
+
+<p>
+How to show light, without shape?
+Show properties of light + shape without materiality?
+
+Light encompasses the way photons act, directionality, frequency. What can happen to them when they hit a surface, etc.
+
+</p>
+
+<center>
+<table>
+
+<!-- Header rows. -->
+<tr>
+<th>Topic</th>
+<th>Example Image</th>
+<th>Features</th>
+</tr>
+
+<tr>
+<td>Directionality</td>
+<td><img src="./Light/02_directionality.png"></td>
+<td>Light travels in a 'straight' line in a direction. If an object has surface normals pointing away from the incoming sources of light, then they will receive less illumination.
+</td>
+</tr>
+
+<tr>
+<td>Emission</td>
+<td><img src="./Light/01_emmision_sphere.png">
+<img src="./Light/01_emmission.png"></td>
+<td>Emmission can be shown as an aura.
+Emission is all of the places where light comes out of an object. The sun directly produces light from chemical reactions, but objects such as Bryce emit light by scattering portions of the spectrum coming in.
+</td>
+</tr>
+
+<tr>
+<td>Absorption</td>
+<td><img src="./Light/03_apple_normal.png">
+<img src="./Light/03_apple.png">
+<img src="./Light/03_bannana_normal.png">
+<img src="./Light/03_bannana.png">
+</td>
+<td>Emmission can be shown as an aura.
+Emission is all of the places where light comes out of an object. The sun directly produces light from chemical reactions, but objects such as Bryce emit light by scattering portions of the spectrum coming in.
+</td>
+</tr>
+
+
+<tr>
+<td>Specular</td>
+<td><img src="./Light/diffuse_emmision.png"></td>
+<td></td>
+</tr>
+
+
+<tr>
+<td>Law of Cosines</td>
+<td><img src="./Light/diffuse_emmision.png"></td>
+<td></td>
+</tr>
+
+
+</table>
+</center>
+
+<h2>Topology</h2>
+<center>
+<table>
+
+<!-- Header rows. -->
+<tr>
+<th>Topic</th>
+<th>Example Image</th>
+<th>Features</th>
+</tr>
+
+
+<tr>
+<td></td>
+<td><img src="./Topology/"></td>
+<td></td>
+</tr>
+
+</table>
+</center>
+
+<h2>Computer Systems</h2>
+<center>
+<table>
+
+<!-- Header rows. -->
+<tr>
+<th>Topic</th>
+<th>Example Image</th>
+<th>Features</th>
+</tr>
+
+
+<tr>
+<td></td>
+<td><img src="./Systems/"></td>
+<td></td>
+</tr>
+
+</table>
+</center>
+
+<h3>Thank you for your interest in this information.</h3>
+
+</body>
+</html>

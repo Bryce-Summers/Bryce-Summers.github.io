@@ -1,0 +1,21 @@
+Perception
+
+- Gestalt perception.
+- Flat Shapes, categorized and processed by the brain.
+
+Geometry
+- Shape, form, structure, without lighting.
+- Shadow can provide more details about the overall structure.
+
+
+Materiality
+- Incoming and outgoing light paths.
+- 
+
+Light - light without shape.
+- Emmission is show as an aura
+- Light paths are Transparent polygons that overlay with each other.
+
+Topology
+
+Computer Systems

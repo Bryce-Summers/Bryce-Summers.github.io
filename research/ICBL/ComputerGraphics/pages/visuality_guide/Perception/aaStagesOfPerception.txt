@@ -1,0 +1,36 @@
+Signal
+ - Photorealism as the machine captures physical photons.
+
+Eyes Frequency response.
+ - The human perceives only that light that is visible to them.
+ - They perceive it in a red, blue, and green spectrum
+ - Color blind people perceive limited spectrums.
+ - Snakes perceive infrared.
+
+Noise Removal
+ - The Signal is parsed into an iconic form.
+
+Discretization
+ - The signal is chopped up into constituent objects.
+
+    Extant
+     - The extant of the object on the view plane.
+
+     Chop by Contrast
+     - Contrast is used to discretize and divide extants.
+
+Contextual Comparison
+ - We infer the unknown properties from the know properties.
+
+    Quantization
+     - We assign meanings to known objects. The meanings may also then be assigned normative names.
+
+    Inference
+     - we use the known meanings to infer the unknown meanings.
+     - we can infer scale using familiar objects such as humans.
+     - We can infer depth based on our familiarity with light scattering, such as with a foggy city.
+
+Various regions inffluence each other due to signal fatigue. This can lead to optical illusions.
+
+Connections
+ - We perceive groups according to Gestalt Psychology.
