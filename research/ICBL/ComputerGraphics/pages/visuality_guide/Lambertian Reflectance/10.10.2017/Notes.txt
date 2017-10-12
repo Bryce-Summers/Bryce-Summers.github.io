@@ -1,0 +1,8 @@
+Depth blurring for photon field layers:
+
+.1, .2, .4, .8
+
+Colors are full Hue, trails are half saturation.
+
+
+Boundary width: 4

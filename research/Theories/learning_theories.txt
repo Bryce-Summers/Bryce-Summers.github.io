@@ -1,0 +1,31 @@
+Thinking in Abstractions is important for Science.
+
+Science is like a story, where the questions and answers pull people along.
+Illustration removes all but the most important details.
+
+Media can provide concrete experiences, given enough concrete experiences the abstract concept emerges. "The Color Blue Essay, by Bryce Summers."
+
+How can we reduce the cost of high quality media production? Do educators tell less compelling stories, because the cost of thinking and producing such stories is too high?
+
+How can we more firmly link a medium to the content expressed. How can we get from the subjective view to the objective view?
+
+Video games allow players to pursue learning according to their subjective taste.
+
+The constraints of the play space of a video game force the player towards a learning objective.
+
+***
+Learning theories are more important than the delivery mechanism. A video game will only be useful if the learning theory is regarding the play interaction, rather than around a story that is grafted onto a game. An animation is compelling, when the learning theory is regarding the movement of representations, rather than around the content being represented. An image will only be compellingly useful to learning if the learning theory regards the spatiality, instantaneousness, and recall of concepts that are not linked in the learner's mind to words.
+***
+
+Learning theories should be centered around the affordances of media.
+
+I am a commited mathematician, rather than data science. I want to visualize structure, not data. Data is concrete, I want to convey the abstract.
+
+
+Movies: All story, no creativity from viewer.
+Computer Game: Story + guided creativity from player.
+Computer Programming: All creativity, no story guidance.
+
+Learning should provide the students for moments of creativity and exploration along the way, at least some proportion of population like me need this.
+
+Is their a difference between associative learning, and structured learning?
