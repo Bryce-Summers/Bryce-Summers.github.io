@@ -151,7 +151,9 @@ Although my journey began several years ago, this page details my formal explora
 <a href="./visuality_images/007b.png">
 <img src="./visuality_images/007b.png"></a></td>
 <td>
-After conceptualizing the intersection of paths, I worked out the mathematics for seemlessly blending impressions of various colored paths in 1 layer computationally. As of yet, I did not get around to realizing the traffic intersection using the proper computational technique.
+After conceptualizing the intersection of paths, I worked out the mathematics for seemlessly blending impressions of various colored paths in 1 layer computationally. Later I've gone back and realized my vision for illustrating the potentialities and rules of a traffic intersection consisting of 4 lanes of automobile traffic and sidewalks for pedestrians. This is an example of an image that I can make using my path mathematics, that I could not make by compositing and blending carpet textures in Paint.net such as in the image previous.
+
+This particular style of overlaid blending allows for the paths of traffic flow to be perceived as they are with their spatial extents and their color, rather than a wash of blending like that found in the previous image. I might want to reapply this technique to some of the later images to solve the problem of light oversaturating to white.
 </td>
 <td></td>
 </tr>
@@ -248,13 +250,123 @@ After conceptualizing the intersection of paths, I worked out the mathematics fo
 <td>
 <a href="./visuality_images/019.png">
 <img src="./visuality_images/019.png"></a></td>
-<td>This image does as well as job as any thus far at showcasing the curves and negative space. I would say that the compositing of appropriate brightness worked out, but at the same time, I think that I autocorrected it post haste in paint.net. It is on its way though. The next step is to improve the definition of the negative space and make sure the spaces are defined without errors, while also improving the automatic bbrightness. Also, the lines should be made finite, rather than arbitrarily long beams. It would be nice to go back to the textured definitions of paths that I developed in earlier images.</td>
+<td>This image does as well as job as any thus far at showcasing the curves and negative space. I would say that the compositing of appropriate brightness worked out, but at the same time, I think that I autocorrected it post haste in paint.net. It is on its way though. The next step is to improve the definition of the negative space and make sure the spaces are defined without errors, while also improving the automatic brightness. Also, the lines should be made finite, rather than arbitrarily long beams. It would be nice to go back to the textured definitions of paths that I developed in earlier images.</td>
 <td></td>
 </tr>
 
+<tr>
+<td>
+<a href="./visuality_images/020.png">
+<img src="./visuality_images/020.png"></a></td>
+<td>I was advised that my curves were using light as line graphic objects, rather than as a means of stroke. I tried limiting the length of the photon's journeys to around 10 pixels and I got these more prescise and sensitive curves, like a tangle of branches in a woods. I think that next step will be to formally break down the space defined by the paths and create a more specific light journey like one I have descibed in my sketches. I'm nearing the end of my journey into visuality hope to get back to thinking about form, games, animations, and ways to apply what I have learned to the creation of high quality images for teaching and public communication. <a href="http://www.graphics.stanford.edu/~hanrahan/talks/realistic-abstract/walk033.html">Pat Hanrahan's slide</a> poses the problem well.</td>
+<td></td>
+</tr>
 
 </table>
 </center>
+
+<h2>Some Example Illustration Work</h2>
+
+<p>
+Along the way, I created the following illustrations to communicate the process of Lambertian Reflectance using visualization communication ideas that I've been thinking about during this time period. I hope that some day all technical communication has the option of being communicated at this level of visuality or much better.
+</p>
+
+<center>
+<table>
+
+<!-- Header rows. -->
+<tr>
+<th>Sketch</th>
+<th>Thoughts</th>
+<th>Links</th>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/lambert_00_subjective.png">
+<img src="./visuality_images/lambert_00_subjective.png"></a></td>
+<td>People see objects subjectively in the world. This subjective nature obscures the way that nature transmits light through photons, at least as far as our current understanding goes. This subjective view serves to obscure the objective workings of nature. I value subjective perception, but I also value understanding nature. I think that people need to know both and that mapping complicated representations of objective models to subjectively pallatable forms will make understanding accessible to more people. Common aesthetic taste is a social norm of communication as much as common phrases. Why not conform our visual examples to the joyful aesthetics of the people, rather than the aesthetics of current computer generated general use imagery such as powerpoint based lecture slides. <br>
+
+This image depicts forms using a common lighting model approximation from the field of computer graphics called 'Lambertian Reflectance'. This model is ubiquitous in 3D modeling software and common visualizations of 3D shape. Many tool users have a parameter to control lambertian refelctance, but have little knowledge of what it means and why it produces the given lighting approximation.
+</td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/lambert_01_emission.png">
+<img src="./visuality_images/lambert_01_emission.png"></a></td>
+<td>Photons travel through space, each one with a specific direction and hue. They emit from a light source, bounce around, and may eventually hit one of our eyes. We can't see them swarming around us, because we only see a sliver of the paths that hit our eyeballs, therefore this representation shows what our minds, but not our eyes can see about the behavior of photons.</td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/lambert_02_projection.png">
+<img src="./visuality_images/lambert_02_projection.png"></a></td>
+<td>Close together, these photons often travel in roughly the same direction in beams of light. These beams eventually hit an object surface, which locally looks like a plane under the lambertian model. Actual surfaces have other details such as roughness, atomic energy states, etc. that could be captured in other lighting models. Notice that a cross section of a beam is spread out over a larger area when it hits a surface at a less perpendicular angle. This purely geometric phenomena is called the <b>Law of Cosines.</b></td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/lambert_03_diffuse_reflection.png">
+<img src="./visuality_images/lambert_03_diffuse_reflection.png"></a></td>
+<td>Under the Lambertian model, light bounces in a uniformly random direction along the hemisphere of the normal that it hits a surface. This is known as <b>diffuse reflection</b> and it is responsible for evenly scattering photons in white walled rooms.</td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/lambert_04_scaled_irradiance.png">
+<img src="./visuality_images/lambert_04_scaled_irradiance.png"></a></td>
+<td>The subjective appearance of lambertian reflectance modelled objects is due to a combination of the law of cosines and diffuse reflection. When combined, no matter the angle we look at a diffuse surface, the amount of photons coming to our eyes will be proportional to the amount of photons hitting that surface at that location, which is dependant on the angle a beam of light hits the surface. This is why an objects's surface darkens when it faces away from a light source. </td>
+<td></td>
+</tr>
+
+</table>
+</center>
+
+
+<h2>Future Work</h2>
+
+<center>
+<table>
+
+<!-- Header rows. -->
+<tr>
+<th>Sketch</th>
+<th>Thoughts</th>
+<th>Links</th>
+</tr>
+
+<tr>
+<td>
+<a href="./future_images/">
+<img src=""></a></td>
+<td> Here is a sketch of my goal for my purely artistic image making work. My final images were steps in the process towards this goal.</td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./future_images/diffuse.png">
+<img src="./future_images/diffuse.png"></a></td>
+<td>Here is an image that I generated using code and menual compositing. I'm hoping that someday we'll be able to automatically generate images for teaching materials.</td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./future_images/">
+<img src="./future_images/"></a></td>
+<td>This is a sketch of a character from my graphic novel line of research inquiry. I hope that by researching the production of each visuality in this character and working on my graphic novel, we can advance the field of computational illustration and communicate better.</td>
+<td></td>
+</tr>
+
+</table>
+</center>
+
 
 <h3>Thank you for your interest in my images.</h3>
 
