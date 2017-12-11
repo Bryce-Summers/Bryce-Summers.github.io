@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Use the Project Ignite Style Sheet -->
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="../../../styles/main.css">
+<link rel="stylesheet" type="text/css" href="../../../styles/table_list_style.css">
+
+<!-- By default, links open in a new tab. -->
+<base target="_blank">
+</head>
+
+<body>
+
+<h2><a href="http://bryce-summers.github.io/index.html">Home</a>
+</h2>
+ 
+<h1>Bryce Visuality</h1>
+<h3>by Bryce Summers</h3>
+
+<h2> Prior Work </h2>
+
+<p>
+It all started back in High School, when my Artificial Intelligence teacher had us find local minnimas of a function using a simplex method. "Couldn't a computer be used to visualize the function that we are optimizing", I thought. It seemed strange to me that we were optimizing a function that I could not see and that I couldn't empirically check to see whether my solutions were sensible. I assumed that a standard programming language would have a function that took in a mathematical function and mapped it to every pixel. I didn't know that shaders existed back then, and I guess I pretend that shaders still don't exist now, I went about programming my very first image renderer using idiosyncratic names like 'colorCalculator'.
+</p>
+
+<center>
+<table>
+
+<!-- Header rows. -->
+<tr>
+<th>Image</th>
+<th>Thoughts</th>
+<th>Links</th>
+</tr>
+
+<tr>
+<td>
+<a href="./prior_images/000.png">
+<img src="./prior_images/000.png"></a></td>
+<td> Lots of full saturated rainbow colors ensued, which I'm trying to stay away from these days. This image is an early one depicting an arbitrary distance definition for every pixel. </td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./prior_images/001.png">
+<img src="./prior_images/001.png"></a></td>
+<td>I worked out some very idiosyncratic geometry calculations back then. I spent a lot of time trying to represent objects that I liked such as musical instruments. It was only later in college that I learned that if I am going to put in the effort to hand code arbitrary geometry, I should try to go for something wacky that couldn't be done using more traditional methods. I realize that more now. I believe that these attempts due have value as conceptual art, where the idea is that a person can encode them strictly through mathematics and typing, rather than by painting or using more traditional tools. </td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./prior_images/002.png">
+<img src="./prior_images/002.png"></a></td>
+<td>It took me a full year to encode all of the geometry for this english horn. I had no helpful programs, just a text editor and a go button. I learned many techniques such as rendering only a sliver of the image, commenting out certain features, etc. I guess nobody except me knows how much effort I put into making this image and that I really didn't have any external tools whatsoever. I hope that someday my efforts will be worth it. Maybe they already are, since I have the pleasure of understanding how computations work.</td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./prior_images/003.png">
+<img src="./prior_images/003.png"></a></td>
+<td>In college, I kept making images. Here is one about the patterns formed by the structure of a roll of tickets. I was starting to get a bit of mathematical nuance into my system at this point.</td>
+<td></td>
+</tr>
+
+</table>
+</center>
+
+
+<h2> Development </h2>
+<p>
+Although my journey began several years ago, this page details my formal exploration into image making during October, November, and December, 2017. Its been a rough, tough, and wild ride.
+</p>
+
+<center>
+<table>
+
+<!-- Header rows. -->
+<tr>
+<th>Image</th>
+<th>Thoughts</th>
+<th>Links</th>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/001.png">
+<img src="./visuality_images/001.png"></a></td>
+<td>I wanted to create an image making technique based on a model of human perception, where everyhing gets decomposed into a plane, which is the extent to which we can dicern spatial information. I imagined that perhaps shape was seen as variations of normals and maybe our eyes discretize them into regions of equal normal in 3 dimensions. The sphere came out roughly like I imagined that it would, although I would personally prefer more prescision and think that the "biological impressions" of the work lend some texture, but do not aid in communicating the message that I was going for.</td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/002.png">
+<img src="./visuality_images/002.png"></a></td>
+<td>I tried the technique out on a hand mesh, but it came out technically sensible, but aesthetically unreadable. I suppose that it would eventually work given a subdivision model of a hand, but that is a research project for future years.</td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/003.png">
+<img src="./visuality_images/003.png"></a></td>
+<td>After I finished working with meshes and line divisions, I tried to get closer to visualizing paths, which are how the rational part of my mind sees the world, where it models the actions and behavior that it sees into systemic structures. Later on I was advised to focus more on what I saw, rather than what I thought that I saw. I made this image at a healthcare makerthon, where we were tasked with reinventing the EKG data visualization that is commonly used to read how well a person's heart is performing. I mad this image that shows the circulations of the electrical waved through the various parts of the heart. With more work it could be cleaned up and aligned with data streams, but for now I'm glad of how it worked out. An interesting note is that this was my first experiement with dividing up an image frame using relationships, rather than hardcoded values. Each chamber has no definate size, but they are defined as subdivisions and orthogonal relationships between one another. This technique was used in the Woodhull image, which you shall see later.</td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/004.png">
+<img src="./visuality_images/004.png"></a></td>
+<td>Back to biology land, I thought that I could overcome the limitations of the pixel by creating 9 impression groupings that show a both a value and a direction. I did a lot of brainstorming and musing on the nature of impressions, feelings, meanings, and social norms in regards to tiny circles. If there is a practical internal theoretical insight that I personally gained from this process, I don't think that I was able to translate it into a surprising revelation on the image plane.</td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/005.png">
+<img src="./visuality_images/005.png"></a></td>
+<td>Staying on the subject of directionality, I continued to investigate vector fields on the plane. I desired to figure out ways to fill in and texture a space I wanted something that had directionality, depth, and was modular in that it was not problematic if parts were moved or blocked off. Sometimes I think that I've spent too much of my life fixated on 2D textures, but I think it will pay off someday when I figure out my projective geometry work. Along the way, I'm gaining more experience with Vector Algebra, including gradient free circulation fields, that can be used to conserve fluid.</td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/006.png">
+<img src="./visuality_images/006.png"></a></td>
+<td>I continued along the noise field path, until I started using simpler forms and eventually came to this carpet texture, which was a result of a conservative vector field and getting the directionality procuedure just right. I wish that it was brighter though. Brightness is something that I neeed to work on in my image making work, because too bright and the piece loses details and jars the eye, too dark and the details are not visible. Also, since I read the texture as a carpet, I will need to keep going to find a method of directionality that is beautiful to me, but is more like a master craftsman's paint stroke, rather than a carpet simulation. I like conservative vector fields, because like the division of a plane, they are ideally aesthetically interesting, without having a definate form, but rather filling an entire region with interesting detail.</td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/007.png">
+<img src="./visuality_images/007.png"></a></td>
+<td>Now that I was happy for the most part with my carpet texture, I moved on to form. I worked out the mathematics for constructing a spline and imagining the interior as a vector field that flows along the curve. In order to visualize something specific, I took a traffic intersection pattern, where 2 four lane roads meet with sidewalks and colored all of the allowed potential paths green, those that must yield yellow, and those encumbered by the flow of traffic red. The blending was not perfect and I think I blended these together using Paint.net
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/007b.png">
+<img src="./visuality_images/007b.png"></a></td>
+<td>
+After conceptualizing the intersection of paths, I worked out the mathematics for seemlessly blending impressions of various colored paths in 1 layer computationally. As of yet, I did not get around to realizing the traffic intersection using the proper computational technique.
+</td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/008.png">
+<img src="./visuality_images/008.png"></a></td>
+<td><b>Color.</b> I worked on visualizing the world as I saw it, rather than as shown to me through machine mediation. If you ever take a picture on a cell phone, you will see that it doesn't capture the actual colors and beauty that you the person is seeing. I decided to search out some aesthetically interesting sites, such as this router on a refrigerator. While extreme dark lighting conditions are difficult for a camera to capture due to noise, my mind is better able to interpret the subtle lighting that makes up this scene.</td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/009.png">
+<img src="./visuality_images/009.png"></a></td>
+<td><b>Interaction of color.</b> Back in the day I did a project called travel world, where I arranged a computer game in a grid world, where lights are transfered across neighboring grid cells. Using Inkscape, I mocked up a new version of this radiosity idea using polygons and I tried to select colors that apealed to me.</td>
+<td>Link to travel world.</td>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/010.png">
+<img src="./visuality_images/010.png"></a></td>
+<td>Putting color and structure together, I created an image about my favorite building in Brooklyn. I call it the beautiful factory, others call if Woodhull hospital. I used paths, colors, and the spatial decomposition scheme that I developed during the Makerthon. I like how it turned out and it is a good work of grid based formal decomposition. It doesn't use the paths well however, because there as not point in working out the directionality mathematics if the paths are just going to be put on orthonormal trajectories anyways.</td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/011.png">
+<img src="./visuality_images/011.png"></a></td>
+<td><b>Big red rock eater.</b> I call this image the big red rock eater. My father used to always tell me a joke about Big red rock eaters that went like this, "What is big and red and eats rocks?", "I don't know.", "A big red rock eater. What is big and blue and eats rocks?", "A big blue rock eater?", "No, they only come in red!" This is an image of my father I guess, although it could use more work. It is based on a branch tree pattern of paths, the colors were chosen from a tree with its leaves glistening in the autumn wind. There was a shade of red on the sun side, the shadowed side, and another facet in between. I think that it needs to look more like a walking star wars machine though. Right now it lacks any definate form. It is the right color for Thanksgiving though.</td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/012.png">
+<img src="./visuality_images/012.png"></a></td>
+<td>For the final push before I hibernate for the winter, I went back to old fashion jave and by 2D fluence light beam rendering system with its irradiance caches. I ported my paths over to old school java and started illuminating them with light beams. Some of the gaps in the mathematical closures led to light slipping through, which was fine with me. I found that the illumiating gave the paths a certain character and more of a fraility.</td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/013.png">
+<img src="./visuality_images/013.png"></a></td>
+<td>I worked out some bending, branching, and connecting mathematics to form a formal structure that is supposed to be less fixated on the squareness of the image and more on curves unseen in our daily experience. I also worked out the mathematics of conditioning on offset parts of a curve to provide a blue and orange tint based on the sides. The discretization and concavities of the curves form barriers where they bend.</td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/014.png">
+<img src="./visuality_images/014.png"></a></td>
+<td>I wanted to fill the negative space between the curves and ideally I sould like to create light structure that rest within, but I started out by putting point lights inside. The full point lights were boring and called attention to themselves. These hemi-spherical point lights were more dynamics and created binary partitions in keeping with the images more. For this image, I tried a large format rendering to test out whether I could keep the illumination reasonable at higher levels. The consequence is that the oversaturated regions of the point lights diminish in size relative to the entire image. I like how it turned out.</td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/015.png">
+<img src="./visuality_images/015.png"></a></td>
+<td>Another large format image, for this one I used more light beams and the colors converged more giving it a soft look. I like the waves of defined form, but my ultimate intention is to provide more definition of the plane, rather than overlays. I find that I often get distracted when travelling towards a goal and lose sight of my intentions. This can be a good thing leading to productive detours, but it is not research per say. The strength of a goal is that it pushes the creator to push through the unknown that comes there way, no matter how difficult. </td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/016.png">
+<img src="./visuality_images/016.png"></a></td>
+<td>To fill in the gap, I linked up all of the structural lines, such that I could extract face polylines representing the negative space. I then tried to shrink them closer to their centroid. This didn't turn out how I imagined. This image is only the negative space representations. I realized that I can use the centroid, but rather a point of maxium distanct from any internal edge or what I shall try in the future will be an internal offset of a curve. I may want to reenvision everything from scratch again. There are tradeoffs to bringing along legacy code and envisioning better refeactorings. Such is life.</td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/017.png">
+<img src="./visuality_images/017.png"></a></td>
+<td>Here is an image with no negative space fills, brightened to show the light escaping from its curve enclosure. I was experimenting with getting the brightness right for various components and compositing them together. This gets it right where the vibrancy of the colors is captured, but not to oversaturation.</td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/018.png">
+<img src="./visuality_images/018.png"></a></td>
+<td>This image shows a very clear divide between the curve and the negative space, which is illuminated in purple. I would like to be able to shrink the negative space a bit. Also, with more branches the meaning of the purple space is not clear, which means that my geometric definitions are not being constructed perfectly. This could use some work and some more reason.</td>
+<td></td>
+</tr>
+
+<tr>
+<td>
+<a href="./visuality_images/019.png">
+<img src="./visuality_images/019.png"></a></td>
+<td>This image does as well as job as any thus far at showcasing the curves and negative space. I would say that the compositing of appropriate brightness worked out, but at the same time, I think that I autocorrected it post haste in paint.net. It is on its way though. The next step is to improve the definition of the negative space and make sure the spaces are defined without errors, while also improving the automatic bbrightness. Also, the lines should be made finite, rather than arbitrarily long beams. It would be nice to go back to the textured definitions of paths that I developed in earlier images.</td>
+<td></td>
+</tr>
+
+
+</table>
+</center>
+
+<h3>Thank you for your interest in my images.</h3>
+
+</body>
+</html>
