@@ -1,0 +1,195 @@
+/*
+ * This Cascading Style Sheet is designed for a white background page showing a long table containing a series of information.
+ * Transcribed from the black background version by Bryce Summers on Aug.24.2017
+ */
+
+/*
+ * This sets the background image and makes sure that it centers itself.
+ */
+html 
+{ 
+
+	/*background: url(./Logo.png) no-repeat center center fixed;*/
+    background-color: #ffffff;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;    
+
+	/* Default text is Roboto for large paragraphs mostly. */
+	/* Poiret One is used instead for titles. */
+	font-family: 'Roboto', sans-serif;
+}
+
+body
+{
+    /* background-color: #57068C; */
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Sets fill color of elements in any of the headings. */
+h1,h2,h3
+{
+    /* Purple.*/
+    /*background-color:rgba(118, 0, 173, .7);*/
+    
+    /* Redish */
+    /*
+    background-color:rgba(206, 24, 0, .7);
+    */
+    
+    /* Font Color */
+    /*color: #00E5FF;*/
+    /* Analagous Green color to go with the blue links. */
+    color: #000000;
+
+}
+
+h1
+{
+    max-width: 100%;
+
+	font-size: 300%;
+	color: #000000;
+	text-align: center;
+	opacity: 1.0;
+	
+	font-family: 'Poiret One', cursive;
+}
+    
+
+/*
+ * This enables hyperlinked text within a heading to inherit the font color properties.
+ *
+ */
+h1 > a
+{
+	color: inherit;
+} 
+
+h2
+{
+	font-size: 200%;
+	
+	text-align: left;
+
+	opacity: 1.0;
+	font-family: 'Poiret One', cursive;
+}
+
+h2 > a
+{
+	color: inherit;
+} 
+
+h3
+{
+	font-size: 150%;
+	text-align: center;
+	opacity: 1.0;
+	font-family: 'Poiret One', cursive;
+}
+
+h3 > a
+{
+	color: inherit;
+} 
+
+.project
+{
+	font-size: 200%;
+
+	text-indent: 5em;
+	vertical-align:top; /*Change to middle*/
+	line-height: 128px;
+	/*height: 128px;*/
+	
+	background-color:rgba(255,255,255,0.7);
+}
+
+.project > a 
+{
+  /*float: left; Remove this*/
+  /*display:table-cell;*/    /*Add this*/
+  vertical-align:top; /*Change to middle*/
+}
+
+p
+{
+	font-size: 100%;
+	/*background-color:rgba(255,255,255, 1.0);*/
+	
+	vertical-align: middle;
+}
+
+/* All links will be displayed in blue. */
+a
+{
+    /* Stylized Blue. */
+    color: #0024B5;
+    text-decoration: none;
+}
+
+a#b
+{
+     /* SLightly Darker Blue. */
+    /*color: #00a0b2;*/
+    color: #0066ff;
+    text-decoration: none;   
+}
+
+a:hover
+{
+    background-color: black;
+    color:white;
+}
+
+.centeredImage
+{
+	text-align:center;
+	display:block;
+}
+
+ul li {
+    /*padding-left: 15px;*/
+	list-style-position:inside;
+	
+    /*color: white;*/
+}
+
+ol li {
+    /*padding-left: 15px;*/
+	list-style-position:inside;
+	/*font-size: 200%;*/
+}
+
+table th
+{
+    /* Black text */
+    color: #000000;
+	font-size: 150%;
+	font-family: 'Poiret One', cursive;
+
+    text-align: left;
+}
+
+table
+{
+}
+
+table td
+{
+    /* Black Text */
+    color: #000000;
+}
+
+img
+{
+    width: 300px;    
+}
+
+/* Odd / Even rules for table rows */
+tr:nth-child(even){background: #ffffff}
+tr:nth-child(odd) {background: #eeeeee}
